@@ -307,3 +307,76 @@ h2 {
 }
   
 /* End of new movie section */
+
+
+
+
+
+#history {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-color: #1C1C1C;
+}
+  
+#history-header {
+    position: absolute;
+    top: 10%;
+    
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+  
+#history h2 {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+  
+#show-all-btn {
+    position: absolute;
+    right: 15%;
+  
+    padding: 10px 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+  
+    background-color: transparent;
+    color: #FF9900;
+    border-radius: 5px;
+    border-color: #FF9900;
+}
+  
+#history-lst {
+
+}
+  
+/* End of history section */
+
+
+
+
+
+#profile {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+  
+#profile h2 {
+    padding-top: 8.5vh;
+    text-align: center;
+}
+  
+#profile-bg::before  {
+    background: linear-gradient(180deg, rgb(28, 28, 28) 0%, rgba(28, 28, 28, 0.8) 20%, rgba(28, 28, 28, 0.6) 80%, rgba(28, 28, 28, 0) 100%);
+}
+  
+/* End of #profile section */
