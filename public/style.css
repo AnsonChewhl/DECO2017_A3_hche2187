@@ -15,6 +15,11 @@ html, body {
     color: #EDEDED;
 }
 
+h2 {
+    color: #EDEDED;
+    z-index: 3;
+}
+
 /* End of default properties */
 
 
@@ -205,3 +210,100 @@ html, body {
 }
 
 /* End of navbar */
+
+
+
+
+
+#landing {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Take up all the screen space */
+    position: relative;
+    overflow: hidden; /* Crop the image if the image is too big */
+}
+
+#landing h1 {
+    position: absolute;
+    width: 50%;
+    left: 7.5%;
+    top: 10%;
+
+    font-weight: 700;
+    font-size: 96px;
+    line-height: 190%;
+    text-transform: uppercase;
+
+    /* Apply gradient color to text: https://cssgradient.io/blog/css-gradient-text/ */
+    background: linear-gradient(245deg, #EAEAEA 0%, rgba(234, 234, 234, 0.3) 110%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    z-index: 3;
+}
+
+.section-bg {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+.section-bg img {
+    object-fit: cover;
+    min-width: 100%;
+    min-height: 100%;
+
+    /* There was a 3.5px gap between the contents https://stackoverflow.com/questions/3947113/space-between-div-and-img */
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    z-index: -1;
+}
+
+/* Creating a mask that can apply gradient colour */
+.section-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+#landing-bg::before  {
+    background: linear-gradient(270deg, rgba(0, 0, 0, 0) 0%, #000000 70%);
+}
+
+/* End of landing section */
+
+
+
+
+
+.main {
+    position: relative;
+    z-index: 99;
+}
+  
+#new-movie {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    position: relative;
+    overflow: hidden; /* Crop the image if the image is too big */
+}
+  
+#new-movie h2 {
+    position: relative;
+    text-align: center;
+    margin-top: 7.5vh;
+}
+
+#new-movie-bg::before {
+    background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.9) 50%, rgba(0, 0, 0, 0.6) 80%, #1C1C1C 100%);
+}
+  
+/* End of new movie section */
