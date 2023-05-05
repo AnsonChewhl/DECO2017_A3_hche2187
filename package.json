@@ -4,16 +4,19 @@
   "description": "Assessment 3 -  DECO2017",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AnsonChewhl/DECO2017_A3_hche2187.git"
   },
-  "author": "",gi
+  "author": "Anson Chew",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/AnsonChewhl/DECO2017_A3_hche2187/issues"
   },
-  "homepage": "https://github.com/AnsonChewhl/DECO2017_A3_hche2187#readme"
+  "homepage": "https://github.com/AnsonChewhl/DECO2017_A3_hche2187#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
