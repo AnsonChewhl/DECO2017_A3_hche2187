@@ -1,0 +1,207 @@
+html {
+    scroll-behavior: smooth; /* When users click on the nav bar to scroll to a particular section, smoothen the scroll */
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  
+    background-color: #212121;
+  
+    font-family: 'Open Sans'; /* Creates friendly vibe */
+    font-style: normal;
+    color: #EDEDED;
+}
+
+/* End of default properties */
+
+
+
+
+
+
+#navbar {
+    width: 100%;
+    height: 64px;
+    position: fixed; /* Fix it to the top of the screen */
+    background-color: #0E0E0E;
+    z-index: 100; /* Avoid being covered by other elements */
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+    padding: 0 1.5rem;
+}
+
+.navbar-container img#logo {
+    height: 40px;   
+}
+
+#navbar-menu ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0.4em 0.8em;
+    text-align: center;
+    overflow: hidden;
+}
+
+#navbar-menu > ul > li {
+    display: inline;
+    line-height: 64px;
+    padding: 0 15px;
+    width: 100px;
+}
+
+#navbar-menu > ul > li > a {
+    position: relative;
+    display:block;
+    color: #EDEDED;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Show an orange line under the current section to notify users which section they are at */
+#current-section::after {
+    position: absolute;
+    content: ""; 
+    height: 5px; 
+    width: 100%; 
+    left: 0; 
+    bottom: 0;
+    background-color: #FF9900;
+}
+
+#navbar-menu > ul > li > a:hover {
+    color: #FF9900;
+}
+
+#navbar-menu > ul > li > a:hover::after {
+    position: absolute;
+    content: ""; 
+    height: 5px; 
+    width: 100%; 
+    left: 0; 
+    bottom: 0;
+    background-color: #FF9900;
+}
+
+#navbar-toggle {
+    display: none;
+    z-index: 100;
+}
+
+/* Responsive nav bar learnt from DECO1016 unit */
+@media screen and (max-width: 800px) {
+    #navbar-menu {
+        position: fixed;
+        width: 100%;
+        top: 64px; 
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: none;
+    }
+
+    #navbar-menu ul {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        left: 0;
+        right: 0;
+        width: 100%;
+        padding: 0.4em 0.8em 0;
+        background-color: #1C1C1C;
+    }
+
+    #navbar-menu > ul > li {
+        line-height: 64px;
+        width: 80%;
+    }
+
+    #navbar-menu > ul > li > a:hover {
+        border-bottom: 0;
+    }
+
+    .navbar-item > .hori-line {
+        display: block;
+        width: 100%;
+        height: 0.5px;
+        background-color: #EDEDED;
+    }
+
+    #navbar-menu > ul > li > a:hover::after {
+        height: 3px; 
+        width: 100%; 
+    }
+
+    #current-section::after {
+        height: 3px; 
+        width: 100%; 
+    }
+
+    #navbar-toggle.active + #navbar-menu {
+        background-color: #1C1C1C;
+        display: flex;
+    }
+
+    /* NAVBAR TOGGLE BUTTON */
+    /* Styles for the hamburger style menu button */
+    #navbar-toggle {
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    /* Reusable style for each menu bar */
+    .icon-bar {
+        display: block;
+        width: 25px;
+        height: 4px;
+        margin: 2px;
+        background-color: #454545;
+    }
+
+    /* Set the colour of the menu bars when hovered */
+    #navbar-toggle:hover .icon-bar {
+        background-color: #787878;
+    }
+
+    /* Set the icon bars for when the menu is active i.e. when the cross to close is showing */
+    #navbar-toggle.active .icon-bar:first-child,
+    #navbar-toggle.active .icon-bar:last-child {
+        position: absolute;
+        margin: 0;
+        width: 30px;
+    }
+
+    /* Rotate the top menu bar */
+    #navbar-toggle.active .icon-bar:first-child {
+        transform: rotate(45deg);
+    }
+
+    /* Hide the middle menu bar */
+    #navbar-toggle.active .icon-bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    /* Rotate the bottom menu bar */
+    #navbar-toggle.active .icon-bar:last-child {
+        transform: rotate(-45deg);
+    }
+}
+
+/* End of navbar */
