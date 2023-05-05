@@ -1,0 +1,19 @@
+{
+  "name": "deco2017_a3",
+  "version": "1.0.0",
+  "description": "Assessment 3 -  DECO2017",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnsonChewhl/DECO2017_A3_hche2187.git"
+  },
+  "author": "",gi
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnsonChewhl/DECO2017_A3_hche2187/issues"
+  },
+  "homepage": "https://github.com/AnsonChewhl/DECO2017_A3_hche2187#readme"
+}
