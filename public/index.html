@@ -2,185 +2,249 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Movience - Movie Experience Tracker</title>
-  <link href="style.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Movience - Movie Experience Tracker</title>
+	<link href="style.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-  <header id="navbar">
-    <nav class="navbar-container">
-      <a href="index.html">
-        <img id="logo" alt="Movience logo: A circle with orange, blue and purple color" src="image/navigation-bar/logo.png">
-      </a>
+	<header id="navbar">
+		<nav class="navbar-container">
+			<a href="index.html">
+				<img id="logo" alt="Movience logo: A circle with orange, blue and purple color"
+					src="image/navigation-bar/logo.png">
+			</a>
 
-      <!-- A hamburger menu button that is displayed only when the screen size is small -->
-      <button type="button" id="navbar-toggle">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+			<!-- A hamburger menu button that is displayed only when the screen size is small -->
+			<button type="button" id="navbar-toggle">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
 
-      <div id="navbar-menu">
-        <ul class="navbar-links">
-          <li class="navbar-item">
-            <a id="current-section" class="navbar-link" href="#top">Home</a>
-            <span class="hori-line"></span>
-          </li>
-          <li class="navbar-item">
-            <a class="navbar-link" href="#new-movie">New Movie</a>
-            <span class="hori-line"></span>
-          </li>
-          <li class="navbar-item">
-            <a class="navbar-link" href="#history">History</a>
-            <span class="hori-line"></span>
-          </li>
-          <li class="navbar-item">
-            <a class="navbar-link" href="#profile">Profile</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <section id="landing" class="main-section">
-      <h1> Keep Track Of Your Movie Experience</h1>
-      <div id="landing-bg" class="section-bg">
-        <img alt="" src="image/section_landing/bg.png">
-      </div>
-    </section>
-
-    <section id="new-movie" class="main-section">
-      <section class="main">
-        <h2> Have watched a new movie? </h2>
-        <form>
-        </form>
-      </section>
-      <div id="new-movie-bg" class="section-bg">
-        <img alt="" src="image/section_new-movie/bg.png">
-      </div>
-    </section>
-
-    <section id="history" class="main-section">
-      <div id="history-header">
-        <h2> Watch History </h2>
-        <button id="show-all-btn"> Show All </button>
-      </div>
-
-	  <section id="history-lst">
-		<div>
-		  <div class="history-info">
-			<img class="movie-img" alt=" " src="image/section_history/sci-fi.png">
-			<div class="movie-details">
-			  <h5 class="movie-name"> Star Wars: Episode IV - A New Hope </h5>
-			  <h5 class="movie-watched-date"> 18/4/2023 <span>watched</span> </h5>
-			  <h5 class="movie-length"> 2hr 45min </h5>
-			  <div class="movie-rating">
-				<span class="fa fa-star rating-checked"></span>
-				<span class="fa fa-star rating-checked"></span>
-				<span class="fa fa-star rating-checked"></span>
-				<span class="fa fa-star"></span>
-				<span class="fa fa-star"></span>
-			  </div>
+			<div id="navbar-menu">
+				<ul class="navbar-links">
+					<li class="navbar-item">
+						<a id="current-section" class="navbar-link" href="#top">Home</a>
+						<span class="hori-line"></span>
+					</li>
+					<li class="navbar-item">
+						<a class="navbar-link" href="#new-movie">New Movie</a>
+						<span class="hori-line"></span>
+					</li>
+					<li class="navbar-item">
+						<a class="navbar-link" href="#history">History</a>
+						<span class="hori-line"></span>
+					</li>
+					<li class="navbar-item">
+						<a class="navbar-link" href="#profile">Profile</a>
+					</li>
+				</ul>
 			</div>
-			<button class="delete-btn"> <img src="image/section_history/delete-btn.png" alt="buttonpng"> </button>
-		  </div>
-		  <span class="seperate-line"></span>
-		</div>
+		</nav>
+	</header>
 
-		<div>
-		  <div class="history-info">
-			<img class="movie-img" alt=" " src="image/section_history/sci-fi.png">
-			<div class="movie-details">
-			  <h5 class="movie-name"> Star Wars: Episode IV - A New Hope </h5>
-			  <h5 class="movie-watched-date"> 18/4/2023 <span>watched</span> </h5>
-			  <h5 class="movie-length"> 2hr 45min </h5>
-			  <div class="movie-rating">
-				<span class="fa fa-star rating-checked"></span>
-				<span class="fa fa-star rating-checked"></span>
-				<span class="fa fa-star rating-checked"></span>
-				<span class="fa fa-star"></span>
-				<span class="fa fa-star"></span>
-			  </div>
+	<main>
+		<section id="landing" class="main-section">
+			<h1> Keep Track Of Your Movie Experience</h1>
+			<div id="landing-bg" class="section-bg">
+				<img alt="" src="image/section_landing/bg.png">
 			</div>
-			<button class="delete-btn"> <img src="image/section_history/delete-btn.png" alt="buttonpng"> </button>
-		  </div>
-		  <span class="seperate-line"></span>
-		</div>
-
-		<div>
-		  <div class="history-info">
-			<img class="movie-img" alt=" " src="image/section_history/sci-fi.png">
-			<div class="movie-details">
-			  <h5 class="movie-name"> Star Wars: Episode IV - A New Hope </h5>
-			  <h5 class="movie-watched-date"> 18/4/2023 <span>watched</span> </h5>
-			  <h5 class="movie-length"> 2hr 45min </h5>
-			  <div class="movie-rating">
-				<span class="fa fa-star rating-checked"></span>
-				<span class="fa fa-star rating-checked"></span>
-				<span class="fa fa-star rating-checked"></span>
-				<span class="fa fa-star"></span>
-				<span class="fa fa-star"></span>
-			  </div>
-			</div>
-			<button class="delete-btn"> <img src="image/section_history/delete-btn.png" alt="buttonpng"> </button>
-		  </div>
-		  <span class="seperate-line"></span>
-		</div>
-
-		<div>
-		  <div class="history-info">
-			<img class="movie-img" alt=" " src="image/section_history/sci-fi.png">
-			<div class="movie-details">
-			  <h5 class="movie-name"> Star Wars: Episode IV - A New Hope </h5>
-			  <h5 class="movie-watched-date"> 18/4/2023 <span>watched</span> </h5>
-			  <h5 class="movie-length"> 2hr 45min </h5>
-			  <div class="movie-rating">
-				<span class="fa fa-star rating-checked"></span>
-				<span class="fa fa-star rating-checked"></span>
-				<span class="fa fa-star rating-checked"></span>
-				<span class="fa fa-star"></span>
-				<span class="fa fa-star"></span>
-			  </div>
-			</div>
-			<button class="delete-btn"> <img src="image/section_history/delete-btn.png" alt="buttonpng"> </button>
-		  </div>
-		  <span class="seperate-line"></span>
-		</div>
-	  </section>
-    </section>
-
-    <section id="profile" class="main-section">
-      <section class="main">
-        <h2>Personalised Data</h2>
-		<section id="profile-data">
-            <div id="data-bar"></div>
-            <div id="data-compare"></div>
-            <div id="data-favorite">
-				<div id="favorite"></div>
-				<div id="watch-time"></div>
-            </div>
 		</section>
 
-		<h3>You may also like...</h3>
-		<section id="recommendation">
-            <img alt="" src="image/section_profile/recommendation/sci-fi/poster1.png">
-            <img alt="" src="image/section_profile/recommendation/sci-fi/poster2.png">
-			<img alt="" src="image/section_profile/recommendation/sci-fi/poster3.png">
-			<img alt="" src="image/section_profile/recommendation/sci-fi/poster4.png">
-			<img alt="" src="image/section_profile/recommendation/sci-fi/poster5.png">
-		</section>
-      </section>
+		<section id="new-movie" class="main-section">
+			<section class="main">
+				<h2> Have watched a new movie? </h2>
+				<form id="movie-form">
+					<section id="input-form">
+						<div class="user-box">
+							<input type="text" name="movieName" required="">
+							<label class="input-label" for="movieName">Movie name</label>
+						</div>
+						<div class="user-box">
+							<!-- Concept learnt from https://stackoverflow.com/questions/18309059/drop-down-menu-text-field-in-one -->
+							<!-- This provide a more flexible choice for the users, which they can also type other genre if it is not listed -->
+							<input type="search" list="genre-selection" name="movieGenre" required="">
+							<label class="input-label" for="movieGenre">Movie genre</label>
+							<datalist id="genre-selection">
+								<option value="Action">
+								<option value="Adventure">
+								<option value="Comedy">
+								<option value="Fantasy">
+								<option value="Horror">
+								<option value="Romance">
+								<option value="Sci-Fi">
+								<option value="War">
+							</datalist>
+						</div>
+						<div class="user-box">
+							<input type="date" name="watchedDate" required="">
+							<label class="top-left-label" for="watchedDate">Watched date</label>
+						</div>
+						<div class="user-box">
+							<input type="number" name="movieDuration" required="" min="1">
+							<label class="input-label" for="movieDuration">Movie duration (mins)</label>
+						</div>
+						<div class="user-box">
+							<label class="top-left-label">Movie rating</label>
+							<div class="rating">
+								<input type="radio" id="star5" name="rating" value="5" />
+								<label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
+								<input type="radio" id="star4" name="rating" value="4" />
+								<label class="star" for="star4" title="Great" aria-hidden="true"></label>
+								<input type="radio" id="star3" name="rating" value="3" />
+								<label class="star" for="star3" title="Very good" aria-hidden="true"></label>
+								<input type="radio" id="star2" name="rating" value="2" />
+								<label class="star" for="star2" title="Good" aria-hidden="true"></label>
+								<input type="radio" id="star1" name="rating" value="1" checked="checked" />
+								<label class="star" for="star1" title="Bad" aria-hidden="true"></label>
+							</div>
+						</div>
+						<div class="user-box">
+							<input type="text" name="movieComment" required="">
+							<label class="input-label" for="movieComment">Brief comment</label>
+						</div>
+					</section>
 
-      <div id="profile-bg" class="section-bg">
-        <img alt="" src="image/section_profile/bg.png">
-      </div>
-    </section>
-  </main>
-  <script src="script.js"></script>
+					<div id="submit-btn">
+						<button>
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+							Submit
+						</button>
+					  </div>
+				</form>
+			</section>
+			<div id="new-movie-bg" class="section-bg">
+				<img alt="" src="image/section_new-movie/bg.png">
+			</div>
+		</section>
+
+		<section id="history" class="main-section">
+			<div id="history-header">
+				<h2> Watch History </h2>
+				<button id="show-all-btn"> Show All </button>
+			</div>
+
+			<section id="history-lst">
+				<div>
+					<div class="history-info">
+						<img class="movie-img" alt=" " src="image/section_history/icons/sci-fi.png">
+						<div class="movie-details">
+							<h5 class="movie-name"> Star Wars: Episode IV - A New Hope </h5>
+							<h5 class="movie-watched-date"> 18/4/2023 <span>watched</span> </h5>
+							<h5 class="movie-length"> 2hr 45min </h5>
+							<div class="movie-rating">
+								<span class="fa fa-star rating-checked"></span>
+								<span class="fa fa-star rating-checked"></span>
+								<span class="fa fa-star rating-checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+						</div>
+						<button class="delete-btn"> <img src="image/section_history/delete-btn.png" alt="buttonpng">
+						</button>
+					</div>
+					<span class="seperate-line"></span>
+				</div>
+
+				<div>
+					<div class="history-info">
+						<img class="movie-img" alt=" " src="image/section_history/icons/sci-fi.png">
+						<div class="movie-details">
+							<h5 class="movie-name"> Star Wars: Episode IV - A New Hope </h5>
+							<h5 class="movie-watched-date"> 18/4/2023 <span>watched</span> </h5>
+							<h5 class="movie-length"> 2hr 45min </h5>
+							<div class="movie-rating">
+								<span class="fa fa-star rating-checked"></span>
+								<span class="fa fa-star rating-checked"></span>
+								<span class="fa fa-star rating-checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+						</div>
+						<button class="delete-btn"> <img src="image/section_history/delete-btn.png" alt="buttonpng">
+						</button>
+					</div>
+					<span class="seperate-line"></span>
+				</div>
+
+				<div>
+					<div class="history-info">
+						<img class="movie-img" alt=" " src="image/section_history/icons/sci-fi.png">
+						<div class="movie-details">
+							<h5 class="movie-name"> Star Wars: Episode IV - A New Hope </h5>
+							<h5 class="movie-watched-date"> 18/4/2023 <span>watched</span> </h5>
+							<h5 class="movie-length"> 2hr 45min </h5>
+							<div class="movie-rating">
+								<span class="fa fa-star rating-checked"></span>
+								<span class="fa fa-star rating-checked"></span>
+								<span class="fa fa-star rating-checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+						</div>
+						<button class="delete-btn"> <img src="image/section_history/delete-btn.png" alt="buttonpng">
+						</button>
+					</div>
+					<span class="seperate-line"></span>
+				</div>
+
+				<div>
+					<div class="history-info">
+						<img class="movie-img" alt=" " src="image/section_history/icons/sci-fi.png">
+						<div class="movie-details">
+							<h5 class="movie-name"> Star Wars: Episode IV - A New Hope </h5>
+							<h5 class="movie-watched-date"> 18/4/2023 <span>watched</span> </h5>
+							<h5 class="movie-length"> 2hr 45min </h5>
+							<div class="movie-rating">
+								<span class="fa fa-star rating-checked"></span>
+								<span class="fa fa-star rating-checked"></span>
+								<span class="fa fa-star rating-checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+						</div>
+						<button class="delete-btn"> <img src="image/section_history/delete-btn.png" alt="buttonpng">
+						</button>
+					</div>
+					<span class="seperate-line"></span>
+				</div>
+			</section>
+		</section>
+
+		<section id="profile" class="main-section">
+			<section class="main">
+				<h2>Personalised Data</h2>
+				<section id="profile-data">
+					<div id="data-bar"></div>
+					<div id="data-compare"></div>
+					<div id="data-favorite">
+						<div id="favorite"></div>
+						<div id="watch-time"></div>
+					</div>
+				</section>
+
+				<h3>You may also like...</h3>
+				<section id="recommendation">
+					<img alt="" src="image/section_profile/recommendation/sci-fi/poster1.png">
+					<img alt="" src="image/section_profile/recommendation/sci-fi/poster2.png">
+					<img alt="" src="image/section_profile/recommendation/sci-fi/poster3.png">
+					<img alt="" src="image/section_profile/recommendation/sci-fi/poster4.png">
+					<img alt="" src="image/section_profile/recommendation/sci-fi/poster5.png">
+				</section>
+			</section>
+
+			<div id="profile-bg" class="section-bg">
+				<img alt="" src="image/section_profile/bg.png">
+			</div>
+		</section>
+	</main>
+	<script src="script.js"></script>
 </body>
 
 </html>

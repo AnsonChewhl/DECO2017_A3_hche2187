@@ -291,7 +291,7 @@ h2 {
 #new-movie {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 90vh;
     position: relative;
     overflow: hidden; /* Crop the image if the image is too big */
 }
@@ -300,6 +300,244 @@ h2 {
     position: relative;
     text-align: center;
     margin-top: 11.5vh;
+}
+
+#movie-form {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);
+
+	width: 35%;
+	margin-top: 5vh;
+
+	background: rgba(28, 28, 28, 0.9);
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+	border-radius: 10px;
+}
+
+#input-form {
+	width: 100%;
+	height: 27.5vh;
+	padding-top: 5.5%;
+
+	display: grid;
+	grid-template-columns: 40% 40%;
+	grid-template-rows: 30% 30% 30%;
+	gap: 5%;
+	justify-content: space-evenly;
+}
+
+/* Design inspired by https://codepen.io/soufiane-khalfaoui-hassani/pen/LYpPWda */
+.user-box {
+	position: relative;
+}
+
+.user-box input {
+	width: 100%;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #fff;
+	margin-bottom: 30px;
+	border: none;
+	border-bottom: 1px solid #fff;
+	outline: none;
+	background: transparent;
+}
+
+/* Remove autofill background: https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	transition: background-color 5000s ease-in-out 0s;
+	-webkit-text-fill-color: white !important;
+}
+
+.input-label,
+.top-left-label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #fff;
+	pointer-events: none;
+	transition: .5s;
+}
+
+.user-box input:focus~.input-label,
+.user-box input:valid~.input-label,
+.top-left-label {
+	top: -20px;
+	left: 0;
+	color: #FF9900;
+	font-size: 12px;
+}
+
+/* Removing the default icon that is disrupting the design https://stackoverflow.com/questions/20937475/remove-datalist-dropdown-arrow-in-chrome */
+[list]::-webkit-calendar-picker-indicator {
+	display: none !important;
+}
+
+/* To set the calender icon to a easier to see color https://stackoverflow.com/questions/62162645/change-color-of-chromes-calendar-icon-in-html-date-input */
+::-webkit-calendar-picker-indicator {
+	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+}
+
+.rating {
+	padding-top: 10px;
+	float: left;
+}
+
+.rating>label {
+	color: #90A0A3;
+	float: right;
+}
+
+.rating>label:before {
+	margin: 5px;
+	font-size: 24px;
+	font-family: FontAwesome;
+	content: "\f005";
+	display: inline-block;
+}
+
+.rating>input {
+	display: none;
+}
+
+.rating>input:checked~label,
+.rating:not(:checked)>label:hover,
+.rating:not(:checked)>label:hover~label {
+	color: #F79426;
+}
+
+.rating>input:checked+label:hover,
+.rating>input:checked~label:hover,
+.rating>label:hover~input:checked~label,
+.rating>input:checked~label:hover~label {
+	color: #FECE31;
+}
+
+#submit-btn {
+	position: relative;
+	width: 100%;
+	text-align: center;
+	padding-top: 1.5vh;
+	padding-bottom: 3.5vh;
+}
+
+#submit-btn button {
+	position: relative;
+	display: inline-block;
+	padding: 10px 20px;
+	color: #FF9900;
+	font-size: 16px;
+	text-transform: uppercase;
+	overflow: hidden;
+	transition: .5s;
+	letter-spacing: 4px;
+	background-color: transparent;
+	border: none;
+}
+
+#submit-btn button:hover {
+	background: #FF9900;
+	color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 5px #FF9900,
+		0 0 25px #FF9900,
+		0 0 50px #FF9900,
+		0 0 100px #FF9900;
+}
+
+#submit-btn button span {
+	position: absolute;
+	display: block;
+}
+
+#submit-btn button span:nth-child(1) {
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 2px;
+	background: linear-gradient(90deg, transparent, #FF9900);
+	animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+	0% {
+		left: -100%;
+	}
+
+	50%,
+	100% {
+		left: 100%;
+	}
+}
+
+#submit-btn button span:nth-child(2) {
+	top: -100%;
+	right: 0;
+	width: 2px;
+	height: 100%;
+	background: linear-gradient(180deg, transparent, #FF9900);
+	animation: btn-anim2 1s linear infinite;
+	animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+	0% {
+		top: -100%;
+	}
+
+	50%,
+	100% {
+		top: 100%;
+	}
+}
+
+#submit-btn button span:nth-child(3) {
+	bottom: 0;
+	right: -100%;
+	width: 100%;
+	height: 2px;
+	background: linear-gradient(270deg, transparent, #FF9900);
+	animation: btn-anim3 1s linear infinite;
+	animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+	0% {
+		right: -100%;
+	}
+
+	50%,
+	100% {
+		right: 100%;
+	}
+}
+
+#submit-btn button span:nth-child(4) {
+	bottom: -100%;
+	left: 0;
+	width: 2px;
+	height: 100%;
+	background: linear-gradient(360deg, transparent, #FF9900);
+	animation: btn-anim4 1s linear infinite;
+	animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+	0% {
+		bottom: -100%;
+	}
+
+	50%,
+	100% {
+		bottom: 100%;
+	}
 }
 
 #new-movie-bg::before {
