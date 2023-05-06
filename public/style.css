@@ -448,7 +448,7 @@ h5.movie-name {
 #profile {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 115vh;
     position: relative;
     overflow: hidden;
 }
@@ -458,6 +458,53 @@ h5.movie-name {
     text-align: center;
 }
   
+#profile-data {
+	padding-top: 2.5vh;
+	width: 80%;
+	margin: auto;
+
+	display: flex;
+	justify-content: space-between;
+}
+
+#profile-data>div {
+	width: 30%;
+	height: 40vh;
+	background: #bbbbbb;
+}
+
+#data-bar {
+
+}
+
+#data-compare {
+
+}
+
+#data-favorite {
+	display: flex;
+}
+
+#profile h3 {
+	position: relative;
+	padding-top: 7vh;
+	left: 10%;
+}
+
+#recommendation {
+	padding-top: 1.5vh;
+	width: 80%;
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+#recommendation img {
+	object-fit: cover; /* Avoid the image being stretched or over-size */
+	width: 275px;
+	height: 350px;
+}
+
 #profile-bg::before  {
     background: linear-gradient(180deg, rgb(28, 28, 28) 0%, rgba(28, 28, 28, 0.8) 20%, rgba(28, 28, 28, 0.6) 80%, rgba(28, 28, 28, 0) 100%);
 }
