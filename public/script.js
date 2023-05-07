@@ -45,3 +45,52 @@ window.onscroll = function(event) {
         }
     }
 };
+
+// A function that will be triggered when the users submit the new movie form
+// Submit function has to be added to the form instead of the button: https://stackoverflow.com/questions/32637920/why-does-a-submit-event-listener-not-work-on-a-submit-button
+const form = document.getElementById('movie-form');
+form.addEventListener("submit", function(event){
+    event.preventDefault();
+
+    let movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
+    movieLst.push(getMovieDetails());
+    localStorage.setItem('movieLst', JSON.stringify(movieLst));
+    console.log(JSON.parse(localStorage.getItem('movieLst')));
+});
+
+function getMovieDetails() {
+    const movieName = document.querySelector('input[name="movieName"]').value;
+    const movieGenre = document.querySelector('input[name="movieGenre"]').value;
+    const watchedDate = document.querySelector('input[name="watchedDate"]').value;
+    const movieDuration = document.querySelector('input[name="movieDuration"]').value;
+    const movieRating = document.querySelector('input[name="rating"]:checked').value;
+    const movieComment = document.querySelector('input[name="movieComment"]').value;
+    const uid = generateUUID();
+
+    const movie = {movieName: movieName, movieGenre: movieGenre, watchedDate: watchedDate, 
+        movieDuration: movieDuration, movieRating: movieRating, movieComment: movieComment, 
+        uid: uid}
+    
+    return movie
+}
+
+// Use to generate a unique set of id for the objects, which makes the tracking process easier
+function generateUUID() {
+    let uuid = '';
+    const randomValues = new Uint8Array(16);
+    crypto.getRandomValues(randomValues);
+    randomValues[6] &= 0x0f;
+    randomValues[6] |= 0x40;
+    randomValues[8] &= 0x3f;
+    randomValues[8] |= 0x80;
+    uuid += randomValues.slice(0, 4).join('');
+    uuid += '-';
+    uuid += randomValues.slice(4, 6).join('');
+    uuid += '-';
+    uuid += randomValues.slice(6, 8).join('');
+    uuid += '-';
+    uuid += randomValues.slice(8, 10).join('');
+    uuid += '-';
+    uuid += randomValues.slice(10).join('');
+    return uuid;
+}
