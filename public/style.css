@@ -498,10 +498,10 @@ input:-webkit-autofill:active {
     transform: translate(-50%, 0%);
 }
   
-#show-all-btn {
+#history-header > button {
     position: absolute;
-    right: 15%;
-  
+    width: 8.5vw;
+
     padding: 10px 20px;
     font-size: 14px;
     text-transform: uppercase;
@@ -509,9 +509,19 @@ input:-webkit-autofill:active {
     transition: .5s;
   
     background-color: transparent;
-    color: #FF9900;
     border-radius: 5px;
+}
+
+#show-all-btn {
+    left: 15%;
+    color: #FF9900;
     border-color: #FF9900;
+}
+
+#clear-history-btn {
+    right: 15%;
+    color: #ff0000;
+    border-color: #ff0000;
 }
   
 #history-lst {
@@ -564,7 +574,7 @@ h5.movie-name {
 	padding-right: 5px;
 }
 
-#movie-rating-checked {
+.rating-checked {
 	color: #FF9900;
 }
 

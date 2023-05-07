@@ -94,3 +94,9 @@ function generateUUID() {
     uuid += randomValues.slice(10).join('');
     return uuid;
 }
+
+function clearHistory() {
+    // Confirmation panel for destructive action https://www.codexworld.com/how-to/show-delete-confirmation-message-dialog-javascript/
+    var confirmation = confirm("Are you sure to clear ALL the history?");
+    if(confirmation){localStorage.removeItem('movieLst');}
+}
