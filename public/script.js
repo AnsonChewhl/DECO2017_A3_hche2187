@@ -55,7 +55,9 @@ form.addEventListener("submit", function(event){
     let movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
     movieLst.push(getMovieDetails());
     localStorage.setItem('movieLst', JSON.stringify(movieLst));
-    console.log(JSON.parse(localStorage.getItem('movieLst')));
+    // console.log(JSON.parse(localStorage.getItem('movieLst')));
+
+    location.reload();
 });
 
 function getMovieDetails() {
@@ -95,8 +97,95 @@ function generateUUID() {
     return uuid;
 }
 
+displayMovie();
+
+function displayMovie() {
+    const historyLst = document.getElementById('history-lst');
+    let movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
+
+    if (movieLst.length < 1) {
+        let notice = document.createElement("h3");
+        notice.setAttribute("id", "notice");
+        notice.innerText = "You have not yet added any movie...";
+        historyLst.appendChild(notice);
+        return;
+    }
+
+    movieLst.forEach(movie => {
+        const movieComment = movie.movieName;
+
+        let parentDiv = document.createElement("div");
+        parentDiv.setAttribute("id", movie.uid);
+        historyLst.appendChild(parentDiv);
+
+        let gridDiv = document.createElement("div");
+        gridDiv.setAttribute("class", "history-info");
+        parentDiv.appendChild(gridDiv);
+
+        const movieGenre = movie.movieGenre;
+        let movieImg = document.createElement("img");
+        movieImg.setAttribute("class", "movie-img");
+        movieImg.setAttribute("src", `image/section_history/icons/${movieGenre.toLowerCase()}.png`);
+        movieImg.setAttribute("alt", "A icon that represents the genre of the movie");
+        gridDiv.appendChild(movieImg);
+
+        let movieDetails = document.createElement("div");
+        movieDetails.setAttribute("class", "movie-details");
+        gridDiv.appendChild(movieDetails);
+
+        let movieName = document.createElement("h5");
+        movieName.setAttribute("class", "movie-name");
+        movieName.innerText = movie.movieName;
+        movieDetails.appendChild(movieName);
+        
+        let watchedDate = document.createElement("h5");
+        watchedDate.setAttribute("class", "movie-watched-date");
+        watchedDate.innerHTML = `${movie.watchedDate} <span>watched</span>`;
+        movieDetails.appendChild(watchedDate);
+
+        let hr = Math.floor(movie.movieDuration / 60);
+        let min = movie.movieDuration % 60;
+        let movieDuration = document.createElement("h5");
+        movieDuration.setAttribute("class", "movie-length");
+        movieDuration.innerText = `${hr}hr ${min}min`;
+        movieDetails.appendChild(movieDuration);
+
+        let movieRatingContainer = document.createElement("div");
+        movieRatingContainer.setAttribute("class", "movie-rating");
+        movieDetails.appendChild(movieRatingContainer);
+
+        for (let i = 0; i < 5; i++) {
+            let movieRating = document.createElement("span");
+            if (i < movie.movieRating) movieRating.setAttribute("class", "fa fa-star rating-checked");
+            else movieRating.setAttribute("class", "fa fa-star");
+            movieRatingContainer.appendChild(movieRating);
+        }
+        
+        let deleteBtn = document.createElement("button");
+        deleteBtn.setAttribute("class", "delete-btn");
+        gridDiv.appendChild(deleteBtn);
+
+        let deleteBtnImg = document.createElement("img");
+        deleteBtnImg.setAttribute("src", "image/section_history/delete-btn.png");
+        deleteBtnImg.setAttribute("alt", "A bin icon that represents deletion");
+        deleteBtn.appendChild(deleteBtnImg);
+
+        let seperateLine = document.createElement("span");
+        seperateLine.setAttribute("class", "seperate-line");
+        parentDiv.appendChild(seperateLine);
+    });
+
+    // Re-calculate the offset position of each section
+    sectionOffsetCheck();
+}
+
 function clearHistory() {
     // Confirmation panel for destructive action https://www.codexworld.com/how-to/show-delete-confirmation-message-dialog-javascript/
     var confirmation = confirm("Are you sure to clear ALL the history?");
-    if(confirmation){localStorage.removeItem('movieLst');}
+
+    if(confirmation){
+        localStorage.removeItem('movieLst');
+    }
+
+    location.reload();
 }
