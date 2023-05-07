@@ -179,6 +179,24 @@ function displayMovie() {
     sectionOffsetCheck();
 }
 
+const showAllBtn = document.getElementById('show-all-btn');
+let showAll = false;
+showAllBtn.addEventListener("click", () => {
+    const history = document.getElementById('history');
+
+    if (!showAll) {
+        showAllBtn.innerText = "Show Less"
+        history.style.maxHeight = "none";
+        history.style.overflow = "visible";
+        showAll = true;
+    } else {
+        showAllBtn.innerText = "Show All"
+        history.style.maxHeight = "100vh";
+        history.style.overflow = "hidden";
+        showAll = false;
+    }
+})
+
 function clearHistory() {
     // Confirmation panel for destructive action https://www.codexworld.com/how-to/show-delete-confirmation-message-dialog-javascript/
     var confirmation = confirm("Are you sure to clear ALL the history?");
