@@ -485,7 +485,7 @@ input:-webkit-autofill:active {
   
 #history-header {
     position: relative;
-    padding-top: 13.5%;
+    padding-top: 6.5%;
     
     width: 100%;
     display: flex;
@@ -586,6 +586,11 @@ h5.movie-name {
 
 .rating-checked {
 	color: #FF9900;
+}
+
+h5.movie-comment {
+    color: #8E8E8E;
+    font-style: italic;
 }
 
 .delete-btn {

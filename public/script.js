@@ -1,3 +1,9 @@
+// Functions to call when the page finishes loading
+document.addEventListener('DOMContentLoaded', function() {
+    displayMovie();
+    sectionOffsetCheck();
+});
+
 // Nav-bar animation
 // Create a variable to reference the toggle <button>
 var navbarToggle = navbar.querySelector("#navbar-toggle");
@@ -23,7 +29,6 @@ const allNavLinks = document.querySelectorAll(".navbar-link");
 const allSections = document.querySelectorAll(".main-section"); // Selecting all the key section headers
 let sectionOffset = [0, 0, 0, 0];
 let currentSection = 0;
-sectionOffsetCheck();
 
 // A function that recorded all sections' offset position
 function sectionOffsetCheck() {
@@ -54,11 +59,23 @@ form.addEventListener("submit", function(event){
 
     let movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
     movieLst.push(getMovieDetails());
+    movieLst.sort(watchedDateOrder);
     localStorage.setItem('movieLst', JSON.stringify(movieLst));
     // console.log(JSON.parse(localStorage.getItem('movieLst')));
 
     location.reload();
 });
+
+// A function that helps to sort the objects by their watched date https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
+function watchedDateOrder(a, b) {
+    if ( a.watchedDate < b.watchedDate ){
+      return 1;
+    }
+    if ( a.watchedDate > b.watchedDate ){
+      return -1;
+    }
+    return 0;
+}
 
 function getMovieDetails() {
     const movieName = document.querySelector('input[name="movieName"]').value;
@@ -69,9 +86,16 @@ function getMovieDetails() {
     const movieComment = document.querySelector('input[name="movieComment"]').value;
     const uid = generateUUID();
 
+    // Get date function https://www.freecodecamp.org/news/javascript-get-current-date-todays-date-in-js/
+    const date = new Date();
+    let d = date.getDate();
+    let m = date.getMonth() + 1;
+    let y = date.getFullYear();
+    const commentDate = `${d}/${m}/${y}`;
+
     const movie = {movieName: movieName, movieGenre: movieGenre, watchedDate: watchedDate, 
         movieDuration: movieDuration, movieRating: movieRating, movieComment: movieComment, 
-        uid: uid}
+        commentDate: commentDate, uid: uid}
     
     return movie
 }
@@ -97,8 +121,6 @@ function generateUUID() {
     return uuid;
 }
 
-displayMovie();
-
 function displayMovie() {
     const historyLst = document.getElementById('history-lst');
     let movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
@@ -112,8 +134,6 @@ function displayMovie() {
     }
 
     movieLst.forEach(movie => {
-        const movieComment = movie.movieName;
-
         let parentDiv = document.createElement("div");
         parentDiv.setAttribute("id", movie.uid);
         historyLst.appendChild(parentDiv);
@@ -160,7 +180,12 @@ function displayMovie() {
             else movieRating.setAttribute("class", "fa fa-star");
             movieRatingContainer.appendChild(movieRating);
         }
-        
+
+        let movieComment = document.createElement("h5");
+        movieComment.setAttribute("class", "movie-comment");
+        movieComment.innerHTML = `&quot${movie.movieComment}&quot <span> - commented ${movie.commentDate}</span>`;
+        movieDetails.appendChild(movieComment);
+
         let deleteBtn = document.createElement("button");
         deleteBtn.setAttribute("class", "delete-btn");
         gridDiv.appendChild(deleteBtn);
@@ -179,8 +204,8 @@ function displayMovie() {
     sectionOffsetCheck();
 }
 
-const showAllBtn = document.getElementById('show-all-btn');
 let showAll = false;
+const showAllBtn = document.getElementById('show-all-btn');
 showAllBtn.addEventListener("click", () => {
     const history = document.getElementById('history');
 
@@ -203,7 +228,6 @@ function clearHistory() {
 
     if(confirmation){
         localStorage.removeItem('movieLst');
+        location.reload();
     }
-
-    location.reload();
 }
