@@ -151,9 +151,7 @@ function displayMovie() {
 
         const movieGenre = movie.movieGenre;
         let movieImg = document.createElement("img");
-        movieImg.setAttribute("class", "movie-img");
-        movieImg.setAttribute("src", `image/section_history/icons/${movieGenre.toLowerCase()}.png`);
-        movieImg.setAttribute("alt", "A icon that represents the genre of the movie");
+        movieImg = setGenreIcon(movieImg, movie.movieGenre.toLowerCase());
         gridDiv.appendChild(movieImg);
 
         let movieDetails = document.createElement("div");
@@ -212,6 +210,21 @@ function displayMovie() {
     sectionOffsetCheck();
 }
 
+const mainGenre = ["action", "adventure", "comedy", "fantasy", "horror", "romance", "sci-fi", "war"];
+function setGenreIcon(img, genre) {
+    img.setAttribute("class", "movie-img");
+
+    if (mainGenre.includes(genre)){
+        img.setAttribute("src", `image/section_history/icons/${genre.toLowerCase()}.png`);
+        img.setAttribute("alt", "An icon that represents the genre of the movie");
+    } else {
+        img.setAttribute("src", `image/section_history/icons/other.png`);
+        img.setAttribute("alt", "An icon with a unpacked box and question mark in the middle");
+    }
+
+    return img
+}
+
 let showAll = false;
 const showAllBtn = document.getElementById('show-all-btn');
 showAllBtn.addEventListener("click", () => {
@@ -256,4 +269,62 @@ function removeMovie(obj) {
     console.log(JSON.parse(localStorage.getItem('movieLst')));
 
     displayMovie();
+}
+
+movieData();
+function movieData() {
+    const movieLst = JSON.parse(localStorage.getItem('movieLst'));
+
+    var allGenre = [];
+    movieLst.forEach(movie => {
+        var genre = movie.movieGenre;
+        allGenre.push(genre);
+    });
+
+    let data = [];
+    let unique = allGenre.filter(onlyUnique)
+    for (var i = 0; i < unique.length; i++) {
+        var newGenre = {genre: unique[i], totalDuration: 0, totalRating: 0, watchTime: 0};
+        data.push(newGenre);
+    }
+
+    movieLst.forEach(movie => {
+        var genre = movie.movieGenre;
+        var duration = movie.movieDuration;
+        var rating = movie.movieRating;
+
+        for (var i = 0; i < data.length; i++) {
+            if (genre == data[i].genre) {
+                data[i].totalDuration += Number(duration);
+                data[i].totalRating += Number(rating);
+                data[i].watchTime += 1;
+                break;
+            }
+        }
+    });
+
+    let favGenre = checkFavGenre(data)[0];
+    let favRating = checkFavGenre(data)[1];
+}
+
+// Filtering unique value https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
+function onlyUnique(value, index, array) {
+    return array.indexOf(value) === index;
+}
+
+function checkFavGenre(data) {
+    let lst = []
+    for (var i = 0; i < data.length; i++) {
+        var avgRating = data[i].totalRating / data[i].watchTime;
+        lst.push(avgRating);
+    }
+
+    // Check max number index in the data array https://stackoverflow.com/questions/22911722/how-to-find-array-index-of-largest-value
+    let maxAt = 0;
+    for (var i = 0; i < lst.length; i++) {
+        maxAt = lst[i] > lst[maxAt] ? i : maxAt;
+    }
+
+    let fav = [data[maxAt].genre, lst[maxAt]];
+    return fav;
 }
