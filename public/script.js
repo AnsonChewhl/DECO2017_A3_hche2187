@@ -61,21 +61,15 @@ form.addEventListener("submit", function(event){
     movieLst.push(getMovieDetails());
     movieLst.sort(watchedDateOrder);
     localStorage.setItem('movieLst', JSON.stringify(movieLst));
-    // console.log(JSON.parse(localStorage.getItem('movieLst')));
+    console.log(JSON.parse(localStorage.getItem('movieLst')));
+    form.reset();
 
-    location.reload();
+    displayMovie();
+
+    let url = window.location.href;
+    if (url.indexOf("#") != -1) {url = url.split('#')[0]}
+    window.location.href = url + "#history";
 });
-
-// A function that helps to sort the objects by their watched date https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
-function watchedDateOrder(a, b) {
-    if ( a.watchedDate < b.watchedDate ){
-      return 1;
-    }
-    if ( a.watchedDate > b.watchedDate ){
-      return -1;
-    }
-    return 0;
-}
 
 function getMovieDetails() {
     const movieName = document.querySelector('input[name="movieName"]').value;
@@ -98,6 +92,17 @@ function getMovieDetails() {
         commentDate: commentDate, uid: uid}
     
     return movie
+}
+
+// A function that helps to sort the objects by their watched date https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
+function watchedDateOrder(a, b) {
+    if ( a.watchedDate < b.watchedDate ){
+      return 1;
+    }
+    if ( a.watchedDate > b.watchedDate ){
+      return -1;
+    }
+    return 0;
 }
 
 // Use to generate a unique set of id for the objects, which makes the tracking process easier
@@ -124,6 +129,8 @@ function generateUUID() {
 function displayMovie() {
     const historyLst = document.getElementById('history-lst');
     let movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
+
+    while (historyLst.firstChild) historyLst.removeChild(historyLst.firstChild); // Removing all childs
 
     if (movieLst.length < 1) {
         let notice = document.createElement("h3");
@@ -188,6 +195,7 @@ function displayMovie() {
 
         let deleteBtn = document.createElement("button");
         deleteBtn.setAttribute("class", "delete-btn");
+        deleteBtn.addEventListener("click", removeMovie.bind(null, deleteBtn)); // Add functionality to the delete btn using bind https://stackoverflow.com/questions/21616393/javascript-event-listener-firing-on-page-load-not-click-event
         gridDiv.appendChild(deleteBtn);
 
         let deleteBtnImg = document.createElement("img");
@@ -228,6 +236,24 @@ function clearHistory() {
 
     if(confirmation){
         localStorage.removeItem('movieLst');
-        location.reload();
+        displayMovie();
     }
+}
+
+function removeMovie(obj) {
+    let movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
+    let id = obj.parentNode.parentNode.id;
+
+    for (var i = 0; i < movieLst.length; i++){
+        if (movieLst[i].uid == id) {
+            movieLst.splice(i, 1);
+            console.log("Movie has been removed");
+            break;
+        }
+    }
+
+    localStorage.setItem('movieLst', JSON.stringify(movieLst));
+    console.log(JSON.parse(localStorage.getItem('movieLst')));
+
+    displayMovie();
 }
