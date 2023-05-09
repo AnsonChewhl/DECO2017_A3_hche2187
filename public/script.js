@@ -1,5 +1,5 @@
 // Functions to call when the page finishes loading
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     displayMovie();
     sectionOffsetCheck();
 });
@@ -15,11 +15,11 @@ var navbarMenu = document.querySelector("#navbar-menu");
 var navbarLinksContainer = navbarMenu.querySelector(".navbar-links");
 
 // Add or remove the 'active' class on the toggle <button> when clicked
-navbarToggle.addEventListener("click", () => {navbarToggle.classList.toggle('active')});
+navbarToggle.addEventListener("click", () => { navbarToggle.classList.toggle('active') });
 
 // Remove the 'active' class on the menu container <div> when clicked 
 // This will close the menu if the user clicks outside the nav link <ul>
-navbarMenu.addEventListener("click", () => {navbarToggle.classList.remove('active')});
+navbarMenu.addEventListener("click", () => { navbarToggle.classList.remove('active') });
 
 // Stop clicks on the navbar links from toggling the menu (for when it's not mobile)
 navbarLinksContainer.addEventListener("click", (e) => e.stopPropagation());
@@ -32,15 +32,15 @@ let currentSection = 0;
 
 // A function that recorded all sections' offset position
 function sectionOffsetCheck() {
-    for (var i = 0; i < 4; i++){
+    for (var i = 0; i < 4; i++) {
         sectionOffset[i] = allSections[i].offsetTop;
         // console.log(i + ": " + allSections[i].offsetTop);
     }
 }
 
-window.onscroll = function(event) {
+window.onscroll = function (event) {
     // console.log(window.pageYOffset);
-    for (var i = 0; i < 4; i++){
+    for (var i = 0; i < 4; i++) {
         // Check whether the scroll position arrived a new section
         if (window.pageYOffset >= sectionOffset[i] && i != currentSection) {
             // Change the id attribute to restyle the nav bar and current selection
@@ -54,7 +54,7 @@ window.onscroll = function(event) {
 // A function that will be triggered when the users submit the new movie form
 // Submit function has to be added to the form instead of the button: https://stackoverflow.com/questions/32637920/why-does-a-submit-event-listener-not-work-on-a-submit-button
 const form = document.getElementById('movie-form');
-form.addEventListener("submit", function(event){
+form.addEventListener("submit", function (event) {
     event.preventDefault();
 
     let movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
@@ -65,9 +65,10 @@ form.addEventListener("submit", function(event){
     form.reset();
 
     displayMovie();
+    movieData();
 
     let url = window.location.href;
-    if (url.indexOf("#") != -1) {url = url.split('#')[0]}
+    if (url.indexOf("#") != -1) { url = url.split('#')[0] }
     window.location.href = url + "#history";
 });
 
@@ -87,20 +88,22 @@ function getMovieDetails() {
     let y = date.getFullYear();
     const commentDate = `${d}/${m}/${y}`;
 
-    const movie = {movieName: movieName, movieGenre: movieGenre, watchedDate: watchedDate, 
-        movieDuration: movieDuration, movieRating: movieRating, movieComment: movieComment, 
-        commentDate: commentDate, uid: uid}
-    
+    const movie = {
+        movieName: movieName, movieGenre: movieGenre, watchedDate: watchedDate,
+        movieDuration: movieDuration, movieRating: movieRating, movieComment: movieComment,
+        commentDate: commentDate, uid: uid
+    }
+
     return movie
 }
 
 // A function that helps to sort the objects by their watched date https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
 function watchedDateOrder(a, b) {
-    if ( a.watchedDate < b.watchedDate ){
-      return 1;
+    if (a.watchedDate < b.watchedDate) {
+        return 1;
     }
-    if ( a.watchedDate > b.watchedDate ){
-      return -1;
+    if (a.watchedDate > b.watchedDate) {
+        return -1;
     }
     return 0;
 }
@@ -162,7 +165,7 @@ function displayMovie() {
         movieName.setAttribute("class", "movie-name");
         movieName.innerText = movie.movieName;
         movieDetails.appendChild(movieName);
-        
+
         let watchedDate = document.createElement("h5");
         watchedDate.setAttribute("class", "movie-watched-date");
         watchedDate.innerHTML = `${movie.watchedDate} <span>watched</span>`;
@@ -214,7 +217,7 @@ const mainGenre = ["action", "adventure", "comedy", "fantasy", "horror", "romanc
 function setGenreIcon(img, genre) {
     img.setAttribute("class", "movie-img");
 
-    if (mainGenre.includes(genre)){
+    if (mainGenre.includes(genre)) {
         img.setAttribute("src", `image/section_history/icons/${genre.toLowerCase()}.png`);
         img.setAttribute("alt", "An icon that represents the genre of the movie");
     } else {
@@ -247,7 +250,7 @@ function clearHistory() {
     // Confirmation panel for destructive action https://www.codexworld.com/how-to/show-delete-confirmation-message-dialog-javascript/
     var confirmation = confirm("Are you sure to clear ALL the history?");
 
-    if(confirmation){
+    if (confirmation) {
         localStorage.removeItem('movieLst');
         displayMovie();
     }
@@ -257,7 +260,7 @@ function removeMovie(obj) {
     let movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
     let id = obj.parentNode.parentNode.id;
 
-    for (var i = 0; i < movieLst.length; i++){
+    for (var i = 0; i < movieLst.length; i++) {
         if (movieLst[i].uid == id) {
             movieLst.splice(i, 1);
             console.log("Movie has been removed");
@@ -284,7 +287,7 @@ function movieData() {
     let data = [];
     let unique = allGenre.filter(onlyUnique)
     for (var i = 0; i < unique.length; i++) {
-        var newGenre = {genre: unique[i], totalDuration: 0, totalRating: 0, watchTime: 0};
+        var newGenre = { genre: unique[i], totalDuration: 0, totalRating: 0, watchTime: 0 };
         data.push(newGenre);
     }
 
@@ -303,8 +306,8 @@ function movieData() {
         }
     });
 
-    let favGenre = checkFavGenre(data)[0];
-    let favRating = checkFavGenre(data)[1];
+    data.sort(sortFavGenre);
+    console.log(data);
 }
 
 // Filtering unique value https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
@@ -312,19 +315,34 @@ function onlyUnique(value, index, array) {
     return array.indexOf(value) === index;
 }
 
-function checkFavGenre(data) {
-    let lst = []
-    for (var i = 0; i < data.length; i++) {
-        var avgRating = data[i].totalRating / data[i].watchTime;
-        lst.push(avgRating);
-    }
+// Sort and find users favoruite genre based on Average Rating > Watch Time > Total Duration
+function sortFavGenre(a, b) {
+    var aAvgRating = a.totalRating / a.watchTime;
+    var bAvgRating = b.totalRating / b.watchTime;
 
-    // Check max number index in the data array https://stackoverflow.com/questions/22911722/how-to-find-array-index-of-largest-value
-    let maxAt = 0;
-    for (var i = 0; i < lst.length; i++) {
-        maxAt = lst[i] > lst[maxAt] ? i : maxAt;
+    if (aAvgRating < bAvgRating) {
+        return 1;
     }
-
-    let fav = [data[maxAt].genre, lst[maxAt]];
-    return fav;
+    else if (aAvgRating > bAvgRating) {
+        return -1;
+    }
+    else {
+        // If the average rating are the same, check their watchTime
+        if (a.watchTime < b.watchTime) {
+            return 1;
+        }
+        else if (a.watchTime > b.watchTime) {
+            return -1;
+        }
+        else {
+            // If the watchTime are still the same, check their total duration instead
+            if (a.totalDuration < b.totalDuration) {
+                return 1;
+            }
+            else if (a.totalDuration > b.totalDuration) {
+                return -1;
+            }
+            return 0;
+        }
+    }
 }
