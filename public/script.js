@@ -140,77 +140,77 @@ function displayMovie() {
         notice.setAttribute("id", "notice");
         notice.innerText = "You have not yet added any movie...";
         historyLst.appendChild(notice);
-        return;
+    } else {
+        movieLst.forEach(movie => {
+            let parentDiv = document.createElement("div");
+            parentDiv.setAttribute("id", movie.uid);
+            historyLst.appendChild(parentDiv);
+    
+            let gridDiv = document.createElement("div");
+            gridDiv.setAttribute("class", "history-info");
+            parentDiv.appendChild(gridDiv);
+    
+            const movieGenre = movie.movieGenre;
+            let movieImg = document.createElement("img");
+            movieImg = setGenreIcon(movieImg, movie.movieGenre.toLowerCase());
+            gridDiv.appendChild(movieImg);
+    
+            let movieDetails = document.createElement("div");
+            movieDetails.setAttribute("class", "movie-details");
+            gridDiv.appendChild(movieDetails);
+    
+            let movieName = document.createElement("h5");
+            movieName.setAttribute("class", "movie-name");
+            movieName.innerText = movie.movieName;
+            movieDetails.appendChild(movieName);
+    
+            let watchedDate = document.createElement("h5");
+            watchedDate.setAttribute("class", "movie-watched-date");
+            watchedDate.innerHTML = `${movie.watchedDate} <span>watched</span>`;
+            movieDetails.appendChild(watchedDate);
+    
+            let hr = Math.floor(movie.movieDuration / 60);
+            let min = movie.movieDuration % 60;
+            let movieDuration = document.createElement("h5");
+            movieDuration.setAttribute("class", "movie-length");
+            movieDuration.innerText = `${hr}hr ${min}min`;
+            movieDetails.appendChild(movieDuration);
+    
+            let movieRatingContainer = document.createElement("div");
+            movieRatingContainer.setAttribute("class", "movie-rating");
+            movieDetails.appendChild(movieRatingContainer);
+    
+            for (let i = 0; i < 5; i++) {
+                let movieRating = document.createElement("span");
+                if (i < movie.movieRating) movieRating.setAttribute("class", "fa fa-star rating-checked");
+                else movieRating.setAttribute("class", "fa fa-star");
+                movieRatingContainer.appendChild(movieRating);
+            }
+    
+            let movieComment = document.createElement("h5");
+            movieComment.setAttribute("class", "movie-comment");
+            movieComment.innerHTML = `&quot${movie.movieComment}&quot <span> - commented ${movie.commentDate}</span>`;
+            movieDetails.appendChild(movieComment);
+    
+            let deleteBtn = document.createElement("button");
+            deleteBtn.setAttribute("class", "delete-btn");
+            deleteBtn.addEventListener("click", removeMovie.bind(null, deleteBtn)); // Add functionality to the delete btn using bind https://stackoverflow.com/questions/21616393/javascript-event-listener-firing-on-page-load-not-click-event
+            gridDiv.appendChild(deleteBtn);
+    
+            let deleteBtnImg = document.createElement("img");
+            deleteBtnImg.setAttribute("src", "image/section_history/delete-btn.png");
+            deleteBtnImg.setAttribute("alt", "A bin icon that represents deletion");
+            deleteBtn.appendChild(deleteBtnImg);
+    
+            let seperateLine = document.createElement("span");
+            seperateLine.setAttribute("class", "seperate-line");
+            parentDiv.appendChild(seperateLine);
+        });
     }
-
-    movieLst.forEach(movie => {
-        let parentDiv = document.createElement("div");
-        parentDiv.setAttribute("id", movie.uid);
-        historyLst.appendChild(parentDiv);
-
-        let gridDiv = document.createElement("div");
-        gridDiv.setAttribute("class", "history-info");
-        parentDiv.appendChild(gridDiv);
-
-        const movieGenre = movie.movieGenre;
-        let movieImg = document.createElement("img");
-        movieImg = setGenreIcon(movieImg, movie.movieGenre.toLowerCase());
-        gridDiv.appendChild(movieImg);
-
-        let movieDetails = document.createElement("div");
-        movieDetails.setAttribute("class", "movie-details");
-        gridDiv.appendChild(movieDetails);
-
-        let movieName = document.createElement("h5");
-        movieName.setAttribute("class", "movie-name");
-        movieName.innerText = movie.movieName;
-        movieDetails.appendChild(movieName);
-
-        let watchedDate = document.createElement("h5");
-        watchedDate.setAttribute("class", "movie-watched-date");
-        watchedDate.innerHTML = `${movie.watchedDate} <span>watched</span>`;
-        movieDetails.appendChild(watchedDate);
-
-        let hr = Math.floor(movie.movieDuration / 60);
-        let min = movie.movieDuration % 60;
-        let movieDuration = document.createElement("h5");
-        movieDuration.setAttribute("class", "movie-length");
-        movieDuration.innerText = `${hr}hr ${min}min`;
-        movieDetails.appendChild(movieDuration);
-
-        let movieRatingContainer = document.createElement("div");
-        movieRatingContainer.setAttribute("class", "movie-rating");
-        movieDetails.appendChild(movieRatingContainer);
-
-        for (let i = 0; i < 5; i++) {
-            let movieRating = document.createElement("span");
-            if (i < movie.movieRating) movieRating.setAttribute("class", "fa fa-star rating-checked");
-            else movieRating.setAttribute("class", "fa fa-star");
-            movieRatingContainer.appendChild(movieRating);
-        }
-
-        let movieComment = document.createElement("h5");
-        movieComment.setAttribute("class", "movie-comment");
-        movieComment.innerHTML = `&quot${movie.movieComment}&quot <span> - commented ${movie.commentDate}</span>`;
-        movieDetails.appendChild(movieComment);
-
-        let deleteBtn = document.createElement("button");
-        deleteBtn.setAttribute("class", "delete-btn");
-        deleteBtn.addEventListener("click", removeMovie.bind(null, deleteBtn)); // Add functionality to the delete btn using bind https://stackoverflow.com/questions/21616393/javascript-event-listener-firing-on-page-load-not-click-event
-        gridDiv.appendChild(deleteBtn);
-
-        let deleteBtnImg = document.createElement("img");
-        deleteBtnImg.setAttribute("src", "image/section_history/delete-btn.png");
-        deleteBtnImg.setAttribute("alt", "A bin icon that represents deletion");
-        deleteBtn.appendChild(deleteBtnImg);
-
-        let seperateLine = document.createElement("span");
-        seperateLine.setAttribute("class", "seperate-line");
-        parentDiv.appendChild(seperateLine);
-    });
 
     // Re-calculate the offset position of each section
     sectionOffsetCheck();
+    movieData();
 }
 
 const mainGenre = ["action", "adventure", "comedy", "fantasy", "horror", "romance", "sci-fi", "war"];
@@ -219,7 +219,7 @@ function setGenreIcon(img, genre) {
 
     if (mainGenre.includes(genre)) {
         img.setAttribute("src", `image/section_history/icons/${genre.toLowerCase()}.png`);
-        img.setAttribute("alt", "An icon that represents the genre of the movie");
+        img.setAttribute("alt", `An icon that represents the movie is ${genre.toLowerCase()} genre`);
     } else {
         img.setAttribute("src", `image/section_history/icons/other.png`);
         img.setAttribute("alt", "An icon with a unpacked box and question mark in the middle");
@@ -244,6 +244,8 @@ showAllBtn.addEventListener("click", () => {
         history.style.overflow = "hidden";
         showAll = false;
     }
+
+    sectionOffsetCheck();
 })
 
 function clearHistory() {
@@ -274,9 +276,8 @@ function removeMovie(obj) {
     displayMovie();
 }
 
-movieData();
 function movieData() {
-    const movieLst = JSON.parse(localStorage.getItem('movieLst'));
+    const movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
 
     var allGenre = [];
     movieLst.forEach(movie => {
@@ -307,7 +308,9 @@ function movieData() {
     });
 
     data.sort(sortFavGenre);
-    console.log(data);
+    // console.log(data);
+
+    favRecommendation(data);
 }
 
 // Filtering unique value https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
@@ -345,4 +348,27 @@ function sortFavGenre(a, b) {
             return 0;
         }
     }
+}
+
+function favRecommendation(data) {
+    const recommendation = document.getElementById('recommendation');
+    while (recommendation.firstChild) recommendation.removeChild(recommendation.firstChild); // Removing all childs
+
+    let genre = "action";
+    for (var i = 0; i < data.length; i++) {
+        if (mainGenre.includes(data[i].genre.toLowerCase())) {
+            genre = data[i].genre.toLowerCase();
+            break;
+        }
+    }
+
+    for (var i = 0; i < 5; i++) {
+        let poster = document.createElement("img");
+        poster.setAttribute("src", `image/section_profile/recommendation/${genre}/poster${i+1}.png`);
+        poster.setAttribute("alt", `A poster of a ${genre} genre movie`);
+        poster.style.borderRadius = "5px";
+        recommendation.appendChild(poster);
+    }
+
+    console.log(genre)
 }
