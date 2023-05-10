@@ -32,6 +32,15 @@ fieldset {
     min-inline-size: min-content;
 }
 
+.notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-size: 18px;
+    font-weight: 600;
+    color: #8E8E8E;
+}
 /* End of default properties */
 
 
@@ -534,16 +543,6 @@ input:-webkit-autofill:active {
 	gap: 4vh;
 }
 
-#notice {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    font-size: 18px;
-    font-weight: 600;
-    color: #8E8E8E;
-}
-
 .history-info {
 	width: 100%;
 	display: flex;
@@ -635,7 +634,6 @@ h5.movie-comment {
 #profile {
     margin: 0;
     padding: 0;
-    height: 115vh;
     position: relative;
     overflow: hidden;
 }
@@ -645,16 +643,21 @@ h5.movie-comment {
     text-align: center;
 }
   
-#profile-data {
+#profile-data, #profile-data-none {
 	padding-top: 2.5vh;
 	width: 80%;
 	margin: auto;
 
 	display: flex;
+    align-items: center;
 	justify-content: space-between;
 }
 
-#profile-data>div {
+#profile-data-none {
+    justify-content: center;
+}
+
+#profile-data > div {
 	width: 30%;
 	height: 40vh;
 	background: #1C1C1C;
@@ -672,14 +675,14 @@ h5.movie-comment {
 	display: flex;
 }
 
-#profile h3 {
+#profile > section > h3 {
 	position: relative;
 	padding-top: 7vh;
 	left: 10%;
 }
 
 #recommendation {
-	padding-top: 1.5vh;
+	padding: 1.5vh 0 5vh;
 	width: 80%;
 	margin: auto;
 	display: flex;
