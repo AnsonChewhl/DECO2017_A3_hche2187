@@ -282,7 +282,7 @@ function favData(movieLst) {
     let data = [];
     let unique = allGenre.filter(onlyUnique)
     for (var i = 0; i < unique.length; i++) {
-        var newGenre = { genre: unique[i], totalDuration: 0, totalRating: 0, watchTime: 0 };
+        var newGenre = { genre: unique[i], totalDuration: 0, totalRating: 0, watchTime: 0};
         data.push(newGenre);
     }
 
@@ -312,11 +312,12 @@ function onlyUnique(value, index, array) {
     return array.indexOf(value) === index;
 }
 
-// Sort and find users favoruite genre based on Average Rating > Watch Time > Total Duration
+// Sort and find users favourite genre based on Average Rating > Watch Time > Total Duration
+// New ranking system to avoid dominant of movie that has been watched once
 function favGenreOrder(a, b) {
-    var aAvgRating = a.totalRating / a.watchTime;
-    var bAvgRating = b.totalRating / b.watchTime;
-
+    var aAvgRating = (a.totalRating / a.watchTime * 6) + (a.watchTime * 3) + (a.totalDuration / 100);
+    var bAvgRating = (b.totalRating / b.watchTime * 6) + (b.watchTime * 3) + (b.totalDuration / 100);
+    
     if (aAvgRating < bAvgRating) {
         return 1;
     }
@@ -324,41 +325,64 @@ function favGenreOrder(a, b) {
         return -1;
     }
     else {
-        // If the average rating are the same, check their watchTime
-        if (a.watchTime < b.watchTime) {
-            return 1;
-        }
-        else if (a.watchTime > b.watchTime) {
-            return -1;
-        }
-        else {
-            // If the watchTime are still the same, check their total duration instead
-            if (a.totalDuration < b.totalDuration) {
-                return 1;
-            }
-            else if (a.totalDuration > b.totalDuration) {
-                return -1;
-            }
-            return 0;
-        }
+        return 0;
     }
 }
 
 function favGenreRating(data) {
-    const genre = document.querySelector('#fav-genre > .result');
-    const ratings = document.querySelector('#fav-ratings > .result');
+    const favourite = document.getElementById('favourite');
+    removeChilds(favourite);
 
-    genre.textContent = data[0].genre;
+    // To avoid the favourite genre is overrated
+    let favGenre, avgRating = -1;
+    for (var i = 0; i < data.length; i++){
+        var average = data[i].totalRating / data[i].watchTime;
+        if (average >= 3){
+            favGenre = i;
+            avgRating = average;
+            break;
+        }
+    }
+    
+    if (favGenre > -1) {
+        var genreDiv = document.createElement("div");
+        favourite.appendChild(genreDiv);
 
-    removeChilds(ratings);
-    const avgRating = data[0].totalRating / data[0].watchTime;
-    for (var i = 0; i < 5; i++) {
-        var star = document.createElement("span");
+        var genreHeading = document.createElement("p");
+        genreHeading.setAttribute("class", "heading");
+        genreHeading.textContent = "Favourite genre:";
+        genreDiv.appendChild(genreHeading);
 
-        if (i + 1 <= Math.round(avgRating)) { star.setAttribute("class", "fa fa-star rating-checked"); }
-        else { star.setAttribute("class", "fa fa-star"); }
+        var genreResult = document.createElement("p");
+        genreResult.setAttribute("class", "result");
+        genreResult.textContent = data[favGenre].genre;
+        genreDiv.appendChild(genreResult);
 
-        ratings.appendChild(star);
+        var ratingDiv = document.createElement("div");
+        favourite.appendChild(ratingDiv);
+
+        var ratingHeading = document.createElement("p");
+        ratingHeading.setAttribute("class", "heading");
+        ratingHeading.textContent = "Average ratings:";
+        ratingDiv.appendChild(ratingHeading);
+
+        var ratingeResult = document.createElement("div");
+        ratingeResult.setAttribute("class", "result");
+        ratingDiv.appendChild(ratingeResult);
+
+        for (var i = 0; i < 5; i++) {
+            var star = document.createElement("span");
+    
+            if (i + 1 <= Math.round(avgRating)) { star.setAttribute("class", "fa fa-star rating-checked"); }
+            else { star.setAttribute("class", "fa fa-star"); }
+    
+            ratingeResult.appendChild(star);
+        }
+    } else {
+        let notice = document.createElement("h3");
+        notice.setAttribute("class", "notice");
+        notice.innerText = "No favourite genre found...";
+        favourite.appendChild(notice);
     }
 }
 
@@ -411,6 +435,7 @@ function weeklyComparison(movieLst) {
     var percentChange = (watchTime[0]-watchTime[1])/watchTime[1] * 100;
     if (percentChange == Infinity) {
         watchTimeChange.textContent = "-";
+        watchTimeChange.style.background = "#454545";
         return;
     }
     else {

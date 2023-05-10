@@ -708,13 +708,13 @@ div#data-movie {
 	background: #1C1C1C;
 }
 
-#favorite {
+#favourite {
     display: flex;
     flex-direction: column;
 	justify-content: space-evenly;
 }
 
-#favorite > div {
+#favourite > div {
     width: 85%;
     padding-left: 7.5%;
 
@@ -723,11 +723,11 @@ div#data-movie {
     align-items: center;
 }
 
-#favorite > div > .heading {
+#favourite > div > .heading {
     color: #BCBCBC;
 }
 
-#favorite > div > p {
+#favourite > div > p {
     margin: 0;
 }
 
