@@ -691,7 +691,7 @@ h5.movie-comment {
 #data-compare-percent {
     width: 25%;
     padding: 1.5% 0;
-    background: rgba(0, 255, 0, 0.3);
+    background: #454545;
     border-radius: 50px;
 }
 

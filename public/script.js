@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', function () {
     contentUpdate();
 });
 
+window.addEventListener('resize', function(event) {
+    contentUpdate();
+}, true);
+
 window.onscroll = function (event) {
     // console.log(window.pageYOffset);
 
@@ -149,7 +153,8 @@ function plotData() {
     } else {
         profileData.style.display = "flex";
         profileDataNone.style.display = "none";
-        movieWeekPlot(movieLst);;
+        weeklyComparison(movieLst);
+        movieWeekPlot(movieLst);
         favGenreRating(favMovie);
     }
 
@@ -178,8 +183,8 @@ function getMovieDetails() {
     const movieComment = document.querySelector('input[name="movieComment"]').value;
     const uid = generateUUID();
 
-    const day = getDate(0);
-    const commentDate = `${day[0]}/${day[1]}/${day[2]}`
+    const date = getDate(0);
+    const commentDate = `${date[0]}/${date[1]}/${date[2]}`
 
     const movie = {
         movieName: movieName, movieGenre: movieGenre, watchedDate: formatDate(watchedDate),
@@ -212,13 +217,13 @@ function generateUUID() {
 }
 
 // Function to format date to dd/mm/yyyy https://stackoverflow.com/questions/2086744/javascript-function-to-convert-date-yyyy-mm-dd-to-dd-mm-yy
-function formatDate (date) {
+function formatDate(date) {
     var datePart = date.match(/\d+/g);
     year = datePart[0];
     month = datePart[1];
     day = datePart[2];
-  
-    return day+'/'+month+'/'+year;
+
+    return day + '/' + month + '/' + year;
 }
 
 function getDate(day) {
@@ -233,7 +238,7 @@ function getDate(day) {
     let m = ("0" + (date.getMonth() + 1)).slice(-2);
     let y = date.getFullYear();
 
-    return [d,m,y];
+    return [d, m, y];
     if (!yearReturn) return `${d}/${m}`;
 }
 
@@ -298,7 +303,7 @@ function favData(movieLst) {
 
     data.sort(favGenreOrder);
     // console.log(data);
-    
+
     return data;
 }
 
@@ -380,33 +385,96 @@ function favRecommendation(data) {
     // console.log(genre);
 }
 
-function movieWeekPlot(movieLst) {
-    const plotDiv = document.getElementById("data-bar");
-    
-    var date = [];
+function weeklyComparison(movieLst) {
+    const weeklyTotal = document.getElementById("data-compare-watchTime");
+    const watchTimeChange = document.getElementById("data-compare-percent");
+
     var watchTime = [];
+    for (var week = 0; week < 2; week++) {
+        var startDate = week * 7;
+        var total = 0;
+        for (var day = startDate; day < startDate + 7; day++) {
+            const date = getDate(day);
+            const fullDate = `${date[0]}/${date[1]}/${date[2]}`;
 
-    for (var i = 0; i < 7; i++) {
-        const day = getDate(i);
-        const fullDay = `${day[0]}/${day[1]}/${day[2]}`;
-
-        var time = 0;
-        movieLst.forEach(movie => {
-            if (movie.watchedDate == fullDay) {
-                time += Number(movie.movieDuration);
-            }
-        });
-
-        watchTime.push(time);
-        date.push(`${day[0]}/${day[1]}`);
+            movieLst.forEach(movie => {
+                if (movie.watchedDate == fullDate) {
+                    total += Number(movie.movieDuration);
+                }
+            });
+        };
+        watchTime.push(total);
     }
 
-    console.log(watchTime);
-    console.log(date);
+    weeklyTotal.textContent = `${Math.floor(watchTime[0] / 60)}hr ${watchTime[0] % 60}min`
+
+    var percentChange = (watchTime[0]-watchTime[1])/watchTime[1] * 100;
+    if (percentChange == Infinity) {
+        watchTimeChange.textContent = "-";
+        return;
+    }
+    else {
+        watchTimeChange.textContent = `${Math.floor(percentChange)} %`;
+
+        if (watchTime[0] >= 240 * 7 && percentChange > -10) watchTimeChange.style.background = "#dd1414"; // Over watching
+        else if (watchTime[0] >= 210 * 7 && percentChange > 30) watchTimeChange.style.background = "##b9b41e"; // Warning - in an increasing trend
+        else watchTimeChange.style.background = "#30c35f";
+    }
+}
+
+function movieWeekPlot(movieLst) {
+    const plotDiv = document.getElementById("data-bar");
 }
 
 function movieTotalPlot() {
+    //     const plotDiv = document.getElementById("watch-time");
 
+    //     var data = [{
+    //         x: ['giraffes', 'orangutans', 'monkeys'],
+    //         y: [20, 14, 23],
+    //         labels: reasonStr,
+    //         values: countNum,
+
+    //         textinfo: "label+percent",
+
+    //         hovertemplate: '<i>Reason</i>: %{customdata[0][0]}' + '<br><b>Recorded cases</b>: %{customdata[0][1]}<extra></extra>',
+
+    //         // Follow the design pattern used in tutorial task 2: https://community.plotly.com/t/plotly-pie-chart-order-of-slices/35484
+    //         direction: 'clockwise',
+    //         sort: false,
+
+    //         hole: .5,
+    //         type: 'pie'
+    //     }]
+
+    //     var layout = {
+    //         title: {
+    //             // https://stackoverflow.com/questions/64991752/plotly-express-title-styling
+    //             font: { family: "Impact", size: 38 },
+
+    //             // https://community.plotly.com/t/multiple-color-in-title-text/64067/2
+    //             text: "Numerous of Dogs were <span style='color:red'>left</span> in the <br> Adoption Center due to following reasons",
+
+    //             y: 0.925
+    //         },
+    //         images: [{
+    //             // https://plotly.com/javascript/reference/layout/images/
+    //             x: 0.5,
+    //             y: 0.75,
+    //             sizex: .5,
+    //             sizey: .5,
+    //             opacity: .3,
+    //             source: "icon.png",
+    //             xanchor: "center",
+    //             yanchor: "center",
+    //         }],
+    //         margin: { t: 150, b: 150 },
+    //         height: 750,
+    //         width: 750,
+    //         showlegend: false,
+    //     };
+
+    //     Plotly.newPlot(plotDiv, data, layout);
 }
 
 
@@ -446,7 +514,7 @@ form.addEventListener("submit", function (event) {
     movieLst.push(getMovieDetails());
     movieLst.sort(watchedDateOrder);
     localStorage.setItem('movieLst', JSON.stringify(movieLst));
-    console.log(JSON.parse(localStorage.getItem('movieLst')));
+    // console.log(JSON.parse(localStorage.getItem('movieLst')));
     form.reset();
 
     let url = window.location.href;
@@ -459,8 +527,8 @@ form.addEventListener("submit", function (event) {
 // A function to avoid users selecting the future date as the date watched the movie
 document.querySelector('input[name="watchedDate"]').setAttribute("max", maxDateInput());
 function maxDateInput() {
-    const day = new getDate(0);
-    return`${day[2]}-${day[1]}-${day[0]}`;
+    const date = new getDate(0);
+    return `${date[2]}-${date[1]}-${date[0]}`;
 }
 
 showAllBtn.addEventListener("click", () => {
