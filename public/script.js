@@ -55,6 +55,8 @@ function contentUpdate() {
 
 
 
+
+
 // Main functions
 function displayMovie() {
     const historyLst = document.getElementById('history-lst');
@@ -185,6 +187,7 @@ function favData() {
     data.sort(favGenreOrder);
     // console.log(data);
 
+    favGenreRating(data);
     favRecommendation(data);
 }
 
@@ -210,12 +213,7 @@ function getMovieDetails() {
     const movieComment = document.querySelector('input[name="movieComment"]').value;
     const uid = generateUUID();
 
-    // Get date function https://www.freecodecamp.org/news/javascript-get-current-date-todays-date-in-js/
-    const date = new Date();
-    let d = date.getDate();
-    let m = date.getMonth() + 1;
-    let y = date.getFullYear();
-    const commentDate = `${d}/${m}/${y}`;
+    const commentDate = getDate();
 
     const movie = {
         movieName: movieName, movieGenre: movieGenre, watchedDate: watchedDate,
@@ -245,6 +243,15 @@ function generateUUID() {
     uuid += '-';
     uuid += randomValues.slice(10).join('');
     return uuid;
+}
+
+function getDate() {
+    // Get date function https://www.freecodecamp.org/news/javascript-get-current-date-todays-date-in-js/
+    const date = new Date();
+    let d = date.getDate();
+    let m = date.getMonth() + 1;
+    let y = date.getFullYear();
+    return`${d}/${m}/${y}`;
 }
 
 function setGenreIcon(img, genre) {
@@ -310,6 +317,25 @@ function favGenreOrder(a, b) {
             }
             return 0;
         }
+    }
+}
+
+function favGenreRating(data) {
+    const genre = document.querySelector('#fav-genre > .result');
+    const ratings = document.querySelector('#fav-ratings > .result');
+
+    genre.textContent = data[0].genre;
+
+    removeChilds(ratings);
+    const avgRating = data[0].totalRating / data[0].watchTime;
+    console.log(avgRating);
+    for (var i = 0; i < 5; i++) {
+        var star = document.createElement("span");
+        
+        if (i+1 <= Math.round(avgRating)) {star.setAttribute("class", "fa fa-star rating-checked");}
+        else {star.setAttribute("class", "fa fa-star");}
+
+        ratings.appendChild(star);
     }
 }
 

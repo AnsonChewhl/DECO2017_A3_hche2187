@@ -581,9 +581,10 @@ h5.movie-name {
 .movie-rating span {
 	font-size: 20px;
 	padding-right: 5px;
+    color: #3A3A3A;
 }
 
-.rating-checked {
+span.rating-checked {
 	color: #FF9900;
 }
 
@@ -638,7 +639,7 @@ h5.movie-comment {
     overflow: hidden;
 }
   
-#profile h2 {
+#profile > .main > h2 {
     padding-top: 8.5vh;
     text-align: center;
 }
@@ -668,11 +669,66 @@ h5.movie-comment {
 }
 
 #data-compare {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	justify-content: space-between;
 
+    text-align: center;
 }
 
-#data-favorite {
-	display: flex;
+#data-compare > p {
+    padding: 0 20%;
+    font-size: 18px;
+    color: #BCBCBC;
+}
+
+#data-compare-watchTime {
+    margin: 0;
+    font-size: 48px;
+}
+
+#data-compare-percent {
+    width: 25%;
+    padding: 1.5% 0;
+    background: rgba(0, 255, 0, 0.3);
+    border-radius: 50px;
+}
+
+div#data-movie {
+	background: transparent;
+    
+	display: grid;
+	grid-template-columns: 100%;
+	grid-template-rows: 30% 65%;
+    gap: 5%;
+}
+
+#data-movie > div {
+	background: #1C1C1C;
+}
+
+#favorite {
+    display: flex;
+    flex-direction: column;
+	justify-content: space-evenly;
+}
+
+#favorite > div {
+    width: 85%;
+    padding-left: 7.5%;
+
+    display: flex;
+	justify-content: space-between; 
+    align-items: center;
+}
+
+#favorite > div > .heading {
+    color: #BCBCBC;
+}
+
+#favorite > div > p {
+    margin: 0;
 }
 
 #profile > section > h3 {
