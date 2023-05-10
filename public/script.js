@@ -427,40 +427,7 @@ function movieWeekPlot(movieLst) {
 
     var dateLst = [];
     var watchTime = [];
-    for (var week = 0; week < 2; week++) {
-        var startDate = week * 7;
-        var total = 0;
-        for (var day = startDate; day < startDate + 7; day++) {
-            const date = getDate(day);
-            const fullDate = `${date[0]}/${date[1]}/${date[2]}`;
 
-            movieLst.forEach(movie => {
-                if (movie.watchedDate == fullDate) {
-                    total += Number(movie.movieDuration);
-                }
-            });
-        };
-        watchTime.push(total);
-    }
-
-    weeklyTotal.textContent = `${Math.floor(watchTime[0] / 60)}hr ${watchTime[0] % 60}min`
-
-    var percentChange = (watchTime[0]-watchTime[1])/watchTime[1] * 100;
-    if (percentChange == Infinity) {
-        watchTimeChange.textContent = "-";
-        return;
-    }
-    else {
-        watchTimeChange.textContent = `${Math.floor(percentChange)} %`;
-
-        if (watchTime[0] >= 240 * 7 && percentChange > -10) watchTimeChange.style.background = "#dd1414"; // Over watching
-        else if (watchTime[0] >= 210 * 7 && percentChange > 30) watchTimeChange.style.background = "##b9b41e"; // Warning - in an increasing trend
-        else watchTimeChange.style.background = "#30c35f";
-    }
-}
-
-function movieWeekPlot(movieLst) {
-    const plotDiv = document.getElementById("data-bar");
     for (var i = 0; i < 7; i++) {
         const date = getDate(i);
         const fullDate = `${date[0]}/${date[1]}/${date[2]}`;
