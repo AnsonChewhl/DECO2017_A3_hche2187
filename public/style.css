@@ -256,7 +256,7 @@ fieldset {
     text-transform: uppercase;
 
     /* Apply gradient color to text: https://cssgradient.io/blog/css-gradient-text/ */
-    background: linear-gradient(245deg, #EAEAEA 0%, rgba(234, 234, 234, 0.3) 110%);
+    background: linear-gradient(115deg, #EAEAEA 0%, rgba(234, 234, 234, 0) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
@@ -486,9 +486,7 @@ input:-webkit-autofill:active {
 #history {
     margin: 0;
     padding: 0;
-    max-height: 100vh;
     position: relative;
-    overflow: hidden;
     background-color: #1C1C1C;
 }
   
@@ -514,14 +512,13 @@ input:-webkit-autofill:active {
     padding: 10px 20px;
     font-size: 14px;
     text-transform: uppercase;
-    overflow: hidden;
     transition: .5s;
   
     background-color: transparent;
     border-radius: 5px;
 }
 
-#show-all-btn {
+#sort-btn {
     left: 15%;
     color: #FF9900;
     border-color: #FF9900;
@@ -534,13 +531,16 @@ input:-webkit-autofill:active {
 }
   
 #history-lst {
-	padding: 3.5% 5%;
-	width: 70%;
-	margin: auto;
+	margin: 3.5% auto 0;
+    padding: 0 3%;
+    
+    height: 75vh;
+    width: 70%;
+    overflow-y: scroll;
 
-	display: flex;
-	flex-direction: column;
-	gap: 4vh;
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
 }
 
 .history-info {

@@ -442,8 +442,8 @@ function weeklyComparison(movieLst) {
         watchTimeChange.textContent = `${Math.floor(percentChange)} %`;
 
         if (watchTime[0] >= 240 * 7 && percentChange > -10) watchTimeChange.style.background = "#dd1414"; // Over watching
-        else if (watchTime[0] >= 210 * 7 && percentChange > 30) watchTimeChange.style.background = "##b9b41e"; // Warning - in an increasing trend
-        else watchTimeChange.style.background = "#30c35f";
+        else if (watchTime[0] >= 210 * 7 && percentChange > 30) watchTimeChange.style.background = "#b9b41e"; // Warning - in an increasing trend
+        else watchTimeChange.style.background = "rgb(24 135 59)";
     }
 }
 
@@ -491,6 +491,7 @@ function movieWeekPlot(movieLst) {
             zerolinecolor: '#454545',
             gridcolor: '#454545',
             color: '#ffffff',
+            rangemode: 'tozero'
         },
         showlegend: false,
         paper_bgcolor: 'rgba(0,0,0,0)',
@@ -576,6 +577,13 @@ function navbarAnimation() {
     // This will close the menu if the user clicks outside the nav link <ul>
     navbarMenu.addEventListener("click", () => { navbarToggle.classList.remove('active') });
 
+    // Close the nav bar menu when users click any section tag
+    for (var i = 0; i < allNavLinks.length; i++) {
+        allNavLinks[i].addEventListener("click", () => { navbarToggle.classList.remove('active') });
+    }
+
+    navbarMenu.addEventListener("click", () => { navbarToggle.classList.remove('active') });
+
     // Stop clicks on the navbar links from toggling the menu (for when it's not mobile)
     navbarLinksContainer.addEventListener("click", (e) => e.stopPropagation());
 }
@@ -605,24 +613,6 @@ function maxDateInput() {
     const date = new getDate(0);
     return `${date[2]}-${date[1]}-${date[0]}`;
 }
-
-showAllBtn.addEventListener("click", () => {
-    const history = document.getElementById('history');
-
-    if (!showAll) {
-        showAllBtn.innerText = "Show Less"
-        history.style.maxHeight = "none";
-        history.style.overflow = "visible";
-        showAll = true;
-    } else {
-        showAllBtn.innerText = "Show All"
-        history.style.maxHeight = "100vh";
-        history.style.overflow = "hidden";
-        showAll = false;
-    }
-
-    sectionOffsetCheck();
-})
 
 function clearHistory() {
     // Confirmation panel for destructive action https://www.codexworld.com/how-to/show-delete-confirmation-message-dialog-javascript/
