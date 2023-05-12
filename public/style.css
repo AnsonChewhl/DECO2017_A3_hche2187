@@ -533,10 +533,13 @@ input:-webkit-autofill:active {
 #history-lst {
 	margin: 3.5% auto 0;
     padding: 0 3%;
-    
+
     height: 75vh;
     width: 70%;
-    overflow-y: scroll;
+
+    /* Make overflow scrolling works on mobile as well https://stackoverflow.com/questions/60445289/css-overflowscroll-does-not-work-on-mobile */
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch;
 
     display: flex;
     flex-direction: column;
