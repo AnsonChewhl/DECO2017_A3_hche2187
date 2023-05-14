@@ -609,6 +609,7 @@ form.addEventListener("submit", function (event) {
 
 // A function to avoid users selecting the future date as the date watched the movie
 document.querySelector('input[name="watchedDate"]').setAttribute("max", maxDateInput());
+document.querySelector('input[name="watchedDate"]').defaultValue = maxDateInput();
 function maxDateInput() {
     const date = new getDate(0);
     return `${date[2]}-${date[1]}-${date[0]}`;
