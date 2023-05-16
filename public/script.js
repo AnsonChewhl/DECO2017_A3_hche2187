@@ -442,7 +442,7 @@ function timeComparison(movieLst) {
     else {
         watchTimeChange.textContent = `${Math.floor(percentChange)} %`;
 
-        if (average >= 240 && percentChange > -10) watchTimeChange.style.background = "#dd1414"; // Over watching
+        if (average >= 300 || average >= 240 && percentChange > -10) watchTimeChange.style.background = "#dd1414"; // Over watching
         else if (average >= 210 && percentChange > 30) watchTimeChange.style.background = "#b9b41e"; // Warning - in an increasing trend
         else watchTimeChange.style.background = "rgb(24 135 59)";
     }
