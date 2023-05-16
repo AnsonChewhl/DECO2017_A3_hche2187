@@ -534,7 +534,7 @@ input:-webkit-autofill:active {
 	margin: 3.5% auto 0;
     padding: 0 3%;
 
-    height: 75vh;
+    max-height: 75vh;
     width: 70%;
 
     /* Make overflow scrolling works on mobile as well https://stackoverflow.com/questions/60445289/css-overflowscroll-does-not-work-on-mobile */
@@ -681,7 +681,7 @@ h5.movie-comment {
 }
 
 #data-compare > p {
-    padding: 0 20%;
+    padding: 0 15%;
     font-size: 18px;
     color: #BCBCBC;
 }

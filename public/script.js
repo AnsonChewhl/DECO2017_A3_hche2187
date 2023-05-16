@@ -153,7 +153,7 @@ function plotData() {
     } else {
         profileData.style.display = "flex";
         profileDataNone.style.display = "none";
-        weeklyComparison(movieLst);
+        timeComparison(movieLst);
         movieWeekPlot(movieLst);
         favGenreRating(favMovie);
     }
@@ -409,30 +409,31 @@ function favRecommendation(data) {
     // console.log(genre);
 }
 
-function weeklyComparison(movieLst) {
-    const weeklyTotal = document.getElementById("data-compare-watchTime");
+function timeComparison(movieLst) {
+    const dailyAverage = document.getElementById("data-compare-watchTime");
     const watchTimeChange = document.getElementById("data-compare-percent");
 
-    var watchTime = [];
-    for (var week = 0; week < 2; week++) {
-        var startDate = week * 7;
-        var total = 0;
-        for (var day = startDate; day < startDate + 7; day++) {
-            const date = getDate(day);
-            const fullDate = `${date[0]}/${date[1]}/${date[2]}`;
+    var total = 0;
+    for (var day = 0; day < 7; day++) {
+        const date = getDate(day);
+        const fullDate = `${date[0]}/${date[1]}/${date[2]}`;
 
-            movieLst.forEach(movie => {
-                if (movie.watchedDate == fullDate) {
-                    total += Number(movie.movieDuration);
-                }
-            });
-        };
-        watchTime.push(total);
-    }
+        movieLst.forEach(movie => {if (movie.watchedDate == fullDate) {total += Number(movie.movieDuration);}});
+    };
+    var average = total/7;
+    dailyAverage.textContent = `${Math.floor(average / 60)}hr ${Math.floor(average % 60)}min`
 
-    weeklyTotal.textContent = `${Math.floor(watchTime[0] / 60)}hr ${watchTime[0] % 60}min`
+    var overallAverage = 0;
+    var allDate = []
+    movieLst.forEach(movie => {
+        overallAverage += Number(movie.movieDuration);
+        if (!allDate.includes(movie.watchedDate)) allDate.push(movie.watchedDate);
+    });
 
-    var percentChange = (watchTime[0]-watchTime[1])/watchTime[1] * 100;
+    overallAverage /= allDate.length;
+    // console.log(overallAverage);
+
+    var percentChange = (average - overallAverage)/overallAverage * 100;
     if (percentChange == Infinity) {
         watchTimeChange.textContent = "-";
         watchTimeChange.style.background = "#454545";
@@ -441,8 +442,8 @@ function weeklyComparison(movieLst) {
     else {
         watchTimeChange.textContent = `${Math.floor(percentChange)} %`;
 
-        if (watchTime[0] >= 240 * 7 && percentChange > -10) watchTimeChange.style.background = "#dd1414"; // Over watching
-        else if (watchTime[0] >= 210 * 7 && percentChange > 30) watchTimeChange.style.background = "#b9b41e"; // Warning - in an increasing trend
+        if (average >= 240 && percentChange > -10) watchTimeChange.style.background = "#dd1414"; // Over watching
+        else if (average >= 210 && percentChange > 30) watchTimeChange.style.background = "#b9b41e"; // Warning - in an increasing trend
         else watchTimeChange.style.background = "rgb(24 135 59)";
     }
 }
