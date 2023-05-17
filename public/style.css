@@ -48,6 +48,16 @@ fieldset {
     color: #8E8E8E;
 }
 
+.plot-container {
+    position: relative;
+    display: block;
+}
+
+.plot {
+    height: 100%;
+    width: 100%;
+}
+
 /* End of default properties */
 
 
@@ -730,8 +740,6 @@ h5.movie-comment {
     height: 40vh;
     background: #1C1C1C;
 }
-
-#data-bar {}
 
 #data-compare {
     display: flex;

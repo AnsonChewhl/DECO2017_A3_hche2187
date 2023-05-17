@@ -152,8 +152,9 @@ function plotData() {
         profileData.style.display = "flex";
         profileDataNone.style.display = "none";
         timeComparison(movieLst);
-        movieWeekPlot(movieLst);
         favGenreRating(favMovie);
+        movieWeekPlot(movieLst);
+        movieTotalPlot(movieLst);
     }
 
     favRecommendation(favMovie);
@@ -496,7 +497,7 @@ function movieWeekPlot(movieLst) {
             }
         });
 
-        watchTime.push(time);
+        watchTime.push(Math.round(time * 100) / 100);
         dateLst.push(`${date[0]}/${date[1]}`);
     }
 
@@ -507,7 +508,9 @@ function movieWeekPlot(movieLst) {
         hoverinfo: 'none',
         marker: {
             color: ['#FF9900', '#603A02', '#603A02', '#603A02', '#603A02', '#603A02', '#603A02']
-        }
+        },
+        text: watchTime,
+        textposition: 'auto',
     }]
 
     var layout = {
@@ -525,7 +528,14 @@ function movieWeekPlot(movieLst) {
             color: '#ffffff',
             rangemode: 'tozero'
         },
+        margin: {
+            l: 50,
+            r: 50,
+            b: 50,
+            t: 100
+        },
         showlegend: false,
+        responsive: true,
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
         dragmode: false // fix the plot to disable default scroll / drag movement (users can still do so by using the pan function)
@@ -534,55 +544,83 @@ function movieWeekPlot(movieLst) {
     Plotly.newPlot(plotDiv, data, layout);
 }
 
-function movieTotalPlot() {
-    //     const plotDiv = document.getElementById("watch-time");
+function movieTotalPlot(movieLst) {
+    const plotDiv = document.getElementById("watch-time");
 
-    //     var data = [{
-    //         x: ['giraffes', 'orangutans', 'monkeys'],
-    //         y: [20, 14, 23],
-    //         labels: reasonStr,
-    //         values: countNum,
+    var genreWatchTime = {}; // Using a object list is easier to complete the steps after
 
-    //         textinfo: "label+percent",
+    movieLst.forEach(movie => {
+        // Check if the object has the key https://www.freecodecamp.org/news/how-to-check-if-an-object-has-a-key-in-javascript/
+        var genre = movie.movieGenre;
+        var time = movie.movieDuration;
+        if (genre in genreWatchTime) {
+            // Update the key value https://hackernoon.com/how-to-update-object-key-values-using-javascript
+            genreWatchTime[genre] += time;
+        } else {
+            // Add new key and value to object https://stackoverflow.com/questions/1168807/how-can-i-add-a-key-value-pair-to-a-javascript-object
+            genreWatchTime[genre] = time;
+        }
+    });
 
-    //         hovertemplate: '<i>Reason</i>: %{customdata[0][0]}' + '<br><b>Recorded cases</b>: %{customdata[0][1]}<extra></extra>',
+    // Sorting the object list https://community.plotly.com/t/solved-insert-space-between-ticklabel-and-y-axis/19867/3
+    let sortable = [];
+    for (var movie in genreWatchTime) sortable.push([movie, genreWatchTime[movie]]);
+    sortable.sort((a, b) => {
+        if (a[1] < b[1]) return 1;
+        if (a[1] > b[1]) return -1;
+        return 0;
+    });
 
-    //         // Follow the design pattern used in tutorial task 2: https://community.plotly.com/t/plotly-pie-chart-order-of-slices/35484
-    //         direction: 'clockwise',
-    //         sort: false,
+    // Cutting the list to length of 3
+    while (sortable.length > 3) sortable.pop();
 
-    //         hole: .5,
-    //         type: 'pie'
-    //     }]
+    var genre = [];
+    var time = [];
+    sortable.forEach(movie => {
+        genre.push(movie[0]);
+        time.push(Math.round(movie[1]/60 * 100) / 100); // Round to 2 decimal places
+    });
 
-    //     var layout = {
-    //         title: {
-    //             // https://stackoverflow.com/questions/64991752/plotly-express-title-styling
-    //             font: { family: "Impact", size: 38 },
+    var data = [{
+        x: time,
+        y: genre,
+        type: 'bar',
+        hoverinfo: 'none',
+        marker: {color: ['#FF9900', '#603A02', '#603A02']},
+        text: time,
+        textposition: 'auto',
+        orientation: 'h'
+    }]
 
-    //             // https://community.plotly.com/t/multiple-color-in-title-text/64067/2
-    //             text: "Numerous of Dogs were <span style='color:red'>left</span> in the <br> Adoption Center due to following reasons",
+    var layout = {
+        title: {
+            font: { family: "Open Sans", size: 16, color: "#FFFFFF" },
+            text: "Top 3 most watched movie genre (hr)",
+        },
+        xaxis: {
+            color: '#FFFFFF',
+        },
+        yaxis: {
+            autorange: 'reversed',
+            zerolinecolor: '#454545',
+            gridcolor: '#454545',
+            color: '#ffffff',
+            rangemode: 'tozero'
+        },
+        margin: {
+            l: 90,
+            r: 30,
+            b: 50,
+            t: 70,
+            pad: 10
+        },
+        responsive: true,
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        dragmode: false // fix the plot to disable default scroll / drag movement (users can still do so by using the pan function)
+    };
 
-    //             y: 0.925
-    //         },
-    //         images: [{
-    //             // https://plotly.com/javascript/reference/layout/images/
-    //             x: 0.5,
-    //             y: 0.75,
-    //             sizex: .5,
-    //             sizey: .5,
-    //             opacity: .3,
-    //             source: "icon.png",
-    //             xanchor: "center",
-    //             yanchor: "center",
-    //         }],
-    //         margin: { t: 150, b: 150 },
-    //         height: 750,
-    //         width: 750,
-    //         showlegend: false,
-    //     };
-
-    //     Plotly.newPlot(plotDiv, data, layout);
+    Plotly.newPlot(plotDiv, data, layout);
 }
 
 
