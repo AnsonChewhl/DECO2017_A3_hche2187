@@ -167,7 +167,7 @@ function plotData() {
 // A function that recorded all sections' offset position
 function sectionOffsetCheck() {
     for (var i = 0; i < 4; i++) {
-        sectionOffset[i] = allSections[i].offsetTop;
+        sectionOffset[i] = allSections[i].offsetTop - 0.5; // To avoid wrong section caused by rounding
         // console.log(i + ": " + allSections[i].offsetTop);
     }
 }
