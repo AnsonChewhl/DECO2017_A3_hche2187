@@ -1,16 +1,19 @@
 html {
-    scroll-behavior: smooth; /* When users click on the nav bar to scroll to a particular section, smoothen the scroll */
+    scroll-behavior: smooth;
+    /* When users click on the nav bar to scroll to a particular section, smoothen the scroll */
 }
 
-html, body {
+html,
+body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
-  
+
     background-color: #212121;
-  
-    font-family: 'Open Sans'; /* Creates friendly vibe */
+
+    font-family: 'Open Sans';
+    /* Creates friendly vibe */
     font-style: normal;
     color: #EDEDED;
 }
@@ -36,11 +39,12 @@ fieldset {
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     font-size: 18px;
     font-weight: 600;
     color: #8E8E8E;
 }
+
 /* End of default properties */
 
 
@@ -51,9 +55,11 @@ fieldset {
 #navbar {
     width: 100%;
     height: 64px;
-    position: fixed; /* Fix it to the top of the screen */
+    position: fixed;
+    /* Fix it to the top of the screen */
     background-color: #0E0E0E;
-    z-index: 100; /* Avoid being covered by other elements */
+    z-index: 100;
+    /* Avoid being covered by other elements */
 }
 
 .navbar-container {
@@ -65,7 +71,7 @@ fieldset {
 }
 
 .navbar-container img#logo {
-    height: 40px;   
+    height: 40px;
 }
 
 #navbar-menu ul {
@@ -77,16 +83,16 @@ fieldset {
     overflow: hidden;
 }
 
-#navbar-menu > ul > li {
+#navbar-menu>ul>li {
     display: inline;
     line-height: 64px;
     padding: 0 15px;
     width: 100px;
 }
 
-#navbar-menu > ul > li > a {
+#navbar-menu>ul>li>a {
     position: relative;
-    display:block;
+    display: block;
     color: #EDEDED;
     text-decoration: none;
     font-size: 16px;
@@ -96,24 +102,24 @@ fieldset {
 /* Show an orange line under the current section to notify users which section they are at */
 #current-section::after {
     position: absolute;
-    content: ""; 
-    height: 5px; 
-    width: 100%; 
-    left: 0; 
+    content: "";
+    height: 5px;
+    width: 100%;
+    left: 0;
     bottom: 0;
     background-color: #FF9900;
 }
 
-#navbar-menu > ul > li > a:hover {
+#navbar-menu>ul>li>a:hover {
     color: #FF9900;
 }
 
-#navbar-menu > ul > li > a:hover::after {
+#navbar-menu>ul>li>a:hover::after {
     position: absolute;
-    content: ""; 
-    height: 5px; 
-    width: 100%; 
-    left: 0; 
+    content: "";
+    height: 5px;
+    width: 100%;
+    left: 0;
     bottom: 0;
     background-color: #FF9900;
 }
@@ -128,7 +134,7 @@ fieldset {
     #navbar-menu {
         position: fixed;
         width: 100%;
-        top: 64px; 
+        top: 64px;
         left: 0;
         right: 0;
         bottom: 0;
@@ -147,33 +153,33 @@ fieldset {
         background-color: #1C1C1C;
     }
 
-    #navbar-menu > ul > li {
+    #navbar-menu>ul>li {
         line-height: 64px;
         width: 80%;
     }
 
-    #navbar-menu > ul > li > a:hover {
+    #navbar-menu>ul>li>a:hover {
         border-bottom: 0;
     }
 
-    .navbar-item > .hori-line {
+    .navbar-item>.hori-line {
         display: block;
         width: 100%;
         height: 0.5px;
         background-color: #EDEDED;
     }
 
-    #navbar-menu > ul > li > a:hover::after {
-        height: 3px; 
-        width: 100%; 
+    #navbar-menu>ul>li>a:hover::after {
+        height: 3px;
+        width: 100%;
     }
 
     #current-section::after {
-        height: 3px; 
-        width: 100%; 
+        height: 3px;
+        width: 100%;
     }
 
-    #navbar-toggle.active + #navbar-menu {
+    #navbar-toggle.active+#navbar-menu {
         background-color: #1C1C1C;
         display: flex;
     }
@@ -239,9 +245,11 @@ fieldset {
 #landing {
     margin: 0;
     padding: 0;
-    height: 100vh; /* Take up all the screen space */
+    height: 100vh;
+    /* Take up all the screen space */
     position: relative;
-    overflow: hidden; /* Crop the image if the image is too big */
+    overflow: hidden;
+    /* Crop the image if the image is too big */
 }
 
 #landing h1 {
@@ -294,7 +302,7 @@ fieldset {
     z-index: 0;
 }
 
-#landing-bg::before  {
+#landing-bg::before {
     background: linear-gradient(270deg, rgba(0, 0, 0, 0) 0%, #000000 70%);
 }
 
@@ -308,15 +316,16 @@ fieldset {
     position: relative;
     z-index: 99;
 }
-  
+
 #new-movie {
     margin: 0;
     padding: 0;
     height: 90vh;
     position: relative;
-    overflow: hidden; /* Crop the image if the image is too big */
+    overflow: hidden;
+    /* Crop the image if the image is too big */
 }
-  
+
 #new-movie h2 {
     position: relative;
     text-align: center;
@@ -324,46 +333,46 @@ fieldset {
 }
 
 #movie-form {
-	position: relative;
-	left: 50%;
-	transform: translate(-50%, 0%);
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0%);
 
-	width: 35%;
-	margin-top: 5vh;
+    width: 35%;
+    margin-top: 5vh;
 
-	background: rgba(28, 28, 28, 0.9);
-	box-sizing: border-box;
-	box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
-	border-radius: 10px;
+    background: rgba(28, 28, 28, 0.9);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
 }
 
 #input-form {
-	width: 100%;
-	height: 27.5vh;
-	padding-top: 5.5%;
+    width: 100%;
+    height: 27.5vh;
+    padding-top: 5.5%;
 
-	display: grid;
-	grid-template-columns: 40% 40%;
-	grid-template-rows: 30% 30% 30%;
-	gap: 5%;
-	justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: 40% 40%;
+    grid-template-rows: 30% 30% 30%;
+    gap: 5%;
+    justify-content: space-evenly;
 }
 
 /* Design inspired by https://codepen.io/soufiane-khalfaoui-hassani/pen/LYpPWda */
 .user-box {
-	position: relative;
+    position: relative;
 }
 
 .user-box input {
-	width: 100%;
-	padding: 10px 0;
-	font-size: 16px;
-	color: #fff;
-	margin-bottom: 30px;
-	border: none;
-	border-bottom: 1px solid #fff;
-	outline: none;
-	background: transparent;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
 }
 
 /* Remove autofill background: https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete */
@@ -371,112 +380,112 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-	transition: background-color 5000s ease-in-out 0s;
-	-webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: white !important;
 }
 
 .input-label,
 .top-left-label {
-	position: absolute;
-	top: 0;
-	left: 0;
-	padding: 10px 0;
-	font-size: 16px;
-	color: #fff;
-	pointer-events: none;
-	transition: .5s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
 }
 
 .user-box input:focus~.input-label,
 .user-box input:valid~.input-label,
 .top-left-label {
-	top: -20px;
-	left: 0;
-	color: #FF9900;
-	font-size: 12px;
+    top: -20px;
+    left: 0;
+    color: #FF9900;
+    font-size: 12px;
 }
 
 /* Removing the default icon that is disrupting the design https://stackoverflow.com/questions/20937475/remove-datalist-dropdown-arrow-in-chrome */
 [list]::-webkit-calendar-picker-indicator {
-	display: none !important;
+    display: none !important;
 }
 
 /* To set the calender icon to a easier to see color https://stackoverflow.com/questions/62162645/change-color-of-chromes-calendar-icon-in-html-date-input */
 ::-webkit-calendar-picker-indicator {
-	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
 }
 
 #movie-rating {
-	padding-top: 10px;
-	float: left;
+    padding-top: 10px;
+    float: left;
 }
 
 #movie-rating>label {
-	color: #90A0A3;
-	float: right;
+    color: #90A0A3;
+    float: right;
 }
 
 #movie-rating>label:before {
-	margin: 5px;
-	font-size: 24px;
-	font-family: FontAwesome;
-	content: "\f005";
-	display: inline-block;
+    margin: 5px;
+    font-size: 24px;
+    font-family: FontAwesome;
+    content: "\f005";
+    display: inline-block;
 }
 
 #movie-rating>input {
-	display: none;
+    display: none;
 }
 
 #movie-rating>input:checked~label,
 #movie-rating:not(:checked)>label:hover,
 #movie-rating:not(:checked)>label:hover~label {
-	color: #F79426;
+    color: #F79426;
 }
 
 #movie-rating>input:checked+label:hover,
 #movie-rating>input:checked~label:hover,
 #movie-rating>label:hover~input:checked~label,
 #movie-rating>input:checked~label:hover~label {
-	color: #FECE31;
+    color: #FECE31;
 }
 
 #submit-btn {
-	position: relative;
-	width: 100%;
-	text-align: center;
-	padding-top: 1.5vh;
-	padding-bottom: 3vh;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding-top: 1.5vh;
+    padding-bottom: 3vh;
 }
 
 #submit-btn button {
-	position: relative;
-	display: inline-block;
-	padding: 10px 60px;
+    position: relative;
+    display: inline-block;
+    padding: 10px 60px;
 
-	font-size: 16px;
-	text-transform: uppercase;
-	overflow: hidden;
-	transition: .5s;
+    font-size: 16px;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
 
-	letter-spacing: 4px;
-	background-color: #FF9900;
-	color: #fff;
-	border-radius: 5px;
-	border: none;
+    letter-spacing: 4px;
+    background-color: #FF9900;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
 }
 
 #submit-btn button:hover {
-	box-shadow: 0 0 5px #ffffff,
-		0 0 25px #ffffff,
-		0 0 50px #FF9900,
-		0 0 100px #FF9900;
+    box-shadow: 0 0 5px #ffffff,
+        0 0 25px #ffffff,
+        0 0 50px #FF9900,
+        0 0 100px #FF9900;
 }
 
 #new-movie-bg::before {
     background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.9) 50%, rgba(0, 0, 0, 0.6) 80%, #1C1C1C 100%);
 }
-  
+
 /* End of new movie section */
 
 
@@ -489,23 +498,24 @@ input:-webkit-autofill:active {
     position: relative;
     background-color: #1C1C1C;
 }
-  
+
 #history-header {
     position: relative;
     padding-top: 6.5%;
-    
+
     width: 100%;
     display: flex;
     align-items: center;
 }
-  
+
 #history h2 {
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0%);
 }
-  
-#history-header > button {
+
+#sort-btn,
+#clear-history-btn {
     position: absolute;
     width: 8.5vw;
 
@@ -513,7 +523,7 @@ input:-webkit-autofill:active {
     font-size: 14px;
     text-transform: uppercase;
     transition: .5s;
-  
+
     background-color: transparent;
     border-radius: 5px;
 }
@@ -524,14 +534,48 @@ input:-webkit-autofill:active {
     border-color: #FF9900;
 }
 
+/* Dropdown Content (Hidden by Default) */
+#sort-dropdown {
+    display: block;
+    position: absolute;
+    left: 15%;
+    margin-top: 50px;
+
+    border-radius: 5px;
+    overflow: hidden;
+
+    background-color: #f1f1f1;
+    width: 8.5vw;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+#sort-dropdown .sort-order {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+/* Don't apply to selected order https://stackoverflow.com/questions/12216757/how-to-ignore-css-class */
+#sort-dropdown .sort-order:not(#sort-selected):hover {
+    background-color: #ddd;
+}
+
+#sort-selected {
+    background-color: #FF9900;
+}
+
 #clear-history-btn {
     right: 15%;
     color: #ff0000;
     border-color: #ff0000;
 }
-  
+
 #history-lst {
-	margin: 3.5% auto 0;
+    margin: 3.5% auto 0;
     padding: 0 3%;
 
     max-height: 75vh;
@@ -547,48 +591,48 @@ input:-webkit-autofill:active {
 }
 
 .history-info {
-	width: 100%;
-	display: flex;
-	align-items: center;
-	gap: 5%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5%;
 }
 
 .movie-img {
-	width: 96px;
-	height: 96px;
+    width: 96px;
+    height: 96px;
 }
 
 .movie-details {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 70% 30%;
-	justify-content: space-evenly;
-	align-items: center;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .movie-details h5 {
-	margin: 1vh 0;
-	font-weight: 400;
-	font-size: 18px;
+    margin: 1vh 0;
+    font-weight: 400;
+    font-size: 18px;
 }
 
 h5.movie-name {
-	font-weight: 600;
-	font-size: 22px;
+    font-weight: 600;
+    font-size: 22px;
 }
 
 .movie-watched-date span {
-	color: #8E8E8E;
+    color: #8E8E8E;
 }
 
 .movie-rating span {
-	font-size: 20px;
-	padding-right: 5px;
+    font-size: 20px;
+    padding-right: 5px;
     color: #3A3A3A;
 }
 
 span.rating-checked {
-	color: #FF9900;
+    color: #FF9900;
 }
 
 h5.movie-comment {
@@ -597,38 +641,38 @@ h5.movie-comment {
 }
 
 .delete-btn {
-	padding: 0;
-	border: none;
-	cursor: pointer;
-	appearance: none;
-	background-color: inherit;
-	transition: transform .3s ease-in-out;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    transition: transform .3s ease-in-out;
 }
 
 .delete-btn:hover {
-	transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .delete-btn img {
-	width: 50px;
-	height: 50px;
-	display: block;
-	padding: 0;
-	margin: 0;
+    width: 50px;
+    height: 50px;
+    display: block;
+    padding: 0;
+    margin: 0;
 }
 
 .seperate-line {
-	position: relative;
-	margin-top: 4vh;
-	left: 50%;
-	transform: translate(-50%, 0%);
+    position: relative;
+    margin-top: 4vh;
+    left: 50%;
+    transform: translate(-50%, 0%);
 
-	display: block;
-	width: 90%;
-	height: 1px;
-	background-color: #353535;
+    display: block;
+    width: 90%;
+    height: 1px;
+    background-color: #353535;
 }
-  
+
 /* End of history section */
 
 
@@ -641,46 +685,45 @@ h5.movie-comment {
     position: relative;
     overflow: hidden;
 }
-  
-#profile > .main > h2 {
+
+#profile>.main>h2 {
     padding-top: 8.5vh;
     text-align: center;
 }
-  
-#profile-data, #profile-data-none {
-	padding-top: 2.5vh;
-	width: 80%;
-	margin: auto;
 
-	display: flex;
+#profile-data,
+#profile-data-none {
+    padding-top: 2.5vh;
+    width: 80%;
+    margin: auto;
+
+    display: flex;
     align-items: center;
-	justify-content: space-between;
+    justify-content: space-between;
 }
 
 #profile-data-none {
     justify-content: center;
 }
 
-#profile-data > div {
-	width: 30%;
-	height: 40vh;
-	background: #1C1C1C;
+#profile-data>div {
+    width: 30%;
+    height: 40vh;
+    background: #1C1C1C;
 }
 
-#data-bar {
-
-}
+#data-bar {}
 
 #data-compare {
     display: flex;
     flex-direction: column;
     align-items: center;
-	justify-content: space-between;
+    justify-content: space-between;
 
     text-align: center;
 }
 
-#data-compare > p {
+#data-compare>p {
     padding: 0 15%;
     font-size: 18px;
     color: #BCBCBC;
@@ -699,63 +742,64 @@ h5.movie-comment {
 }
 
 div#data-movie {
-	background: transparent;
-    
-	display: grid;
-	grid-template-columns: 100%;
-	grid-template-rows: 30% 65%;
+    background: transparent;
+
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 30% 65%;
     gap: 5%;
 }
 
-#data-movie > div {
-	background: #1C1C1C;
+#data-movie>div {
+    background: #1C1C1C;
 }
 
 #favourite {
     display: flex;
     flex-direction: column;
-	justify-content: space-evenly;
+    justify-content: space-evenly;
 }
 
-#favourite > div {
+#favourite>div {
     width: 85%;
     padding-left: 7.5%;
 
     display: flex;
-	justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
 }
 
-#favourite > div > .heading {
+#favourite>div>.heading {
     color: #BCBCBC;
 }
 
-#favourite > div > p {
+#favourite>div>p {
     margin: 0;
 }
 
-#profile > section > h3 {
-	position: relative;
-	padding-top: 7vh;
-	left: 10%;
+#profile>section>h3 {
+    position: relative;
+    padding-top: 7vh;
+    left: 10%;
 }
 
 #recommendation {
-	padding: 1.5vh 0 5vh;
-	width: 80%;
-	margin: auto;
-	display: flex;
-	justify-content: space-between;
+    padding: 1.5vh 0 5vh;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
 }
 
 #recommendation img {
-	object-fit: cover; /* Avoid the image being stretched or over-size */
-	width: 275px;
-	height: 350px;
+    object-fit: cover;
+    /* Avoid the image being stretched or over-size */
+    width: 275px;
+    height: 350px;
 }
 
-#profile-bg::before  {
+#profile-bg::before {
     background: linear-gradient(180deg, rgb(28, 28, 28) 0%, rgba(28, 28, 28, 0.8) 20%, rgba(28, 28, 28, 0.6) 80%, rgba(28, 28, 28, 0) 100%);
 }
-  
+
 /* End of #profile section */

@@ -616,6 +616,10 @@ function maxDateInput() {
     return `${date[2]}-${date[1]}-${date[0]}`;
 }
 
+function openDropdown() {
+    
+}
+
 function clearHistory() {
     // Confirmation panel for destructive action https://www.codexworld.com/how-to/show-delete-confirmation-message-dialog-javascript/
     var confirmation = confirm("Are you sure to clear ALL the history?");

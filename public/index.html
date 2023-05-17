@@ -125,7 +125,17 @@
 		<section id="history" class="main-section">
 			<div id="history-header">
 				<h2> Watch History </h2>
-				<button id="sort-btn"> Sort </button>
+				<div>
+					<button id="sort-btn"> Sort </button>
+					<div id="sort-dropdown">
+						<a class="sort-order" id="sort-selected">Watched Date</a>
+						<a class="sort-order">Genre</a>
+						<a class="sort-order">Length (Longest)</a>
+						<a class="sort-order">Length (Shortest)</a>
+						<a class="sort-order">Rating (Highest)</a>
+						<a class="sort-order">Rating (Lowest)</a>
+					</div>
+				</div>
 				<button id="clear-history-btn" onclick="clearHistory()"> Clear History </button>
 			</div>
 
@@ -142,7 +152,7 @@
 						<p style="margin-top: 7.5%;"> Daily average time spent on watching movies in previous 7 days</p>
 						<h1 id="data-compare-watchTime"> 0hr 0min</h1>
 						<div id="data-compare-percent"> + 0% </div>
-						<p style="margin-bottom: 7.5%;">compared to average</p>
+						<p style="margin-bottom: 7.5%;">compared to overall daily average</p>
 					</div>
 					<div id="data-movie">
 						<div id="favourite">
