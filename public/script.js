@@ -51,7 +51,7 @@ window.onscroll = function (event) {
 };
 
 function contentUpdate() {
-    displayMovie();
+    displayMovie(sortOrder(null, true, null));
     plotData();
     sectionOffsetCheck(); // Re-calculate the offset position of each section
 }
@@ -61,10 +61,8 @@ function contentUpdate() {
 
 
 // Main functions
-function displayMovie() {
+function displayMovie(movieLst) {
     const historyLst = document.getElementById('history-lst');
-    let movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
-
     removeChilds(historyLst);
 
     if (movieLst.length < 1) {
@@ -178,8 +176,8 @@ function getMovieDetails() {
     const movieName = document.querySelector('input[name="movieName"]').value;
     const movieGenre = document.querySelector('input[name="movieGenre"]').value;
     const watchedDate = document.querySelector('input[name="watchedDate"]').value;
-    const movieDuration = document.querySelector('input[name="movieDuration"]').value;
-    const movieRating = document.querySelector('input[name="rating"]:checked').value;
+    const movieDuration = parseInt(document.querySelector('input[name="movieDuration"]').value);
+    const movieRating = parseInt(document.querySelector('input[name="rating"]:checked').value);
     const movieComment = document.querySelector('input[name="movieComment"]').value;
     const uid = generateUUID();
 
@@ -260,15 +258,48 @@ function removeChilds(element) {
     while (element.firstChild) element.removeChild(element.firstChild); // Removing all childs
 }
 
-// A function that helps to sort the objects by their watched date https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
-function watchedDateOrder(a, b) {
-    if (a.watchedDate < b.watchedDate) {
-        return 1;
-    }
-    if (a.watchedDate > b.watchedDate) {
-        return -1;
-    }
+// A function that helps to sort the objects https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
+// Sort in ascending order
+function sortOrderA(a, b) {
+    // Getting the values of the object https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values
+    a = Object.values(a)[temSort];
+    b = Object.values(b)[temSort];
+
+    if (a < b) return 1;
+    if (a > b) return -1;
     return 0;
+}
+
+// Sort in descending order
+function sortOrderD(a, b) {
+    a = Object.values(a)[temSort];
+    b = Object.values(b)[temSort];
+    
+    if (a > b) return 1;
+    if (a < b) return -1;
+    return 0;
+}
+
+// Sorting the movie display based on users preference
+let sortValue = 2; // Only be changed by users selection sorting
+let temSort = sortValue; // For tempory sorting e.g. saving the movie list in a specific order, without affecting the sorting order of the movies display
+function sortOrder(movieLst, ascending, value) {
+    if (movieLst == null) movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
+    // console.log(Object.keys(movieLst[0]));
+    // console.log(Object.values(movieLst[0]));
+
+    if (value != null) temSort = value;
+    else temSort = sortValue;
+
+    if (ascending) {
+        movieLst.sort(sortOrderA);
+    }
+    else {
+        movieLst.sort(sortOrderD);
+    }
+
+    // console.log(movieLst);
+    return movieLst;
 }
 
 function favData(movieLst) {
@@ -293,8 +324,8 @@ function favData(movieLst) {
 
         for (var i = 0; i < data.length; i++) {
             if (genre == data[i].genre) {
-                data[i].totalDuration += Number(duration);
-                data[i].totalRating += Number(rating);
+                data[i].totalDuration += duration;
+                data[i].totalRating += rating;
                 data[i].watchTime += 1;
                 break;
             }
@@ -418,7 +449,7 @@ function timeComparison(movieLst) {
         const date = getDate(day);
         const fullDate = `${date[0]}/${date[1]}/${date[2]}`;
 
-        movieLst.forEach(movie => {if (movie.watchedDate == fullDate) {total += Number(movie.movieDuration);}});
+        movieLst.forEach(movie => {if (movie.watchedDate == fullDate) {total += movie.movieDuration;}});
     };
     var average = total/7;
     dailyAverage.textContent = `${Math.floor(average / 60)}hr ${Math.floor(average % 60)}min`
@@ -426,7 +457,7 @@ function timeComparison(movieLst) {
     var overallAverage = 0;
     var allDate = []
     movieLst.forEach(movie => {
-        overallAverage += Number(movie.movieDuration);
+        overallAverage += movie.movieDuration;
         if (!allDate.includes(movie.watchedDate)) allDate.push(movie.watchedDate);
     });
 
@@ -461,7 +492,7 @@ function movieWeekPlot(movieLst) {
         var time = 0;
         movieLst.forEach(movie => {
             if (movie.watchedDate == fullDate) {
-                time += Number(movie.movieDuration/60);
+                time += movie.movieDuration/60;
             }
         });
 
@@ -596,7 +627,8 @@ form.addEventListener("submit", function (event) {
 
     let movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
     movieLst.push(getMovieDetails());
-    movieLst.sort(watchedDateOrder);
+    // Sorting the movieLst based on watched date
+    sortOrder(movieLst, true, 2);
     localStorage.setItem('movieLst', JSON.stringify(movieLst));
     // console.log(JSON.parse(localStorage.getItem('movieLst')));
     form.reset();
@@ -616,8 +648,28 @@ function maxDateInput() {
     return `${date[2]}-${date[1]}-${date[0]}`;
 }
 
-function openDropdown() {
-    
+const sortDropdown = document.getElementById('sort-dropdown');
+sortDropdown.style.display = "none";
+function toggleDropdown() {
+    if (sortDropdown.style.display == "none") sortDropdown.style.display = "block";
+    else sortDropdown.style.display = "none";
+}
+
+let currectOrder = 0;
+const sortContent = document.querySelectorAll('#sort-dropdown > .sort-order');
+function selectDropdown(obj, sort, ascending) {
+    sortContent[currectOrder].removeAttribute("id");
+    obj.setAttribute("id", "sort-selected");
+
+    for (var i = 0; i < sortContent.length; i++) {
+        if (sortContent[i] == obj) {
+            currectOrder = i;
+            sortValue = sort;
+            displayMovie(sortOrder(null, ascending, sortValue));
+            toggleDropdown(); // Close the dropdown menu
+            return;
+        }
+    }
 }
 
 function clearHistory() {

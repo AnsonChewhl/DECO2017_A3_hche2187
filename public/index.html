@@ -126,14 +126,14 @@
 			<div id="history-header">
 				<h2> Watch History </h2>
 				<div>
-					<button id="sort-btn"> Sort </button>
+					<button id="sort-btn" onclick="toggleDropdown()"> Sort </button>
 					<div id="sort-dropdown">
-						<a class="sort-order" id="sort-selected">Watched Date</a>
-						<a class="sort-order">Genre</a>
-						<a class="sort-order">Length (Longest)</a>
-						<a class="sort-order">Length (Shortest)</a>
-						<a class="sort-order">Rating (Highest)</a>
-						<a class="sort-order">Rating (Lowest)</a>
+						<a class="sort-order" id="sort-selected" onclick="selectDropdown(this, 2, true)">Watched Date</a>
+						<a class="sort-order" onclick="selectDropdown(this, 1, true)">Genre</a>
+						<a class="sort-order" onclick="selectDropdown(this, 3, true)">Length (Longest)</a>
+						<a class="sort-order" onclick="selectDropdown(this, 3, false)">Length (Shortest)</a>
+						<a class="sort-order" onclick="selectDropdown(this, 4, true)">Rating (Highest)</a>
+						<a class="sort-order" onclick="selectDropdown(this, 4, false)">Rating (Lowest)</a>
 					</div>
 				</div>
 				<button id="clear-history-btn" onclick="clearHistory()"> Clear History </button>
