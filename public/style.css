@@ -589,6 +589,23 @@ input:-webkit-autofill:active {
     gap: 4vh;
 }
 
+/* Custom scroll bar to fit the color palette https://stackoverflow.com/questions/38023932/custom-scrollbar-only-in-one-div */
+#history-lst {
+    &::-webkit-scrollbar {
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 0.5vw;
+    }
+     
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(255,255,255,.1);
+        border-radius: 3px;
+    }
+         
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: #FF9900;
+    }
+}
+
 .history-info {
     width: 100%;
     display: flex;
