@@ -538,10 +538,15 @@ function movieWeekPlot(movieLst) {
         responsive: true,
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
-        dragmode: false // fix the plot to disable default scroll / drag movement (users can still do so by using the pan function)
+        dragmode: false // fix the plot to disable default scroll / drag movement
     };
 
-    Plotly.newPlot(plotDiv, data, layout);
+    // Hiding the floating toolbar https://timonweb.com/javascript/how-to-hide-the-floating-toolbar-in-plotly/
+    const config = {
+        displayModeBar: false, // this is the line that hides the bar.
+    };
+
+    Plotly.newPlot(plotDiv, data, layout, config);
 }
 
 function movieTotalPlot(movieLst) {
@@ -617,10 +622,14 @@ function movieTotalPlot(movieLst) {
         responsive: true,
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
-        dragmode: false // fix the plot to disable default scroll / drag movement (users can still do so by using the pan function)
+        dragmode: false // fix the plot to disable default scroll / drag movement
     };
 
-    Plotly.newPlot(plotDiv, data, layout);
+    const config = {
+        displayModeBar: false, // this is the line that hides the bar.
+    };
+
+    Plotly.newPlot(plotDiv, data, layout, config);
 }
 
 
