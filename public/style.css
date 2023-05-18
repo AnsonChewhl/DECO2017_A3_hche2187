@@ -26,6 +26,27 @@ h2 {
     z-index: 3;
 }
 
+.section-bg {
+	position: absolute;
+	height: 100%;
+	left: 0;
+	top: 0;
+
+    background-size: cover;
+	width: 100%;
+}
+
+/* Creating a mask that can apply gradient colour */
+.section-bg::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+}
+
 /* Remove the default styling of a fieldset https://github.com/jensimmons/cssremedy/issues/50 */
 fieldset {
     margin-inline-start: 0;
@@ -284,35 +305,8 @@ fieldset {
     z-index: 3;
 }
 
-.section-bg {
-    position: absolute;
-    height: 100%;
-    left: 0;
-    top: 0;
-}
-
-.section-bg img {
-    object-fit: cover;
-    min-width: 100%;
-    min-height: 100%;
-
-    /* There was a 3.5px gap between the contents https://stackoverflow.com/questions/3947113/space-between-div-and-img */
-    display: block;
-    margin: 0;
-    padding: 0;
-
-    z-index: -1;
-}
-
-/* Creating a mask that can apply gradient colour */
-.section-bg::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
+#landing-bg {
+    background-image: url("image/section_landing/bg.png");
 }
 
 #landing-bg::before {
@@ -495,6 +489,10 @@ input:-webkit-autofill:active {
         0 0 100px #FF9900;
 }
 
+#new-movie-bg {
+    background-image: url("image/section_new-movie/bg.png");
+}
+
 #new-movie-bg::before {
     background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.9) 50%, rgba(0, 0, 0, 0.6) 80%, #1C1C1C 100%);
 }
@@ -527,8 +525,7 @@ input:-webkit-autofill:active {
     transform: translate(-50%, 0%);
 }
 
-#sort-btn,
-#clear-history-btn {
+#sort-btn, #clear-history-btn {
     position: absolute;
     width: 8.5vw;
 
@@ -823,6 +820,10 @@ div#data-movie {
     /* Avoid the image being stretched or over-size */
     width: 275px;
     height: 350px;
+}
+
+#profile-bg {
+    background-image: url("image/section_profile/bg.png");
 }
 
 #profile-bg::before {
