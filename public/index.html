@@ -121,7 +121,7 @@
 		<section id="history" class="main-section">
 			<div id="history-header">
 				<h2> Watch History </h2>
-				<div>
+				<div id="sort-btn-container">
 					<button id="sort-btn" onclick="toggleDropdown()"> Sort </button>
 					<div id="sort-dropdown">
 						<a class="sort-order" id="sort-selected" onclick="selectDropdown(this, 2, true)">Watched Date</a>
@@ -144,6 +144,7 @@
 				<h2>Personalised Data</h2>
 				<section id="profile-data">
 					<div class="plot-container">
+						<h3 class="plot-title">Previous 7 days records (hr)</h3>
 						<div class="plot" id="data-bar"></div>
 					</div>
 					<div id="data-compare">
@@ -156,6 +157,7 @@
 						<div id="favourite">
 						</div>
 						<div class="plot-container">
+							<h3 class="plot-title">Top 3 most watched movie genre (hr)</h3>
 							<div class="plot" id="watch-time"></div>
 						</div>
 					</div>

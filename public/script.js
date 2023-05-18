@@ -514,10 +514,6 @@ function movieWeekPlot(movieLst) {
     }]
 
     var layout = {
-        title: {
-            font: { family: "Open Sans", size: 20, color: "#FFFFFF" },
-            text: "Previous 7 days records (hr)",
-        },
         xaxis: {
             autorange: 'reversed',
             color: '#FFFFFF',
@@ -598,10 +594,6 @@ function movieTotalPlot(movieLst) {
     }]
 
     var layout = {
-        title: {
-            font: { family: "Open Sans", size: 16, color: "#FFFFFF" },
-            text: "Top 3 most watched movie genre (hr)",
-        },
         xaxis: {
             color: '#FFFFFF',
         },

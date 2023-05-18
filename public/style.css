@@ -75,16 +75,6 @@ fieldset {
     color: #8E8E8E;
 }
 
-.plot-container {
-    position: relative;
-    display: block;
-}
-
-.plot {
-    height: 100%;
-    width: 100%;
-}
-
 /* End of default properties */
 
 
@@ -648,10 +638,12 @@ input:-webkit-autofill:active {
     transform: translate(-50%, 0%);
 }
 
-#sort-btn, #clear-history-btn {
+#sort-btn-container, #clear-history-btn {
     position: absolute;
-    width: 8.5vw;
+    width: 160px;
+}
 
+#sort-btn, #clear-history-btn {
     padding: 10px 20px;
     font-size: 14px;
     text-transform: uppercase;
@@ -661,8 +653,12 @@ input:-webkit-autofill:active {
     border-radius: 5px;
 }
 
-#sort-btn {
+#sort-btn-container {
     left: 15%;
+}
+
+#sort-btn {
+    width: 100%;
     color: #FF9900;
     border-color: #FF9900;
 }
@@ -670,14 +666,13 @@ input:-webkit-autofill:active {
 /* Dropdown Content (Hidden by Default) */
 #sort-dropdown {
     position: absolute;
-    left: 15%;
-    margin-top: 50px;
+    margin-top: 10px;
 
     border-radius: 5px;
     overflow: hidden;
 
     background-color: #f1f1f1;
-    width: 8.5vw;
+    width: 100%;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
@@ -822,6 +817,34 @@ h5.movie-comment {
     background-color: #353535;
 }
 
+@media screen and (max-width: 1440px) {
+    #history-lst {
+        width: 80%;
+    }
+    #sort-btn-container {
+        left: 10%;
+    }
+    #clear-history-btn {
+        right: 10%;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    #history-lst {
+        width: 90%;
+    }
+    #sort-btn-container {
+        left: 5%;
+    }
+    #clear-history-btn {
+        right: 5%;
+    }
+}
+
+/* Responsive setting for mobile */
+@media screen and (max-width: 890px) {
+}
+
 /* End of history section */
 
 
@@ -861,6 +884,30 @@ h5.movie-comment {
     background: #1C1C1C;
 }
 
+.plot-container {
+    position: relative;
+    display: block;
+}
+
+.plot-title {
+    width: 100%;
+
+    position: absolute;
+    text-align: center;
+
+    font-size: 20px;
+    font-weight: 400;
+}
+
+#profile-data>.plot-container>h3 {
+    top: 1.5%;
+}
+
+.plot {
+    height: 100%;
+    width: 100%;
+}
+
 #data-compare {
     display: flex;
     flex-direction: column;
@@ -871,7 +918,7 @@ h5.movie-comment {
 }
 
 #data-compare>p {
-    padding: 0 15%;
+    padding: 0 10%;
     font-size: 18px;
     color: #BCBCBC;
 }
@@ -951,6 +998,150 @@ div#data-movie {
 
 #profile-bg::before {
     background: linear-gradient(180deg, rgb(28, 28, 28) 0%, rgba(28, 28, 28, 0.8) 20%, rgba(28, 28, 28, 0.6) 80%, rgba(28, 28, 28, 0) 100%);
+}
+
+@media screen and (max-width: 1860px) {
+    #recommendation img {
+        width: clamp(60px, 15vw, 275px);
+        height: clamp(80px, 19.5vw, 350px);
+    }
+}
+
+@media screen and (max-width: 1550px) {
+    .plot-title {
+        font-size: 16px;
+    }
+
+    #profile-data>.plot-container>h3 {
+        top: 7%;
+    }
+
+    #data-compare>p {
+        padding: 0 7.5%;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    #profile-data, #profile-data-none {
+        width: 90%;
+    }
+
+    #data-compare>p {
+        font-size: 14px;
+    }
+
+    #data-compare-watchTime {
+        margin: 0;
+        font-size: 44px;
+    }
+
+    #profile>section>h3 {
+        left: 5%;
+    }
+
+    #recommendation {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 1140px) {
+    .plot-title {
+        top: 3%;
+        font-size: 14px;
+    }
+
+}
+
+@media screen and (max-width: 1020px) {
+    #profile-data {
+        /* https://stackoverflow.com/questions/41439325/flexbox-two-rows-two-columns */
+        flex-wrap: wrap;
+        row-gap: 2vh;
+    }
+
+    #profile-data > div {
+        width: 47.5%;
+    }
+
+    .plot-title {
+        top: 1.5%;
+        font-size: 18px;
+    }
+
+    #profile-data > #data-movie {
+        width: 100%;
+        grid-template-rows: 20% 65%;
+    }
+
+    #data-movie > #favourite {
+        flex-direction: row;
+    }
+
+    #favourite > div {
+        width: 50%;
+        padding-left: 0;
+        justify-content: space-evenly;
+    }
+
+    #profile>section>h3 {
+        padding-top: 0;
+    }
+
+    #recommendation {
+        overflow-x: scroll !important;
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        flex-direction: row;
+        gap: 4vh;
+    }
+
+    #recommendation img {
+        width: 220px;
+        height: 300px;
+    }
+}
+
+/* Responsive settings for mobile */
+
+@media screen and (max-width: 640px) {
+    #profile-data > div {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    #profile-data > #data-movie {
+        grid-template-rows: 30% 65%;
+    }
+
+    #data-movie > #favourite {
+        flex-direction: column;
+    }
+
+    #favourite > div {
+        width: 85%;
+        padding-left: 7.5%;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    .plot-title {
+        font-size: 16px;
+    }
+
+    #data-compare>p {
+        font-size: 13px;
+    }
+
+    #data-compare>h1 {
+        font-size: 40px;
+    }
+
+    #data-compare-percent {
+        width: 30%;
+    }
 }
 
 /* End of #profile section */
