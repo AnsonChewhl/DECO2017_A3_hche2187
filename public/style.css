@@ -293,7 +293,7 @@ fieldset {
     top: 10%;
 
     font-weight: 700;
-    font-size: 96px;
+    font-size: 112px;
     line-height: 190%;
     text-transform: uppercase;
 
@@ -311,6 +311,61 @@ fieldset {
 
 #landing-bg::before {
     background: linear-gradient(270deg, rgba(0, 0, 0, 0) 0%, #000000 70%);
+}
+
+@media screen and (min-width: 1024px) and (min-height: 1080px) {
+	#landing h1 {
+		width: 70%;
+		top: 15%;
+		font-size: 112px !important;
+	}
+}
+
+@media screen and (min-width: 1920px) {
+	#landing h1 {
+		width: 50% !important;
+	}
+}
+
+@media screen and (max-width: 1690px) {
+	#landing h1 {
+		width: 60%;
+		font-size: 104px;
+	}
+}
+
+@media screen and (max-width: 1440px) {
+	#landing h1 {
+		width: 70%;
+		font-size: 96px;
+	}
+
+	#landing-bg {
+		background-position-x: center;
+	}
+}
+
+@media screen and (max-width: 1030px) {
+	#landing h1 {
+		width: 80%;
+		left: 50%;
+		top: 45%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+	}
+}
+
+@media screen and (max-width: 900px), (max-height: 600px) {
+	#landing h1 {
+		font-size: clamp(50px, 9vw, 86px);
+	}
+}
+
+/* Galaxy Fold (smallest screen) - 280px width */
+@media screen and (max-width: 380px) {
+	#landing h1 {
+		font-size: clamp(36px, 9vw, 50px);
+	}
 }
 
 /* End of landing section */
