@@ -1084,10 +1084,6 @@ div#data-movie {
         justify-content: space-evenly;
     }
 
-    #profile>section>h3 {
-        padding-top: 0;
-    }
-
     #recommendation {
         overflow-x: scroll !important;
         -webkit-overflow-scrolling: touch;
