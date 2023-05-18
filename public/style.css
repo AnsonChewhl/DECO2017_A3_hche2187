@@ -26,6 +26,12 @@ h2 {
     z-index: 3;
 }
 
+@media screen and (max-width: 400px) {
+    h2 {
+        font-size: 20px;
+    }
+}
+
 .section-bg {
 	position: absolute;
 	height: 100%;
@@ -386,8 +392,7 @@ fieldset {
     padding: 0;
     height: 90vh;
     position: relative;
-    overflow: hidden;
-    /* Crop the image if the image is too big */
+    overflow: hidden; /* Crop the image if the image is too big */
 }
 
 #new-movie h2 {
@@ -401,7 +406,7 @@ fieldset {
     left: 50%;
     transform: translate(-50%, 0%);
 
-    width: 35%;
+    width: 40%;
     margin-top: 5vh;
 
     background: rgba(28, 28, 28, 0.9);
@@ -412,7 +417,7 @@ fieldset {
 
 #input-form {
     width: 100%;
-    height: 27.5vh;
+    height: 280px;
     padding-top: 5.5%;
 
     display: grid;
@@ -479,6 +484,7 @@ input:-webkit-autofill:active {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
 }
 
+/* Design inspired by https://codepen.io/jrsdiniz/pen/OJVdXjx */
 #movie-rating {
     padding-top: 10px;
     float: left;
@@ -552,6 +558,66 @@ input:-webkit-autofill:active {
 
 #new-movie-bg::before {
     background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.9) 50%, rgba(0, 0, 0, 0.6) 80%, #1C1C1C 100%);
+}
+
+@media screen and (max-width: 1690px) {
+    #movie-form {
+        width: 50%;
+    }
+}
+
+/* Change the form to vertical layout */
+@media screen and (max-width: 1440px) {
+    #new-movie {
+        height: clamp(800px, 100vh, 1000px);
+    }
+
+    #movie-form {
+        width: 40%;
+    }
+
+	#input-form {
+        height: 470px;
+        grid-template-columns: 80%;
+        grid-template-rows: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+	}
+
+    #submit-btn {
+        padding-top: 2.5vh;
+        padding-bottom: 3.5vh;
+    }
+
+	#new-movie-bg {
+		background-position-x: center;
+	}
+}
+
+@media screen and (max-width: 1100px) {
+    #movie-form {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #movie-form {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    #movie-form {
+        width: 100%;
+        border-radius: 0;
+    }
+
+    #movie-form > .user-box {
+        font-size: 14px;
+    }
+
+    #submit-btn > button {
+        padding: 10px 50px;
+        font-size: 14px;
+    }
 }
 
 /* End of new movie section */
