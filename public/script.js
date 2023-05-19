@@ -1,3 +1,5 @@
+// console.log(window.innerWidth, window.innerHeight);
+
 const allNavLinks = document.querySelectorAll(".navbar-link");
 const allSections = document.querySelectorAll(".main-section"); // Selecting all the key section headers
 let sectionOffset = [0, 0, 0, 0];
@@ -136,7 +138,7 @@ function displayMovie(movieLst) {
 
             let deleteBtnImg = document.createElement("img");
             deleteBtnImg.setAttribute("src", "image/section_history/delete-btn.png");
-            deleteBtnImg.setAttribute("alt", "A bin icon that represents deletion");
+            deleteBtnImg.setAttribute("alt", "A red color bin icon that represents deletion");
             deleteBtn.appendChild(deleteBtnImg);
 
             let seperateLine = document.createElement("span");
@@ -248,12 +250,22 @@ function getDate(day) {
     if (!yearReturn) return `${d}/${m}`;
 }
 
+const genreIcons = {
+    "action": "An icon with a spy wearing a suit and carrying a gun, which represents the action is romance genre",
+    "adventure": "An icon with a adventurer carrying a torch, which represents the movie is adventure genre",
+    "comedy": "An icon with two smily faces, which represents the movie is comedy genre",
+    "fantasy": "An icon with a wizard, which represents the movie is fantasy genre",
+    "horror": "An icon with a couple in it, which represents the movie is romance genre",
+    "romance": "An icon with a ghost opening its mouth, which represents the movie is horror genre",
+    "sci-fi": "An icon with a floating UFO, which represents the movie is sci-fi genre",
+    "war": "An icon with a soldier shooting, which represents the movie is war genre",
+}
 function setGenreIcon(img, genre) {
     img.setAttribute("class", "movie-img");
 
     if (mainGenre.includes(genre)) {
         img.setAttribute("src", `image/section_history/icons/${genre.toLowerCase()}.png`);
-        img.setAttribute("alt", `An icon that represents the movie is ${genre.toLowerCase()} genre`);
+        img.setAttribute("alt", genreIcons[genre.toLowerCase()]);
     } else {
         img.setAttribute("src", `image/section_history/icons/other.png`);
         img.setAttribute("alt", "An icon with a unpacked box and question mark in the middle");
@@ -425,6 +437,112 @@ function favGenreRating(data) {
     }
 }
 
+const posterAlt = {
+    "action": [
+        {
+            "alt": "A movie poster of Revenge, in which a woman is carrying a gun and looking forward"
+        }, {
+            "alt": "A movie poster of Top Gun, in which a man and a woman are standing in front of an American flag"
+        }, {
+            "alt": "A movie poster of A Touch of Zen, in which a man is holding a sword inside a bamboo forest"
+        }, {
+            "alt": "A movie poster of Shoot Them Up, in which a man is wearing a brown jacket carrying dual wield with a woman wearing purple suit behind him and another man carrying a shotgun"
+        }, {
+            "alt": "A movie poster of The Villainess, in which there is a woman in a ponytail, carrying a pistol gun and wearing a black jacket"
+        }
+    ],
+    "adventure": [
+        {
+            "alt": "A movie poster of King Kong, in which a giant gorilla is yelling and holding a plane and a man"
+        }, {
+            "alt": "A movie poster of Robin Hood Prince of Thieves, in which there is a man with a scar on his face aiming with a bowl"
+        }, {
+            "alt": "A movie poster of Indiana Jones, in which a man is wearing a hat and riding a horse"
+        }, {
+            "alt": "A movie poster of The Jungle Book, in which there is a boy only wearing a loincloth and standing on a tree, with a bear and a tiger underneath"
+        }, {
+            "alt": "A movie poster of Pirates of Caribbean, in which a male pirate is wearing a red bandana cap and carrying a pistol and saber"
+        }
+    ],
+    "comedy": [
+        {
+            "alt": "A movie poster of Parents can be such blockers, which three teenage girls are standing in front with unwilling faces and three adults smiling happily behind"
+        }, {
+            "alt": "A movie poster of Pitch Perfect, in which seven girls are posing and one of them is holding a mic"
+        }, {
+            "alt": "A movie poster of Bill & Ted's Excellent Adventure, in which two boys are sitting on a time machine with a man behind placing his hands on their shoulder"
+        }, {
+            "alt": "A movie poster of In The Loop, in which two cartoon men are talking with a string phone"
+        }, {
+            "alt": "A movie poster of Shalin Soccer, in which a man is kicking a soccer with a kung fu pose and a woman following behind"
+        }
+    ],
+    "fantasy": [
+        {
+            "alt": "A movie poster of The Hobbit: An Unexpected Journey, in which a man is wearing a medieval costume and carrying a sword inside a forest"
+        }, {
+            "alt": "A movie poster of The House With A Clock In Its Walls, in which a man is looking at a house in front of the gate, with a shining clock on the house upper part"
+        }, {
+            "alt": "A movie poster of Nanny Mcphee, which a woman is standing in front of a door, with some kids and their parents surrounding"
+        }, {
+            "alt": "A movie poster of The Chronicles Of Narnia: The Lion, The Witch And The Wardrobe, in which there is a lion in the middle and some soldiers and a witch in white clothes in front of it"
+        }, {
+            "alt": "A movie poster of Where The Wild Things Are, in which a gigantic cat is looking at a little boy in the desert"
+        }
+    ],
+    "horror": [
+        {
+            "alt": "A movie poster of Hellraiser, in which there is a man whose face is full of needles"
+        }, {
+            "alt": "A movie poster of Oculus, in which a little boy is hiding behind a little girl and both of them look scared"
+        }, {
+            "alt": "A movie poster of Eden Lake, in which a woman is hiding behind a tree and some people are looking for her"
+        }, {
+            "alt": "A movie poster of Land Of The Dead, in which there is a crawling hand and some zombies behind"
+        }, {
+            "alt": "A movie poster of Shadow Of The Vampire, in which a man who wears a hat, with a vampire who has long fingernails behind"
+        }
+    ],
+    "romance": [
+        {
+            "alt": "A movie poster of The Big Sick, in which a man is holding a giraffe toy with a woman next to him and their own family members behind them with smiley faces"
+        }, {
+            "alt": "A movie poster of The Princess Bride, in which a man who wears a suit and a girl who wears a dress look at each other closely under the sunset"
+        }, {
+            "alt": "A movie poster of Bull Durham, in which a man is holding a baseball bat and sitting on the back of a car being kissed by a woman"
+        }, {
+            "alt": "A movie poster of The Half Of It, in which there are a girl who wears glass and a boy who is carrying a bag looking at a woman together "
+        }, {
+            "alt": "A movie poster of I'm Your Man, in which there is a man who wears a black suit and a woman who wears a white suit looking at each other closely"
+        }
+    ],
+    "sci-fi": [
+        {
+            "alt": "A movie poster of ET The Extra Terrestrial, in which an alien is using its finger to touch a human's finger edge"
+        }, {
+            "alt": "A movie poster of Tron Legacy, in which a man is raising his hands and a woman is next to him. They both wear a high-tech armour suit"
+        }, {
+            "alt": "A movie poster of Ender's Game, in which an astronaut is wearing a helmet in front of a high-tech machine"
+        }, {
+            "alt": "A movie poster of Prometheus, in which a person is carrying a flashlight and pointing at a huge head that is full of scars"
+        }, {
+            "alt": "A movie poster of Avatar, in which there is a man who has blue skin riding a huge animal that has a pair of wings"
+        }
+    ],
+    "war":  [
+        {
+            "alt": "A movie poster of Grave Of The Fireflies, in which there is a boy who wears a white vest carrying his little sister and holding a broken umbrella"
+        }, {
+            "alt": "A movie poster of All Quiet On The Western Front, in which some soldiers are fighting in the front line of the battlefield"
+        }, {
+            "alt": "A movie poster of The Hurt Locker, in which a soldier is carrying an assault rifle and there is a huge explosion behind him and his teammates"
+        }, {
+            "alt": "A movie poster of Son of Saul, in which a soldier is looking at another soldier who wears a hat angrily"
+        }, {
+            "alt": "A movie poster of Saving Private Ryan, in which a soldier walks in the middle with some other soldiers illusion behind"
+        }
+    ]
+}
 function favRecommendation(data) {
     const recommendation = document.getElementById('recommendation');
     removeChilds(recommendation);
@@ -440,7 +558,7 @@ function favRecommendation(data) {
     for (var i = 0; i < 5; i++) {
         let poster = document.createElement("img");
         poster.setAttribute("src", `image/section_profile/recommendation/${genre}/poster${i + 1}.png`);
-        poster.setAttribute("alt", `A poster of a ${genre} genre movie`);
+        poster.setAttribute("alt", posterAlt[genre][i].alt);
         poster.style.borderRadius = "5px";
         recommendation.appendChild(poster);
     }
