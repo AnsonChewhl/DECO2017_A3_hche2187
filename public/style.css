@@ -749,8 +749,8 @@ input:-webkit-autofill:active {
 .movie-details {
     width: 100%;
     display: grid;
-    grid-template-columns: 70% 30%;
-    justify-content: space-evenly;
+    grid-template-columns: 65% 30%;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -780,8 +780,12 @@ span.rating-checked {
 }
 
 h5.movie-comment {
+    display: none;
     color: #8E8E8E;
     font-style: italic;
+
+    /* Take up the whole column https://stackoverflow.com/questions/47319464/make-a-grid-column-span-the-entire-row */
+    grid-column: 1 / -1;
 }
 
 .delete-btn {
@@ -843,6 +847,144 @@ h5.movie-comment {
 
 /* Responsive setting for mobile */
 @media screen and (max-width: 890px) {
+    #history-lst {
+        margin: 7% auto 0;
+    }
+
+    .movie-img {
+        width: 82px;
+        height: 82px;
+    }
+    
+    .movie-details h5 {
+        font-size: 16px;
+    }
+    
+    h5.movie-name {
+        font-size: 20px;
+    }
+    
+    .movie-rating span {
+        font-size: 18px;
+    }
+
+    .delete-btn img {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+@media screen and (max-width: 790px) {
+    .movie-img {
+        width: 72px;
+        height: 72px;
+    }
+    
+    .movie-details h5 {
+        font-size: 14px;
+    }
+    
+    h5.movie-name {
+        font-size: 18px;
+    }
+    
+    .movie-rating span {
+        font-size: 16px;
+    }
+
+    .delete-btn img {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+@media screen and (max-width: 690px) {
+    #sort-btn-container, #clear-history-btn {
+        width: 130px;
+    }
+
+    #sort-btn, #clear-history-btn {
+        font-size: 10px;
+    }
+
+    #sort-dropdown .sort-order {
+        font-size: 12px;
+    }
+
+    .history-info {
+        position: relative;
+    }
+
+    .movie-img {
+        width: 62px;
+        height: 62px;
+    }
+    
+    .movie-details h5 {
+        font-size: 12px;
+    }
+    
+    h5.movie-name {
+        font-size: 16px;
+    }
+    
+    .movie-rating span {
+        font-size: 14px;
+    }
+
+    .delete-btn {
+        display: none;
+        position: absolute;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    #sort-btn-container, #clear-history-btn {
+        top: 60px;
+        width: 150px;
+    }
+
+    #history-lst {
+        margin: 90px auto 0;
+    }
+
+    .movie-img {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translate(-50%, 0);
+    }
+
+    .movie-details {
+        width: 90%;
+        margin: auto;
+        padding-top: 70px;
+        
+        grid-template-columns: 30% 30% 30%;
+        text-align: center;
+    }
+
+    .movie-name {
+        grid-column: 1 / -1;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    #history h2 {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        left: 0;
+        transform: translate(0);
+    }
+
+    #sort-btn-container, #clear-history-btn {
+        width: 120px;
+    }
+
+    .movie-details {
+        grid-template-columns: 100%;
+    }
 }
 
 /* End of history section */
@@ -1125,6 +1267,11 @@ div#data-movie {
 @media screen and (max-width: 390px) {
     .plot-title {
         font-size: 16px;
+    }
+
+    #data-movie > .plot-container > .plot-title {
+        top: 5%;
+        font-size: 13px;
     }
 
     #data-compare>p {
