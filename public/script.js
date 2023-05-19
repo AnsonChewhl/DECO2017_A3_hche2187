@@ -120,6 +120,8 @@ function displayMovie(movieLst) {
             let movieComment = document.createElement("h5");
             movieComment.setAttribute("class", "movie-comment");
             movieComment.innerHTML = `&quot${movie.movieComment}&quot <span> - commented ${movie.commentDate}</span>`;
+            movieComment.style.display = "none";
+            movieImg.addEventListener("click", toggleDisplayMode.bind(null, movieComment));
             movieDetails.appendChild(movieComment);
 
             let deleteBtn = document.createElement("button");
@@ -687,11 +689,15 @@ function maxDateInput() {
     return `${date[2]}-${date[1]}-${date[0]}`;
 }
 
+function toggleDisplayMode(obj) {
+    if (obj.style.display == "none") obj.style.display = "block";
+    else obj.style.display = "none";
+}
+
 const sortDropdown = document.getElementById('sort-dropdown');
 sortDropdown.style.display = "none";
 function toggleDropdown() {
-    if (sortDropdown.style.display == "none") sortDropdown.style.display = "block";
-    else sortDropdown.style.display = "none";
+    toggleDisplayMode(sortDropdown);
 }
 
 let currectOrder = 0;
