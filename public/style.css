@@ -734,6 +734,11 @@ input:-webkit-autofill:active {
     }
 }
 
+#history-instruction {
+    text-align: center;
+    color: #8E8E8E;
+}
+
 .history-info {
     width: 100%;
     display: flex;
@@ -948,11 +953,8 @@ h5.movie-comment {
         margin: 90px auto 0;
     }
 
-    .movie-img {
-        position: absolute;
-        left: 50%;
-        top: 0;
-        transform: translate(-50%, 0);
+    #history-instruction {
+        font-size: 14px;
     }
 
     .movie-details {
@@ -962,6 +964,13 @@ h5.movie-comment {
         
         grid-template-columns: 30% 30% 30%;
         text-align: center;
+    }
+
+    .movie-img {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translate(-50%, 0);
     }
 
     .movie-name {
@@ -980,6 +989,10 @@ h5.movie-comment {
 
     #sort-btn-container, #clear-history-btn {
         width: 120px;
+    }
+    
+    #history-instruction {
+        font-size: 12px;
     }
 
     .movie-details {

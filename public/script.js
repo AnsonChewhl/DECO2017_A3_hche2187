@@ -71,6 +71,11 @@ function displayMovie(movieLst) {
         notice.innerText = "You have not yet added any movie...";
         historyLst.appendChild(notice);
     } else {
+        let instruction = document.createElement("p");
+        instruction.setAttribute("id", "history-instruction");
+        instruction.innerText = "(Click the genre icon to see all data)";
+        historyLst.appendChild(instruction);
+
         movieLst.forEach(movie => {
             let parentDiv = document.createElement("div");
             parentDiv.setAttribute("id", movie.uid);
