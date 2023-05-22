@@ -6,11 +6,13 @@
 	<meta name="viewport" content="width=device-width">
 	<title>Movience - Movie Experience Tracker</title>
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-	<link href="style.css" rel="stylesheet">
+	<link rel="icon" href="image/navigation-bar/logoTop.png" type="image/x-icon"/>
+	<link rel="stylesheet" href="style.css" >
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
+	<!-- A navigation bar that allwos users to freely jump to diffferent sections -->
 	<header id="navbar">
 		<nav class="navbar-container">
 			<a href="index.html">
@@ -28,7 +30,7 @@
 			<div id="navbar-menu">
 				<ul class="navbar-links">
 					<li class="navbar-item">
-						<a id="current-section" class="navbar-link" href="#top">Home</a>
+						<a id="current-section" class="navbar-link" href="#landing">Home</a>
 						<span class="hori-line"></span>
 					</li>
 					<li class="navbar-item">
@@ -48,11 +50,13 @@
 	</header>
 
 	<main>
+		<!-- Landing section: Using a featured image to provide a first impression of what the website is about -->
 		<section id="landing" class="main-section">
 			<h1> Keep Track Of Your Movie Experience</h1>
 			<div id="landing-bg" class="section-bg"></div>
 		</section>
 
+		<!-- Movie form section: Users can fill out their watched movie with this form -->
 		<section id="new-movie" class="main-section">
 			<section class="main">
 				<h2> Have watched a new movie? </h2>
@@ -118,44 +122,57 @@
 			<div id="new-movie-bg" class="section-bg"></div>
 		</section>
 
+		<!-- History section: The movie that users filled will be displayed within this section -->
 		<section id="history" class="main-section">
 			<div id="history-header">
 				<h2> Watch History </h2>
+				<!-- A sorting function that allows users to sort the display order of the movies -->
 				<div id="sort-btn-container">
 					<button id="sort-btn" onclick="toggleDropdown()"> Sort </button>
 					<div id="sort-dropdown">
-						<a class="sort-order" id="sort-selected" onclick="selectDropdown(this, 2, true)">Watched Date</a>
-						<a class="sort-order" onclick="selectDropdown(this, 1, true)">Genre</a>
-						<a class="sort-order" onclick="selectDropdown(this, 3, true)">Length (Longest)</a>
-						<a class="sort-order" onclick="selectDropdown(this, 3, false)">Length (Shortest)</a>
-						<a class="sort-order" onclick="selectDropdown(this, 4, true)">Rating (Highest)</a>
-						<a class="sort-order" onclick="selectDropdown(this, 4, false)">Rating (Lowest)</a>
+						<a class="sort-order" id="sort-selected" onclick="selectDropdown(this, true, 2)">Watched Date</a>
+						<a class="sort-order" onclick="selectDropdown(this, false, 1)">Genre</a>
+						<a class="sort-order" onclick="selectDropdown(this, true, 3)">Length (Longest)</a>
+						<a class="sort-order" onclick="selectDropdown(this, false, 3)">Length (Shortest)</a>
+						<a class="sort-order" onclick="selectDropdown(this, true, 4)">Rating (Highest)</a>
+						<a class="sort-order" onclick="selectDropdown(this, false, 4)">Rating (Lowest)</a>
 					</div>
 				</div>
+				<!-- A local storage clear function that clears the stored data -->
 				<button id="clear-history-btn" onclick="clearHistory()"> Clear Data </button>
 			</div>
 
+			<!-- A container for the watched movies -->
 			<section id="history-lst">
 			</section>
 		</section>
 
+		<!-- Profile section: The data will be summarised and visualised within this section -->
 		<section id="profile" class="main-section">
 			<section class="main">
 				<h2>Personalised Data</h2>
 				<section id="profile-data">
+					<!-- A bar chart that shows user each day streaming length in last 7 days -->
 					<div class="plot-container">
 						<h3 class="plot-title">Previous 7 days records (hr)</h3>
 						<div class="plot" id="data-bar"></div>
 					</div>
+
+					<!-- A display that compares user average watch time in last 7 days and overall history -->
 					<div id="data-compare">
 						<p style="margin-top: 7.5%;"> Daily average time spent on watching movies in previous 7 days</p>
 						<h1 id="data-compare-watchTime"> 0hr 0min</h1>
 						<div id="data-compare-percent"> + 0% </div>
 						<p style="margin-bottom: 7.5%;">compared to overall daily average</p>
 					</div>
+
+					<!-- Users favourite genre and most watched movie will be summarised here -->
 					<div id="data-movie">
+						<!-- Displaying user favourite genre and its average rating -->
 						<div id="favourite">
 						</div>
+
+						<!-- A bar chart that shows how much time user spent on watching the particular genre movie -->
 						<div class="plot-container">
 							<h3 class="plot-title">Top 3 most watched movie genre (hr)</h3>
 							<div class="plot" id="watch-time"></div>
@@ -163,11 +180,13 @@
 					</div>
 				</section>
 
+				<!-- Noticing user to add movies to access the data, in case if there is no data -->
 				<section id="profile-data-none">
 					<h3 class="notice">Please add movies to your watch history first...</h3>
 				</section>
 
 				<h3>You may also like...</h3>
+				<!-- Programatically generating recommendations for the user based on their favourite genre -->
 				<section id="recommendation">
 				</section>
 			</section>

@@ -3,8 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
 
 html {
-    scroll-behavior: smooth;
-    /* When users click on the nav bar to scroll to a particular section, smoothen the scroll */
+    scroll-behavior: smooth; /* When users click on the nav bar to scroll to a particular section, smoothen the scroll */
 }
 
 html,
@@ -24,6 +23,11 @@ body {
 h2 {
     color: #EDEDED;
     z-index: 3;
+}
+
+.main {
+    position: relative;
+    z-index: 99;
 }
 
 @media screen and (max-width: 400px) {
@@ -81,15 +85,13 @@ fieldset {
 
 
 
-
+/* Below navigation bar styling was copied from my previous DECO1016 task and adjusted to fit into the context of this website */
 #navbar {
     width: 100%;
     height: 64px;
-    position: fixed;
-    /* Fix it to the top of the screen */
+    position: fixed; /* Fix it to the top of the screen */
     background-color: #0E0E0E;
-    z-index: 100;
-    /* Avoid being covered by other elements */
+    z-index: 100; /* Avoid being covered by other elements */
 }
 
 .navbar-container {
@@ -275,11 +277,9 @@ fieldset {
 #landing {
     margin: 0;
     padding: 0;
-    height: 100vh;
-    /* Take up all the screen space */
+    height: 100vh; /* Take up all the screen space */
     position: relative;
-    overflow: hidden;
-    /* Crop the image if the image is too big */
+    overflow: hidden; /* Crop the image if the image is too big */
 }
 
 #landing h1 {
@@ -295,6 +295,7 @@ fieldset {
 
     /* Apply gradient color to text: https://cssgradient.io/blog/css-gradient-text/ */
     background: linear-gradient(115deg, #EAEAEA 0%, rgba(234, 234, 234, 0) 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
@@ -372,11 +373,6 @@ fieldset {
 
 
 
-.main {
-    position: relative;
-    z-index: 99;
-}
-
 #new-movie {
     margin: 0;
     padding: 0;
@@ -391,6 +387,7 @@ fieldset {
     margin-top: 11.5vh;
 }
 
+/* A container of the input form */
 #movie-form {
     position: relative;
     left: 50%;
@@ -405,6 +402,7 @@ fieldset {
     border-radius: 10px;
 }
 
+/* The form that user has to filled out to add the movie to their watched history */
 #input-form {
     width: 100%;
     height: 280px;
@@ -474,7 +472,7 @@ input:-webkit-autofill:active {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
 }
 
-/* Design inspired by https://codepen.io/jrsdiniz/pen/OJVdXjx */
+/* Star rating design inspired by https://codepen.io/jrsdiniz/pen/OJVdXjx */
 #movie-rating {
     padding-top: 10px;
     float: left;
@@ -510,6 +508,7 @@ input:-webkit-autofill:active {
     color: #FECE31;
 }
 
+/* The button container which will submit the form when users click */
 #submit-btn {
     position: relative;
     width: 100%;
@@ -518,14 +517,13 @@ input:-webkit-autofill:active {
     padding-bottom: 3vh;
 }
 
-#submit-btn button {
+#submit-btn > button {
     position: relative;
     display: inline-block;
     padding: 10px 60px;
 
     font-size: 16px;
     text-transform: uppercase;
-    overflow: hidden;
     transition: .5s;
 
     letter-spacing: 4px;
@@ -535,7 +533,8 @@ input:-webkit-autofill:active {
     border: none;
 }
 
-#submit-btn button:hover {
+/* A sharp highlight effect that notice the user they are hovering the button */
+#submit-btn > button:hover {
     box-shadow: 0 0 5px #ffffff,
         0 0 25px #ffffff,
         0 0 50px #FF9900,
@@ -647,7 +646,6 @@ input:-webkit-autofill:active {
     padding: 10px 20px;
     font-size: 14px;
     text-transform: uppercase;
-    transition: .5s;
 
     background-color: transparent;
     border-radius: 5px;
@@ -691,6 +689,7 @@ input:-webkit-autofill:active {
     background-color: #ddd;
 }
 
+/* Change the selected sorting order to a different color */
 #sort-selected {
     background-color: #FF9900;
 }
@@ -770,6 +769,7 @@ h5.movie-name {
     font-size: 22px;
 }
 
+/* The watched text to a less visible color */
 .movie-watched-date span {
     color: #8E8E8E;
 }
@@ -780,6 +780,7 @@ h5.movie-name {
     color: #3A3A3A;
 }
 
+/* Change the stars' color based on rating */
 span.rating-checked {
     color: #FF9900;
 }
@@ -789,7 +790,7 @@ h5.movie-comment {
     color: #8E8E8E;
     font-style: italic;
 
-    /* Take up the whole column https://stackoverflow.com/questions/47319464/make-a-grid-column-span-the-entire-row */
+    /* Take up the whole row https://stackoverflow.com/questions/47319464/make-a-grid-column-span-the-entire-row */
     grid-column: 1 / -1;
 }
 
@@ -799,9 +800,9 @@ h5.movie-comment {
     cursor: pointer;
     appearance: none;
     background-color: inherit;
-    transition: transform .3s ease-in-out;
 }
 
+/* Animation to create visual metaphor of deleting (throwing the rubbish) */
 .delete-btn:hover {
     transform: rotate(180deg);
 }
@@ -903,6 +904,7 @@ h5.movie-comment {
     }
 }
 
+/* Moving the delete button to under the genre icon */
 @media screen and (max-width: 690px) {
     #sort-btn-container, #clear-history-btn {
         width: 130px;
@@ -943,12 +945,14 @@ h5.movie-comment {
     }
 }
 
+/* Changing each movie display to three different rows */
 @media screen and (max-width: 560px) {
     #sort-btn-container, #clear-history-btn {
         top: 60px;
         width: 150px;
     }
 
+    /* Make the history list center align (auto left & right margin) */
     #history-lst {
         margin: 90px auto 0;
     }
@@ -966,6 +970,7 @@ h5.movie-comment {
         text-align: center;
     }
 
+    /* Center the movie-img */
     .movie-img {
         position: absolute;
         left: 50%;
@@ -973,11 +978,13 @@ h5.movie-comment {
         transform: translate(-50%, 0);
     }
 
+    /* Make movie-name take up the whole grid row */
     .movie-name {
         grid-column: 1 / -1;
     }
 }
 
+/* Changing each movie display to five different rows */
 @media screen and (max-width: 390px) {
     #history h2 {
         position: absolute;
@@ -1018,8 +1025,7 @@ h5.movie-comment {
     text-align: center;
 }
 
-#profile-data,
-#profile-data-none {
+#profile-data, #profile-data-none {
     padding-top: 2.5vh;
     width: 80%;
     margin: auto;
@@ -1033,6 +1039,7 @@ h5.movie-comment {
     justify-content: center;
 }
 
+/* Creating the placeholder of the profile data */
 #profile-data>div {
     width: 30%;
     height: 40vh;
@@ -1044,6 +1051,7 @@ h5.movie-comment {
     display: block;
 }
 
+/* Customise plot title instead of using plotly preset for a more responsive design */
 .plot-title {
     width: 100%;
 
@@ -1103,6 +1111,7 @@ div#data-movie {
     background: #1C1C1C;
 }
 
+/* Placing the favourite movie genre and its average rating in two seperate rows */
 #favourite {
     display: flex;
     flex-direction: column;
@@ -1122,6 +1131,7 @@ div#data-movie {
     color: #BCBCBC;
 }
 
+/* Reset the default margin of the p tag */
 #favourite>div>p {
     margin: 0;
 }
@@ -1132,6 +1142,7 @@ div#data-movie {
     left: 10%;
 }
 
+/* Making the recommendation movie poster display in the same row with equal space */
 #recommendation {
     margin: 1.5vh auto 5vh;
     width: 80%;
@@ -1139,9 +1150,8 @@ div#data-movie {
     justify-content: space-between;
 }
 
-#recommendation img {
-    object-fit: cover;
-    /* Avoid the image being stretched or over-size */
+#recommendation > img {
+    object-fit: cover; /* Avoid the image being stretched or over-size */
     width: 275px;
     height: 350px;
 }
@@ -1209,7 +1219,7 @@ div#data-movie {
 
 @media screen and (max-width: 1020px) {
     #profile-data {
-        /* https://stackoverflow.com/questions/41439325/flexbox-two-rows-two-columns */
+        /* Making 2 columns for the top row and 1 column for the other rowhttps://stackoverflow.com/questions/41439325/flexbox-two-rows-two-columns */
         flex-wrap: wrap;
         row-gap: 2vh;
     }
@@ -1238,6 +1248,7 @@ div#data-movie {
         justify-content: space-evenly;
     }
 
+    /* Making the recommendation section scrollable to fit the screen size */
     #recommendation {
         overflow-x: scroll !important;
         -webkit-overflow-scrolling: touch;
@@ -1253,8 +1264,8 @@ div#data-movie {
 }
 
 /* Responsive settings for mobile */
-
 @media screen and (max-width: 640px) {
+    /* Making all the profile data plot and content display in the same column */
     #profile-data > div {
         width: 100%;
     }

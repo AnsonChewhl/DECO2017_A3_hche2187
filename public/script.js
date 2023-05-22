@@ -1,15 +1,13 @@
-// console.log(window.innerWidth, window.innerHeight);
-
+// Variables for highlighting user current section
 const allNavLinks = document.querySelectorAll(".navbar-link");
 const allSections = document.querySelectorAll(".main-section"); // Selecting all the key section headers
 let sectionOffset = [0, 0, 0, 0];
 let currentSection = 0;
 
+// The input form which user filled the watched movie data
 const form = document.getElementById('movie-form');
 
-let showAll = false;
-const showAllBtn = document.getElementById('show-all-btn');
-
+// The preset genre that are directly avaliable from the dropdown
 const mainGenre = ["action", "adventure", "comedy", "fantasy", "horror", "romance", "sci-fi", "war"];
 
 
@@ -17,16 +15,15 @@ const mainGenre = ["action", "adventure", "comedy", "fantasy", "horror", "romanc
 
 
 // Functions to call when the page finishes loading
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
+    // Setup the navbar to resize when the screen size is small
     navbarAnimation();
     contentUpdate();
 });
 
-window.addEventListener('resize', function(event) {
-    contentUpdate();
-}, true);
+window.addEventListener('resize', ()=> {contentUpdate()}, true);
 
-window.onscroll = function (event) {
+window.onscroll = () => {
     // console.log(window.pageYOffset);
 
     const totalSections = sectionOffset.length;
@@ -53,20 +50,29 @@ window.onscroll = function (event) {
 };
 
 function contentUpdate() {
+    // Create and display the movie history in the history section
+    // Use the local storage data -> sort in an ascending order -> sort by the current order
     displayMovie(sortOrder(null, true, null));
-    plotData();
-    sectionOffsetCheck(); // Re-calculate the offset position of each section
+    
+    // Create and display the plots in the profile section
+    plotData(); 
+    
+    // Re-calculate the offset position of each section
+    sectionOffsetCheck();
 }
 
 
 
 
 
-// Main functions
+/* Main functions */
+// @param movieLst (object): The list of movies to display
 function displayMovie(movieLst) {
+    //  Delete all displayed movie first
     const historyLst = document.getElementById('history-lst');
     removeChilds(historyLst);
 
+    // Check if there are any movies stored in the local storage
     if (movieLst.length < 1) {
         let notice = document.createElement("h3");
         notice.setAttribute("class", "notice");
@@ -78,69 +84,44 @@ function displayMovie(movieLst) {
         instruction.innerText = "(Click the genre icon to see all data)";
         historyLst.appendChild(instruction);
 
+        // Display all the movies that are stored in the local storage
         movieLst.forEach(movie => {
+            // The outer container of the whole movie
             let parentDiv = document.createElement("div");
             parentDiv.setAttribute("id", movie.uid);
             historyLst.appendChild(parentDiv);
 
+            // The inner container of the movie details
             let gridDiv = document.createElement("div");
             gridDiv.setAttribute("class", "history-info");
             parentDiv.appendChild(gridDiv);
 
-            const movieGenre = movie.movieGenre;
+            // The first child of the inner container
             let movieImg = document.createElement("img");
             movieImg = setGenreIcon(movieImg, movie.movieGenre.toLowerCase());
             gridDiv.appendChild(movieImg);
 
+            // The second child of the inner container
             let movieDetails = document.createElement("div");
             movieDetails.setAttribute("class", "movie-details");
             gridDiv.appendChild(movieDetails);
 
-            let movieName = document.createElement("h5");
-            movieName.setAttribute("class", "movie-name");
-            movieName.innerText = movie.movieName;
-            movieDetails.appendChild(movieName);
+            // The details to be added to the movieDetails container
+            addMovieDetails(movie, movieImg, movieDetails);
 
-            let watchedDate = document.createElement("h5");
-            watchedDate.setAttribute("class", "movie-watched-date");
-            watchedDate.innerHTML = `${movie.watchedDate} <span>watched</span>`;
-            movieDetails.appendChild(watchedDate);
-
-            let hr = Math.floor(movie.movieDuration / 60);
-            let min = movie.movieDuration % 60;
-            let movieDuration = document.createElement("h5");
-            movieDuration.setAttribute("class", "movie-length");
-            movieDuration.innerText = `${hr}hr ${min}min`;
-            movieDetails.appendChild(movieDuration);
-
-            let movieRatingContainer = document.createElement("div");
-            movieRatingContainer.setAttribute("class", "movie-rating");
-            movieDetails.appendChild(movieRatingContainer);
-
-            for (let i = 0; i < 5; i++) {
-                let movieRating = document.createElement("span");
-                if (i < movie.movieRating) movieRating.setAttribute("class", "fa fa-star rating-checked");
-                else movieRating.setAttribute("class", "fa fa-star");
-                movieRatingContainer.appendChild(movieRating);
-            }
-
-            let movieComment = document.createElement("h5");
-            movieComment.setAttribute("class", "movie-comment");
-            movieComment.innerHTML = `&quot${movie.movieComment}&quot <span> - commented ${movie.commentDate}</span>`;
-            movieComment.style.display = "none";
-            movieImg.addEventListener("click", toggleDisplayMode.bind(null, movieComment));
-            movieDetails.appendChild(movieComment);
-
+            // The third child of the inner container
             let deleteBtn = document.createElement("button");
             deleteBtn.setAttribute("class", "delete-btn");
             deleteBtn.addEventListener("click", removeMovie.bind(null, deleteBtn)); // Add functionality to the delete btn using bind https://stackoverflow.com/questions/21616393/javascript-event-listener-firing-on-page-load-not-click-event
             gridDiv.appendChild(deleteBtn);
 
+            // A bin icon to replace the default appearance of a button, which provides a more engaging experience
             let deleteBtnImg = document.createElement("img");
             deleteBtnImg.setAttribute("src", "image/section_history/delete-btn.png");
             deleteBtnImg.setAttribute("alt", "A red color bin icon that represents deletion");
             deleteBtn.appendChild(deleteBtnImg);
 
+            // A seperation line for better readability
             let seperateLine = document.createElement("span");
             seperateLine.setAttribute("class", "seperate-line");
             parentDiv.appendChild(seperateLine);
@@ -149,15 +130,18 @@ function displayMovie(movieLst) {
 }
 
 function plotData() {
+    // Display the user movie data in the profile section
     const movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
     const profileData = document.getElementById('profile-data');
     const profileDataNone = document.getElementById('profile-data-none');
     const favMovie = favData(movieLst);
 
+    // Check if any data is found first
     if (movieLst.length < 1) {
         profileData.style.display = "none";
         profileDataNone.style.display = "block";
     } else {
+        // If there is data, display the plots
         profileData.style.display = "flex";
         profileDataNone.style.display = "none";
         timeComparison(movieLst);
@@ -166,6 +150,7 @@ function plotData() {
         movieTotalPlot(movieLst);
     }
 
+    // Display the recommendation movie / If no data, display the default recommendtion
     favRecommendation(favMovie);
 }
 
@@ -173,7 +158,7 @@ function plotData() {
 
 
 
-// Sub functions
+/* Sub functions */
 // A function that recorded all sections' offset position
 function sectionOffsetCheck() {
     for (var i = 0; i < 4; i++) {
@@ -182,6 +167,50 @@ function sectionOffsetCheck() {
     }
 }
 
+// Create a set of texts showing the movie data and display them within the movieDetails container
+// @param movie (object): The movie that contains all its date
+// @param movieImg (object): The movie genre icon that has been created
+// @param movieDetails (object): The container that will be storing the texts
+function addMovieDetails(movie, movieImg, movieDetails) {
+    let movieName = document.createElement("h5");
+    movieName.setAttribute("class", "movie-name");
+    movieName.innerText = movie.movieName;
+    movieDetails.appendChild(movieName);
+
+    let watchedDate = document.createElement("h5");
+    watchedDate.setAttribute("class", "movie-watched-date");
+    watchedDate.innerHTML = `${movie.watchedDate} <span>watched</span>`;
+    movieDetails.appendChild(watchedDate);
+
+    let hr = Math.floor(movie.movieDuration / 60);
+    let min = movie.movieDuration % 60;
+    let movieDuration = document.createElement("h5");
+    movieDuration.setAttribute("class", "movie-length");
+    movieDuration.innerText = `${hr}hr ${min}min`;
+    movieDetails.appendChild(movieDuration);
+
+    let movieRatingContainer = document.createElement("div");
+    movieRatingContainer.setAttribute("class", "movie-rating");
+    movieDetails.appendChild(movieRatingContainer);
+
+    for (let i = 0; i < 5; i++) {
+        let movieRating = document.createElement("span");
+        if (i < movie.movieRating) movieRating.setAttribute("class", "fa fa-star rating-checked");
+        else movieRating.setAttribute("class", "fa fa-star");
+        movieRatingContainer.appendChild(movieRating);
+    }
+
+    let movieComment = document.createElement("h5");
+    movieComment.setAttribute("class", "movie-comment");
+    movieComment.innerHTML = `&quot${movie.movieComment}&quot <span> - commented ${movie.commentDate}</span>`;
+    movieComment.style.display = "none";
+    movieDetails.appendChild(movieComment);
+
+    // Display the movieComment when user clicks the icon (movieImg) / Hide it when user clicks again
+    movieImg.addEventListener("click", toggleDisplayMode.bind(null, movieComment));
+}
+
+// A function that retrieves the data from the input field of the movie form
 function getMovieDetails() {
     const movieName = document.querySelector('input[name="movieName"]').value;
     const movieGenre = document.querySelector('input[name="movieGenre"]').value;
@@ -191,9 +220,11 @@ function getMovieDetails() {
     const movieComment = document.querySelector('input[name="movieComment"]').value;
     const uid = generateUUID();
 
+    // Get the date when user submit the form
     const date = getDate(0);
     const commentDate = `${date[0]}/${date[1]}/${date[2]}`
 
+    // Save everything into an object
     const movie = {
         movieName: movieName, movieGenre: movieGenre, watchedDate: formatDate(watchedDate),
         movieDuration: movieDuration, movieRating: movieRating, movieComment: movieComment,
@@ -224,7 +255,8 @@ function generateUUID() {
     return uuid;
 }
 
-// Function to format date to dd/mm/yyyy https://stackoverflow.com/questions/2086744/javascript-function-to-convert-date-yyyy-mm-dd-to-dd-mm-yy
+// A function to format date to dd/mm/yyyy https://stackoverflow.com/questions/2086744/javascript-function-to-convert-date-yyyy-mm-dd-to-dd-mm-yy
+// @param date (string): A date that want to be re-formated into dd/mm/yyyy
 function formatDate(date) {
     var datePart = date.match(/\d+/g);
     year = datePart[0];
@@ -234,6 +266,8 @@ function formatDate(date) {
     return day + '/' + month + '/' + year;
 }
 
+// A function to retrieve the date
+// @param day (number): A number / integer that will be subtracted by today date, which helps to search for the date in the past (e.g. yesterday -> 1)
 function getDate(day) {
     // Get date function https://www.freecodecamp.org/news/javascript-get-current-date-todays-date-in-js/
     const date = new Date();
@@ -250,6 +284,7 @@ function getDate(day) {
     if (!yearReturn) return `${d}/${m}`;
 }
 
+// An object that contains the icons based on genres of the movie and the icons' alt text
 const genreIcons = {
     "action": "An icon with a spy wearing a suit and carrying a gun, which represents the action is romance genre",
     "adventure": "An icon with a adventurer carrying a torch, which represents the movie is adventure genre",
@@ -260,9 +295,14 @@ const genreIcons = {
     "sci-fi": "An icon with a floating UFO, which represents the movie is sci-fi genre",
     "war": "An icon with a soldier shooting, which represents the movie is war genre",
 }
+
+// A function that sets the icon for the genre (for display in the history section)
+// @param img (object): An image HTML element
+// @param genre (string): The genre of the movie
 function setGenreIcon(img, genre) {
     img.setAttribute("class", "movie-img");
 
+    // Check if the input genre is within the defined scope
     if (mainGenre.includes(genre)) {
         img.setAttribute("src", `image/section_history/icons/${genre.toLowerCase()}.png`);
         img.setAttribute("alt", genreIcons[genre.toLowerCase()]);
@@ -274,8 +314,10 @@ function setGenreIcon(img, genre) {
     return img
 }
 
+// A function that removes all childs of the provided element
+// @param element (object): A parent element that has to remove all its children element
 function removeChilds(element) {
-    while (element.firstChild) element.removeChild(element.firstChild); // Removing all childs
+    while (element.firstChild) element.removeChild(element.firstChild);
 }
 
 // A function that helps to sort the objects https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
@@ -300,9 +342,15 @@ function sortOrderD(a, b) {
     return 0;
 }
 
-// Sorting the movie display based on users preference
-let sortValue = 2; // Only be changed by users selection sorting
-let temSort = sortValue; // For tempory sorting e.g. saving the movie list in a specific order, without affecting the sorting order of the movies display
+// @variable sortValue: Will be changed when user clicks another sorting option, by default it is sorting by the watched date
+// @variable temSort: For tempory sorting e.g. saving the movie list in a specific order, without affecting the sorting order of the movies display
+let sortValue = 2; 
+let temSort = sortValue; 
+
+// A function that sorts the movie display based on the sorting order
+// @param movieLst (object): A list of movie data
+// @param ascending (boolean): Sort by ascending (true) / descending (false)
+// @param value (number): A list of movie data
 function sortOrder(movieLst, ascending, value) {
     if (movieLst == null) movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
     // console.log(Object.keys(movieLst[0]));
@@ -322,6 +370,8 @@ function sortOrder(movieLst, ascending, value) {
     return movieLst;
 }
 
+// A function that searches for user favourite movies
+// @param movieLst (object): A list of movie data
 function favData(movieLst) {
     var allGenre = [];
 
@@ -330,18 +380,22 @@ function favData(movieLst) {
         allGenre.push(genre);
     });
 
+    // Remove duplicated genres
     let data = [];
     let unique = allGenre.filter(onlyUnique)
     for (var i = 0; i < unique.length; i++) {
+        // Create a new object with the unqiue genre and add to the data list
         var newGenre = { genre: unique[i], totalDuration: 0, totalRating: 0, watchTime: 0};
         data.push(newGenre);
     }
 
+    // Loop through all existing movie data
     movieLst.forEach(movie => {
         var genre = movie.movieGenre;
         var duration = movie.movieDuration;
         var rating = movie.movieRating;
 
+        // Add up their duration and rating based on their genre
         for (var i = 0; i < data.length; i++) {
             if (genre == data[i].genre) {
                 data[i].totalDuration += duration;
@@ -352,39 +406,35 @@ function favData(movieLst) {
         }
     });
 
-    data.sort(favGenreOrder);
-    // console.log(data);
-
-    return data;
+    // Sort the data list based on a scaled user rating
+    return data.sort(favGenreOrder);
 }
 
-// Filtering unique value https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
+// A function that filters unique value https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
 function onlyUnique(value, index, array) {
     return array.indexOf(value) === index;
 }
 
-// Sort and find users favourite genre based on Average Rating > Watch Time > Total Duration
+// A function that sorts and looks for user's favourite genre based on Average Rating > Watch Time > Total Duration
 // New ranking system to avoid dominant of movie that has been watched once
 function favGenreOrder(a, b) {
-    var aAvgRating = (a.totalRating / a.watchTime * 6) + (a.watchTime * 3) + (a.totalDuration / 100);
-    var bAvgRating = (b.totalRating / b.watchTime * 6) + (b.watchTime * 3) + (b.totalDuration / 100);
+    // The ratio to calculate the score of each movie is: Average rating (60%) + Watch time (30%) + Total duration (10%)
+    var aScore = (a.totalRating / a.watchTime * 6) + (a.watchTime * 3) + (a.totalDuration / 100);
+    var bScore = (b.totalRating / b.watchTime * 6) + (b.watchTime * 3) + (b.totalDuration / 100);
     
-    if (aAvgRating < bAvgRating) {
-        return 1;
-    }
-    else if (aAvgRating > bAvgRating) {
-        return -1;
-    }
-    else {
-        return 0;
-    }
+    // The higher score of the genre, the higher it's rank
+    if (aScore < bScore) return 1;
+    else if (aScore > bScore) return -1;
+    else return 0;
 }
 
+// A function that displays user's favourite genre and its rating
+// @param data (object): A set of genre data that has been sorted by the favourite scores
 function favGenreRating(data) {
     const favourite = document.getElementById('favourite');
     removeChilds(favourite);
 
-    // To avoid the favourite genre is overrated
+    // To avoid the favourite genre being overrated
     let favGenre, avgRating = -1;
     for (var i = 0; i < data.length; i++){
         var average = data[i].totalRating / data[i].watchTime;
@@ -395,7 +445,9 @@ function favGenreRating(data) {
         }
     }
     
+    // If favourite movie genre found, display its genre and average rating
     if (favGenre > -1) {
+        // First row to display the genre
         var genreDiv = document.createElement("div");
         favourite.appendChild(genreDiv);
 
@@ -409,6 +461,7 @@ function favGenreRating(data) {
         genreResult.textContent = data[favGenre].genre;
         genreDiv.appendChild(genreResult);
 
+        // Second row to display the average ratings
         var ratingDiv = document.createElement("div");
         favourite.appendChild(ratingDiv);
 
@@ -421,6 +474,7 @@ function favGenreRating(data) {
         ratingeResult.setAttribute("class", "result");
         ratingDiv.appendChild(ratingeResult);
 
+        // Fill out the star ratings for better visual communication than plain text
         for (var i = 0; i < 5; i++) {
             var star = document.createElement("span");
     
@@ -437,6 +491,7 @@ function favGenreRating(data) {
     }
 }
 
+// An object that stores all different genres and their posters' alt texts
 const posterAlt = {
     "action": [
         {
@@ -543,18 +598,25 @@ const posterAlt = {
         }
     ]
 }
+
+// A function that creates the movie posters based on user's interest and display them
+// @param data (object): A set of genre data that has been sorted by the favourite scores
 function favRecommendation(data) {
     const recommendation = document.getElementById('recommendation');
     removeChilds(recommendation);
 
+    // Default recommendation
     let genre = "action";
+
+    // Check whether can find movie posters are that genre from the list
     for (var i = 0; i < data.length; i++) {
-        if (mainGenre.includes(data[i].genre.toLowerCase())) {
+        if (mainGenre.includes(data[i].genre.toLowerCase()) && data[i].totalRating / data[i].watchTime >= 3) {
             genre = data[i].genre.toLowerCase();
             break;
         }
     }
 
+    // Create and display the posters
     for (var i = 0; i < 5; i++) {
         let poster = document.createElement("img");
         poster.setAttribute("src", `image/section_profile/recommendation/${genre}/poster${i + 1}.png`);
@@ -562,14 +624,15 @@ function favRecommendation(data) {
         poster.style.borderRadius = "5px";
         recommendation.appendChild(poster);
     }
-
-    // console.log(genre);
 }
 
+// A function that compares and display the differences between user average watch time in this week and overall average 
+// @param movieLst (object): A list of movie data
 function timeComparison(movieLst) {
     const dailyAverage = document.getElementById("data-compare-watchTime");
     const watchTimeChange = document.getElementById("data-compare-percent");
 
+    // Calculate the total watch time in previous 7 days
     var total = 0;
     for (var day = 0; day < 7; day++) {
         const date = getDate(day);
@@ -577,19 +640,26 @@ function timeComparison(movieLst) {
 
         movieLst.forEach(movie => {if (movie.watchedDate == fullDate) {total += movie.movieDuration;}});
     };
+
+    // Divide the total watch time by 7 to find the average watch time
     var average = total/7;
     dailyAverage.textContent = `${Math.floor(average / 60)}hr ${Math.floor(average % 60)}min`
 
+    // Calculate the overall watch time by adding all movie duration and get all the date that users have watched any movie
     var overallAverage = 0;
     var allDate = []
     movieLst.forEach(movie => {
         overallAverage += movie.movieDuration;
+
+        // Check if the date already exist, if not add it to the list
         if (!allDate.includes(movie.watchedDate)) allDate.push(movie.watchedDate);
     });
 
+    // Calculate the overall average
     overallAverage /= allDate.length;
     // console.log(overallAverage);
 
+    // Calculate the percentage change
     var percentChange = (average - overallAverage)/overallAverage * 100;
     if (percentChange == Infinity) {
         watchTimeChange.textContent = "-";
@@ -597,6 +667,7 @@ function timeComparison(movieLst) {
         return;
     }
     else {
+        // Assigning the text content and background color for better visualisation
         watchTimeChange.textContent = `${Math.floor(percentChange)} %`;
 
         if (average >= 300 || average >= 240 && percentChange > -10) watchTimeChange.style.background = "#dd1414"; // Over watching
@@ -605,6 +676,8 @@ function timeComparison(movieLst) {
     }
 }
 
+// A function that creates a bar chart which shows how much time the user has streamed in previous 7 days
+// @param movieLst (object): A list of movie data
 function movieWeekPlot(movieLst) {
     const plotDiv = document.getElementById("data-bar");
 
@@ -664,16 +737,19 @@ function movieWeekPlot(movieLst) {
 
     // Hiding the floating toolbar https://timonweb.com/javascript/how-to-hide-the-floating-toolbar-in-plotly/
     const config = {
-        displayModeBar: false, // this is the line that hides the bar.
+        displayModeBar: false
     };
 
     Plotly.newPlot(plotDiv, data, layout, config);
 }
 
+// A function that creates a bar chart which shows the time spend on watching different genres
+// @param movieLst (object): A list of movie data
 function movieTotalPlot(movieLst) {
     const plotDiv = document.getElementById("watch-time");
 
-    var genreWatchTime = {}; // Using a object list is easier to complete the steps after
+    // Using a object list is easier to complete the steps after
+    var genreWatchTime = {}; 
 
     movieLst.forEach(movie => {
         // Check if the object has the key https://www.freecodecamp.org/news/how-to-check-if-an-object-has-a-key-in-javascript/
@@ -688,7 +764,7 @@ function movieTotalPlot(movieLst) {
         }
     });
 
-    // Sorting the object list https://community.plotly.com/t/solved-insert-space-between-ticklabel-and-y-axis/19867/3
+    // Sorting the object list
     let sortable = [];
     for (var movie in genreWatchTime) sortable.push([movie, genreWatchTime[movie]]);
     sortable.sort((a, b) => {
@@ -743,7 +819,8 @@ function movieTotalPlot(movieLst) {
     };
 
     const config = {
-        displayModeBar: false, // this is the line that hides the bar.
+        // Only display the chart and hide other display elements
+        displayModeBar: false,
     };
 
     Plotly.newPlot(plotDiv, data, layout, config);
@@ -754,7 +831,8 @@ function movieTotalPlot(movieLst) {
 
 
 
-// Button functions
+/* Button functions */
+// A function that adds responsiveness to the navbar
 function navbarAnimation() {
     // Nav-bar animation
     // Create a variable to reference the toggle <button>
@@ -784,7 +862,7 @@ function navbarAnimation() {
     navbarLinksContainer.addEventListener("click", (e) => e.stopPropagation());
 }
 
-// A function that will be triggered when the users submit the new movie form
+// A function that will be triggered when the user submits the new movie form
 // Submit function has to be added to the form instead of the button: https://stackoverflow.com/questions/32637920/why-does-a-submit-event-listener-not-work-on-a-submit-button
 form.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -804,7 +882,7 @@ form.addEventListener("submit", function (event) {
     contentUpdate();
 });
 
-// A function to avoid users selecting the future date as the date watched the movie
+// A function to avoid the user selecting the future date as the date watched the movie
 document.querySelector('input[name="watchedDate"]').setAttribute("max", maxDateInput());
 document.querySelector('input[name="watchedDate"]').defaultValue = maxDateInput();
 function maxDateInput() {
@@ -812,34 +890,47 @@ function maxDateInput() {
     return `${date[2]}-${date[1]}-${date[0]}`;
 }
 
+// A function that allows the user to click on the same button to switch between hide / show
+// @param obj (object): The object that is clicked
 function toggleDisplayMode(obj) {
     if (obj.style.display == "none") obj.style.display = "block";
     else obj.style.display = "none";
 }
 
+// A function to hide / show the dropdown menu
 const sortDropdown = document.getElementById('sort-dropdown');
 sortDropdown.style.display = "none";
 function toggleDropdown() {
     toggleDisplayMode(sortDropdown);
 }
 
+// A function that will be triggered when the user clicks a specific sorting order button
+// @param obj (object): The object that is clicked
+// @param ascending (boolean): A boolean that tells whether it has to be sort by ascending (true) or descending (false) order
+// @param sort (number): The order to sort (e.g. 2 -> sort by watched date)
 let currectOrder = 0;
 const sortContent = document.querySelectorAll('#sort-dropdown > .sort-order');
-function selectDropdown(obj, sort, ascending) {
+function selectDropdown(obj, ascending, sort) {
+    // Check whether the user is selecting another sorting format
+    if (obj == sortContent[currectOrder]) return;
+
+    // When users selected another sorting format
     sortContent[currectOrder].removeAttribute("id");
     obj.setAttribute("id", "sort-selected");
 
+    // Change the sorting format
     for (var i = 0; i < sortContent.length; i++) {
+        // Find the sort order that user want
         if (sortContent[i] == obj) {
             currectOrder = i;
-            sortValue = sort;
-            displayMovie(sortOrder(null, ascending, sortValue));
+            displayMovie(sortOrder(null, ascending, sort));
             toggleDropdown(); // Close the dropdown menu
             return;
         }
     }
 }
 
+// A function that allows the user to erase all movies from the watch history
 function clearHistory() {
     // Confirmation panel for destructive action https://www.codexworld.com/how-to/show-delete-confirmation-message-dialog-javascript/
     var confirmation = confirm("Are you sure to clear ALL the history?");
@@ -850,11 +941,15 @@ function clearHistory() {
     }
 }
 
+// A function that allows the user to remove the movie from the watch history
+// @param obj (object): The object that has to be removed
 function removeMovie(obj) {
     let movieLst = JSON.parse(localStorage.getItem('movieLst')) || [];
     let id = obj.parentNode.parentNode.id;
 
     for (var i = 0; i < movieLst.length; i++) {
+        // Using the movie uid helps to ensure the removed movie is the same as the one user clicked to remove
+        // Especially when the website is developed further with other specific functions (e.g. favourite) and all there are movies with the same details (e.g. name, genre)
         if (movieLst[i].uid == id) {
             movieLst.splice(i, 1);
             console.log("Movie has been removed");
