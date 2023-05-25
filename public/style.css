@@ -800,6 +800,7 @@ h5.movie-comment {
     cursor: pointer;
     appearance: none;
     background-color: inherit;
+    transition: transform .3s ease-in-out;
 }
 
 /* Animation to create visual metaphor of deleting (throwing the rubbish) */
