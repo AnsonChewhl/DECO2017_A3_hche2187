@@ -78,7 +78,13 @@ function displayMovie(movieLst) {
         notice.setAttribute("class", "notice");
         notice.innerText = "You have not yet added any movie...";
         historyLst.appendChild(notice);
+
+        document.getElementById("sort-btn-container").style.display = "none";
+        document.getElementById("clear-history-btn").style.display = "none";
     } else {
+        document.getElementById("sort-btn-container").style.display = "block";
+        document.getElementById("clear-history-btn").style.display = "block";
+
         let instruction = document.createElement("p");
         instruction.setAttribute("id", "history-instruction");
         instruction.innerText = "(Click the genre icon to see all data)";
@@ -643,7 +649,8 @@ function timeComparison(movieLst) {
 
     // Divide the total watch time by 7 to find the average watch time
     var average = total/7;
-    dailyAverage.textContent = `${Math.floor(average / 60)}hr ${Math.floor(average % 60)}min`
+    dailyAverage.textContent = `${Math.floor(average / 60)}hr ${Math.ceil(average % 60)}min`
+    // console.log(average);
 
     // Calculate the overall watch time by adding all movie duration and get all the date that users have watched any movie
     var overallAverage = 0;
@@ -661,7 +668,7 @@ function timeComparison(movieLst) {
 
     // Calculate the percentage change
     var percentChange = (average - overallAverage)/overallAverage * 100;
-    if (percentChange == Infinity) {
+    if (percentChange == Infinity || allDate.length < 7) {
         watchTimeChange.textContent = "-";
         watchTimeChange.style.background = "#454545";
         return;
