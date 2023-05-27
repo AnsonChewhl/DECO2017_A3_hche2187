@@ -922,40 +922,10 @@ h5.movie-comment {
     .history-info {
         position: relative;
     }
-
-    .movie-img {
-        width: 62px;
-        height: 62px;
-    }
     
-    .movie-details h5 {
-        font-size: 12px;
-    }
-    
-    h5.movie-name {
-        font-size: 16px;
-    }
-    
-    .movie-rating span {
-        font-size: 14px;
-    }
-
-    .delete-btn {
-        display: none;
-        position: absolute;
-    }
-}
-
-/* Changing each movie display to three different rows */
-@media screen and (max-width: 560px) {
-    #sort-btn-container, #clear-history-btn {
-        top: 60px;
-        width: 150px;
-    }
-
     /* Make the history list center align (auto left & right margin) */
     #history-lst {
-        margin: 90px auto 0;
+        margin: 30px auto 0;
     }
 
     #history-instruction {
@@ -973,6 +943,8 @@ h5.movie-comment {
 
     /* Center the movie-img */
     .movie-img {
+        width: 68px;
+        height: 68px;
         position: absolute;
         left: 50%;
         top: 0;
@@ -982,6 +954,41 @@ h5.movie-comment {
     /* Make movie-name take up the whole grid row */
     .movie-name {
         grid-column: 1 / -1;
+    }
+
+    .delete-btn {
+        position: absolute;
+        right: 5%;
+        top: 0%;
+    }
+
+    .delete-btn > img {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* Changing each movie display to three different rows */
+@media screen and (max-width: 560px) {
+    #history-lst {
+        margin: 90px auto 0;
+    }
+
+    #sort-btn-container, #clear-history-btn {
+        top: 75px;
+        width: 42.5%;
+    }
+
+    .movie-details h5 {
+        font-size: 12px;
+    }
+
+    h5.movie-name {
+        font-size: 16px;
+    }
+    
+    .movie-rating span {
+        font-size: 14px;
     }
 }
 
@@ -996,7 +1003,7 @@ h5.movie-comment {
     }
 
     #sort-btn-container, #clear-history-btn {
-        width: 120px;
+       top: 60px
     }
     
     #history-instruction {
