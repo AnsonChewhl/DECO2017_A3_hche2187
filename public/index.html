@@ -60,7 +60,7 @@
 		<section id="new-movie" class="main-section">
 			<section class="main">
 				<h2> Have watched a new movie? </h2>
-				<form id="movie-form">
+				<form id="movie-form" autocomplete="off">
 					<!-- Using appropriate tag that is semantically appropriate https://stackoverflow.com/questions/27103853/section-inside-a-form -->
 					<fieldset id="input-form">
 						<div class="user-box">
@@ -109,8 +109,14 @@
 							</div>
 						</div>
 						<div class="user-box">
-							<input type="text" name="movieComment" required="">
+							<!-- Indicating the users the expected length of a brief comment -->
+							<input type="search" list="comment-selection" name="movieComment" required="">
 							<label class="input-label" for="movieComment">Brief comment</label>
+							<datalist id="comment-selection">
+								<option value="Good sound effects">
+								<option value="Compelling story">
+								<option value="Amazing visual effects">
+							</datalist>
 						</div>
 					</fieldset>
 
