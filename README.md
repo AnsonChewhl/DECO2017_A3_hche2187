@@ -40,6 +40,16 @@ Besides, in the development process, ["Live Server"](https://github.com/ritwickd
 
 - **Flexbox & Grid layout**: Flexbox and grid layout were used across the whole website. They help to better organise the section, and form a neat and clean design that can easily be adjusted to form a responsive design. Also, I can align the content within the layout easily to form an aesthetic pattern that increases readability.
 
+```
+// Examples from style.css file
+.movie-details {
+    display: grid;
+    grid-template-columns: 65% 30%;
+    justify-content: space-between;
+    align-items: center;
+}
+```
+
 <br>
 
 ### **Navigation bar**:
@@ -147,6 +157,15 @@ In the section, I removed the "show all" button from the mock-up design. Instead
 <br>
 
 Additionally, to make the searching process of the movie history easier, I added a sort function. This allows users to sort the order of the list with different preferences. A remove all button was introduced as well to avoid the number of clicks that are required to clean the watched history. This provides better user control and freedom (one of the 10 usability heuristics) to remove their history. Furthermore, a confirmation popup is added to address the error prevention usability problem. This ensures users won't remove all their watched history due to accidentally pressing the button.
+
+```
+// Function that sorts the data in ascending order based on specific criteria
+function sortOrderA(a, b) {
+    if (a.sortCriteria < b.sortCriteria) return 1;
+    if (a.sortCriteria > b.sortCriteria) return -1;
+    return 0;
+}
+```
 
 <br>
 
