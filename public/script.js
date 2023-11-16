@@ -287,7 +287,6 @@ function getDate(day) {
     let y = date.getFullYear();
 
     return [d, m, y];
-    if (!yearReturn) return `${d}/${m}`;
 }
 
 // An object that contains the icons based on genres of the movie and the icons' alt text
@@ -959,13 +958,13 @@ function removeMovie(obj) {
         // Especially when the website is developed further with other specific functions (e.g. favourite) and all there are movies with the same details (e.g. name, genre)
         if (movieLst[i].uid == id) {
             movieLst.splice(i, 1);
-            console.log("Movie has been removed");
+            // console.log("Movie has been removed");
             break;
         }
     }
 
     localStorage.setItem('movieLst', JSON.stringify(movieLst));
-    console.log(JSON.parse(localStorage.getItem('movieLst')));
+    // console.log(JSON.parse(localStorage.getItem('movieLst')));
 
     contentUpdate();
 }
